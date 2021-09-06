@@ -11,6 +11,10 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'defaultRoute' => 'home/index',
+    'language' => 'ru',
+    'layout' => 'front',
+    'name' => 'Интернет-магазин dKing',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
@@ -42,7 +46,7 @@ return [
             'showScriptName' => false,
             'rules' => [
                 //['class' => 'frontend\components\ClassUrlRule'],
-                '' => 'site/index',
+//                '' => 'home/index',
                 '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
             ],
         ],
