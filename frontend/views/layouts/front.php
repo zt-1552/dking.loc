@@ -5,6 +5,7 @@
 
 use frontend\assets\AppAsset;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 
 AppAsset::register($this);
@@ -21,7 +22,7 @@ AppAsset::register($this);
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="asset/images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.png">
 
      <?php $this->registerCsrfMetaTags() ?>
     <?php $this->head() ?>
@@ -38,8 +39,8 @@ AppAsset::register($this);
                     <div class="header-bottom-flex">
                         <div class="logo-menu-wrap">
                             <div class="logo">
-                                <a href="<?= 'code' ?>">
-                                    <img src="asset/images/logo/logo-9.png" alt="logo">
+                                <a href="<?= Url::home() ?>">
+                                    <img src="assets/images/logo/logo-9.png" alt="logo">
                                 </a>
                             </div>
                             <div class="main-menu menu-lh-1 main-menu-padding-1 menu-mrg-1">
@@ -122,7 +123,7 @@ AppAsset::register($this);
                                                 </li>
                                                 <li class="mega-menu-sub-width40">
                                                     <div class="banner-menu-content-wrap default-overlay">
-                                                        <a href="product-details.html"><img src="asset/images/menu/banner-header-1.jpg" alt="banner"></a>
+                                                        <a href="product-details.html"><img src="assets/images/menu/banner-header-1.jpg" alt="banner"></a>
                                                         <div class="banner-menu-content">
                                                             <h2>New <br>Collections</h2>
                                                         </div>
@@ -180,7 +181,7 @@ AppAsset::register($this);
                     <div class="col-6">
                         <div class="mobile-logo mobile-logo-width">
                             <a href="index.html">
-                                <img alt="" src="asset/images/logo/logo-9.png">
+                                <img alt="" src="assets/images/logo/logo-9.png">
                             </a>
                         </div>
                     </div>
@@ -211,7 +212,7 @@ AppAsset::register($this);
                 <ul>
                     <li class="single-product-cart">
                         <div class="cart-img">
-                            <a href="index.html#"><img src="asset/images/cart/cart-1.jpg" alt=""></a>
+                            <a href="index.html#"><img src="assets/images/cart/cart-1.jpg" alt=""></a>
                         </div>
                         <div class="cart-title">
                             <h4><a href="index.html#">Awesome Mobile</a></h4>
@@ -223,7 +224,7 @@ AppAsset::register($this);
                     </li>
                     <li class="single-product-cart">
                         <div class="cart-img">
-                            <a href="index.html#"><img src="asset/images/cart/cart-2.jpg" alt=""></a>
+                            <a href="index.html#"><img src="assets/images/cart/cart-2.jpg" alt=""></a>
                         </div>
                         <div class="cart-title">
                             <h4><a href="index.html#">Smart Watch</a></h4>
@@ -445,8 +446,8 @@ AppAsset::register($this);
                                 <p>We’ll never share your email address with a third-party.</p>
                             </div>
                             <div class="app-google-store">
-                                <a href="index.html#"><img src="asset/images/icon-img/app-store.png" alt=""></a>
-                                <a href="index.html#"><img src="asset/images/icon-img/google-play.png" alt=""></a>
+                                <a href="index.html#"><img src="assets/images/icon-img/app-store.png" alt=""></a>
+                                <a href="index.html#"><img src="assets/images/icon-img/google-play.png" alt=""></a>
                             </div>
                         </div>
                     </div>
@@ -472,7 +473,7 @@ AppAsset::register($this);
                     <div class="row">
                         <div class="col-lg-5 col-md-5 col-12 col-sm-6">
                             <div class="quickview-img">
-                                <img src="asset/images/product/product-3.jpg" alt="">
+                                <img src="assets/images/product/product-3.jpg" alt="">
                             </div>
                         </div>
                         <div class="col-lg-7 col-md-7 col-12 col-sm-6">
