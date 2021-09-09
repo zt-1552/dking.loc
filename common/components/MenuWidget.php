@@ -31,13 +31,19 @@ class MenuWidget extends Widget
 
     public function run()
     {
+        // get Cache
+        $menu = \Yii::$app->cache->get('menu');
+        if ($menu) {
+            return $menu;
+        }
+
         $this->data = Category::find()->select('id, parent_id, name')->indexBy('id')->asArray()->all();
         $this->tree = $this->getTree();
-//        $this->menuHtml .= '<ul class"' . $this->ul_class . '">';
         $this->menuHtml = $this->getMenuHtml($this->tree);
-//        $this->menuHtml .= '</ul>';
+        //        debug($this->tree);
 
-//        debug($this->tree);
+        //set Cache
+        \Yii::$app->cache->set('menu', $this->menuHtml, 60);
 
         return $this->menuHtml;
     }
