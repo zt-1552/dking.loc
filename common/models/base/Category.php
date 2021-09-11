@@ -1,6 +1,6 @@
 <?php
 
-namespace common\models\category;
+namespace common\models\base;
 
 use common\models\base\ActiveRecord;
 use Yii;

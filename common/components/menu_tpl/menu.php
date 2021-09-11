@@ -2,7 +2,7 @@
     <a class="<?= (isset($category['parent_id'])) ? '' : 'menu-title' ?>" href="<?= \yii\helpers\Url::to(['category/view', 'id' => $category['id']])?>"><?= $category['name'] ?></a>
         <?php if (isset($category['children'])): ?>
             <ul>
-                 <li><?= $this->getMenuHtml($category['children']) ?></li>
+                <?= $this->getMenuHtml($category['children']) ?>
             </ul>
         <?php endif; ?>
 </li>
