@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use common\models\category\Category as BaseCategory;
+use common\models\base\Category as BaseCategory;
 
 class Category extends BaseCategory
 {
