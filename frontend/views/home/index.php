@@ -146,12 +146,20 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="product-wrap mb-50">
                     <div class="product-img product-img-zoom mb-25">
+<<<<<<< HEAD
                         <a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $offer->id]) ?>">
+=======
+                        <a href="product-details.html">
+>>>>>>> origin/main
                            <?= \yii\helpers\Html::img("@web/assets/{$offer->image}", ['alt' => 'offer']) ?>
                         </a>
                     </div>
                     <div class="product-content">
+<<<<<<< HEAD
                         <h4><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $offer->id]) ?>"><?= $offer->title ?></a></h4>
+=======
+                        <h4><a href="product-details.html"><?= $offer->title ?></a></h4>
+>>>>>>> origin/main
                         <div class="product-price">
                             <span>$ <?= $offer->price ?></span>
                             <span class="old-price">$ <?= $offer->old_price ?></span>
@@ -159,12 +167,19 @@
                     </div>
                     <div class="product-action-position-1 text-center">
                         <div class="product-content">
+<<<<<<< HEAD
                             <h4><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $offer->id]) ?>">Modern Light</a></h4>
                             <div class="product-price">
                                 <span>$ <?= $offer->price ?></span>
                                 <?php if ($offer->old_price): ?>
                                 <span class="old-price">$ <?= $offer->old_price ?></span>
                                 <?php endif; ?>
+=======
+                            <h4><a href="product-details.html">Modern Light</a></h4>
+                            <div class="product-price">
+                                <span>$ <?= $offer->price ?></span>
+                                <span class="old-price">$ <?= $offer->old_price ?></span>
+>>>>>>> origin/main
                             </div>
                         </div>
                         <div class="product-action-wrap">
