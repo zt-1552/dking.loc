@@ -3,7 +3,7 @@
 
 namespace common\components;
 
-use common\models\category\Category;
+use common\models\Category;
 use yii\base\Widget;
 
 

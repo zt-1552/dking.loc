@@ -118,13 +118,14 @@
         </div>
     </div>
 </div>
+<?php if (!empty($offers)): ?>
 <div class="product-area pb-100">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
                 <div class="offer-product-wrap">
                     <div class="mega-fashion-pro-title2">
-                        <h2>Deals of the Day</h2>
+                        <h2>Товары дня</h2>
                     </div>
                     <div class="product-img product-img-zoom mb-25">
                         <a href="product-details.html">
@@ -141,26 +142,44 @@
                     </div>
                 </div>
             </div>
+            <?php foreach ($offers as $offer): ?>
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="product-wrap mb-50">
                     <div class="product-img product-img-zoom mb-25">
+<<<<<<< HEAD
+                        <a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $offer->id]) ?>">
+=======
                         <a href="product-details.html">
-                            <img src="assets/images/product/product-134.jpg" alt="">
+>>>>>>> origin/main
+                           <?= \yii\helpers\Html::img("@web/assets/{$offer->image}", ['alt' => 'offer']) ?>
                         </a>
                     </div>
                     <div class="product-content">
-                        <h4><a href="product-details.html">Modern Light</a></h4>
+<<<<<<< HEAD
+                        <h4><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $offer->id]) ?>"><?= $offer->title ?></a></h4>
+=======
+                        <h4><a href="product-details.html"><?= $offer->title ?></a></h4>
+>>>>>>> origin/main
                         <div class="product-price">
-                            <span>$ 124</span>
-                            <span class="old-price">$ 130</span>
+                            <span>$ <?= $offer->price ?></span>
+                            <span class="old-price">$ <?= $offer->old_price ?></span>
                         </div>
                     </div>
                     <div class="product-action-position-1 text-center">
                         <div class="product-content">
+<<<<<<< HEAD
+                            <h4><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $offer->id]) ?>">Modern Light</a></h4>
+                            <div class="product-price">
+                                <span>$ <?= $offer->price ?></span>
+                                <?php if ($offer->old_price): ?>
+                                <span class="old-price">$ <?= $offer->old_price ?></span>
+                                <?php endif; ?>
+=======
                             <h4><a href="product-details.html">Modern Light</a></h4>
                             <div class="product-price">
-                                <span>$ 124</span>
-                                <span class="old-price">$ 130</span>
+                                <span>$ <?= $offer->price ?></span>
+                                <span class="old-price">$ <?= $offer->old_price ?></span>
+>>>>>>> origin/main
                             </div>
                         </div>
                         <div class="product-action-wrap">
@@ -174,174 +193,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="product-wrap mb-50">
-                    <div class="product-img product-img-zoom mb-25">
-                        <a href="product-details.html">
-                            <img src="assets/images/product/product-135.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h4><a href="product-details.html">Wood Table Clock</a></h4>
-                        <div class="product-price">
-                            <span>$ 124</span>
-                            <span class="old-price">$ 130</span>
-                        </div>
-                    </div>
-                    <div class="product-action-position-1 text-center">
-                        <div class="product-content">
-                            <h4><a href="product-details.html">Wood Table Clock</a></h4>
-                            <div class="product-price">
-                                <span>$ 124</span>
-                                <span class="old-price">$ 130</span>
-                            </div>
-                        </div>
-                        <div class="product-action-wrap">
-                            <div class="product-action-cart">
-                                <button title="Add to Cart">Add to cart</button>
-                            </div>
-                            <button data-toggle="modal" data-target="#exampleModal"><i class="icon-zoom"></i></button>
-                            <button title="Add to Compare"><i class="icon-compare"></i></button>
-                            <button title="Add to Wishlist"><i class="icon-heart-empty"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="product-wrap mb-50">
-                    <div class="product-img product-img-zoom mb-25">
-                        <a href="product-details.html">
-                            <img src="assets/images/product/product-136.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h4><a href="product-details.html">Smart Watch</a></h4>
-                        <div class="product-price">
-                            <span>$ 124</span>
-                            <span class="old-price">$ 130</span>
-                        </div>
-                    </div>
-                    <div class="product-action-position-1 text-center">
-                        <div class="product-content">
-                            <h4><a href="product-details.html">Smart Watch</a></h4>
-                            <div class="product-price">
-                                <span>$ 124</span>
-                                <span class="old-price">$ 130</span>
-                            </div>
-                        </div>
-                        <div class="product-action-wrap">
-                            <div class="product-action-cart">
-                                <button title="Add to Cart">Add to cart</button>
-                            </div>
-                            <button data-toggle="modal" data-target="#exampleModal"><i class="icon-zoom"></i></button>
-                            <button title="Add to Compare"><i class="icon-compare"></i></button>
-                            <button title="Add to Wishlist"><i class="icon-heart-empty"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="product-wrap mb-50">
-                    <div class="product-img product-img-zoom mb-25">
-                        <a href="product-details.html">
-                            <img src="assets/images/product/product-137.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h4><a href="product-details.html">Wood Pen & Holder</a></h4>
-                        <div class="product-price">
-                            <span>$ 124</span>
-                            <span class="old-price">$ 130</span>
-                        </div>
-                    </div>
-                    <div class="product-action-position-1 text-center">
-                        <div class="product-content">
-                            <h4><a href="product-details.html">Wood Pen & Holder</a></h4>
-                            <div class="product-price">
-                                <span>$ 124</span>
-                                <span class="old-price">$ 130</span>
-                            </div>
-                        </div>
-                        <div class="product-action-wrap">
-                            <div class="product-action-cart">
-                                <button title="Add to Cart">Add to cart</button>
-                            </div>
-                            <button data-toggle="modal" data-target="#exampleModal"><i class="icon-zoom"></i></button>
-                            <button title="Add to Compare"><i class="icon-compare"></i></button>
-                            <button title="Add to Wishlist"><i class="icon-heart-empty"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="product-wrap mb-50">
-                    <div class="product-img product-img-zoom mb-25">
-                        <a href="product-details.html">
-                            <img src="assets/images/product/product-138.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h4><a href="product-details.html">Eco Bag</a></h4>
-                        <div class="product-price">
-                            <span>$ 124</span>
-                            <span class="old-price">$ 130</span>
-                        </div>
-                    </div>
-                    <div class="product-action-position-1 text-center">
-                        <div class="product-content">
-                            <h4><a href="product-details.html">Eco Bag</a></h4>
-                            <div class="product-price">
-                                <span>$ 124</span>
-                                <span class="old-price">$ 130</span>
-                            </div>
-                        </div>
-                        <div class="product-action-wrap">
-                            <div class="product-action-cart">
-                                <button title="Add to Cart">Add to cart</button>
-                            </div>
-                            <button data-toggle="modal" data-target="#exampleModal"><i class="icon-zoom"></i></button>
-                            <button title="Add to Compare"><i class="icon-compare"></i></button>
-                            <button title="Add to Wishlist"><i class="icon-heart-empty"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="product-wrap mb-50">
-                    <div class="product-img product-img-zoom mb-25">
-                        <a href="product-details.html">
-                            <img src="assets/images/product/product-139.jpg" alt="">
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <h4><a href="product-details.html">Table Plant</a></h4>
-                        <div class="product-price">
-                            <span>$ 124</span>
-                            <span class="old-price">$ 130</span>
-                        </div>
-                    </div>
-                    <div class="product-action-position-1 text-center">
-                        <div class="product-content">
-                            <h4><a href="product-details.html">Table Plant</a></h4>
-                            <div class="product-price">
-                                <span>$ 124</span>
-                                <span class="old-price">$ 130</span>
-                            </div>
-                        </div>
-                        <div class="product-action-wrap">
-                            <div class="product-action-cart">
-                                <button title="Add to Cart">Add to cart</button>
-                            </div>
-                            <button data-toggle="modal" data-target="#exampleModal"><i class="icon-zoom"></i></button>
-                            <button title="Add to Compare"><i class="icon-compare"></i></button>
-                            <button title="Add to Wishlist"><i class="icon-heart-empty"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php  endforeach; ?>
         </div>
     </div>
 </div>
+<?php endif; ?>
 <div class="brand-logo-area pt-160">
     <div class="container">
         <div class="mb-65">
