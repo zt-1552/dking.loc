@@ -273,6 +273,7 @@ AppAsset::register($this);
             </div>
         </div>
     </div>
+
 <?= $content ?>
 
     <footer class="footer-area pt-130">

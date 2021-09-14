@@ -7,14 +7,20 @@ use common\models\category\Category;
 use yii\base\Widget;
 
 
+/**
+ * Class MenuWidget
+ * @package common\components
+ */
 class MenuWidget extends Widget
 {
+
 
     public $tpl;
     public $ul_class;
     public $data;
     public $tree;
     public $menuHtml;
+
 
     public function init()
     {
@@ -29,6 +35,9 @@ class MenuWidget extends Widget
 
     }
 
+    /**
+     * @return mixed|string
+     */
     public function run()
     {
         // get Cache
@@ -63,6 +72,10 @@ class MenuWidget extends Widget
         return $tree;
     }
 
+    /**
+     * @param $tree
+     * @return string
+     */
     protected function getMenuHtml($tree)
     {
         $str = '';
@@ -72,6 +85,10 @@ class MenuWidget extends Widget
         return $str;
     }
 
+    /**
+     * @param $category
+     * @return false|string
+     */
     protected function catToTemplate($category)
     {
         ob_start();
