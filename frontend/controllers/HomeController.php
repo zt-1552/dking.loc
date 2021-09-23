@@ -9,6 +9,15 @@ use common\models\Product;
 class HomeController extends AppController
 {
 
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
+    }
+
     public function actionIndex()
     {
 
@@ -17,6 +26,12 @@ class HomeController extends AppController
 //        debug($offers);
 
         return $this->render('index', compact('offers'));
+    }
+
+    public function actionError()
+    {
+        $this->layout = 'front';
+
     }
 
 }
