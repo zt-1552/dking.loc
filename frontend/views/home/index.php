@@ -146,20 +146,12 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                 <div class="product-wrap mb-50">
                     <div class="product-img product-img-zoom mb-25">
-<<<<<<< HEAD
                         <a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $offer->id]) ?>">
-=======
-                        <a href="product-details.html">
->>>>>>> origin/main
                            <?= \yii\helpers\Html::img("@web/assets/{$offer->image}", ['alt' => 'offer']) ?>
                         </a>
                     </div>
                     <div class="product-content">
-<<<<<<< HEAD
                         <h4><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $offer->id]) ?>"><?= $offer->title ?></a></h4>
-=======
-                        <h4><a href="product-details.html"><?= $offer->title ?></a></h4>
->>>>>>> origin/main
                         <div class="product-price">
                             <span>$ <?= $offer->price ?></span>
                             <span class="old-price">$ <?= $offer->old_price ?></span>
@@ -167,19 +159,12 @@
                     </div>
                     <div class="product-action-position-1 text-center">
                         <div class="product-content">
-<<<<<<< HEAD
-                            <h4><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $offer->id]) ?>">Modern Light</a></h4>
+                            <h4><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $offer->id]) ?>"><?= $offer->title ?></a></h4>
                             <div class="product-price">
                                 <span>$ <?= $offer->price ?></span>
                                 <?php if ($offer->old_price): ?>
                                 <span class="old-price">$ <?= $offer->old_price ?></span>
                                 <?php endif; ?>
-=======
-                            <h4><a href="product-details.html">Modern Light</a></h4>
-                            <div class="product-price">
-                                <span>$ <?= $offer->price ?></span>
-                                <span class="old-price">$ <?= $offer->old_price ?></span>
->>>>>>> origin/main
                             </div>
                         </div>
                         <div class="product-action-wrap">
@@ -262,17 +247,17 @@
             </div>
             <div class="col-lg-2 col-md-3 col-6 col-sm-4">
                 <div class="single-brand-logo-4 mb-70">
-                    <img src="assets/images/brand-logo/brand-logo-4.png" alt="">
+                    <img src="/assets/images/brand-logo/brand-logo-4.png" alt="">
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-6 col-sm-4">
                 <div class="single-brand-logo-4 mb-70">
-                    <img src="assets/images/brand-logo/brand-logo-5.png" alt="">
+                    <img src="/assets/images/brand-logo/brand-logo-5.png" alt="">
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-6 col-sm-4">
                 <div class="single-brand-logo-4 mb-70">
-                    <img src="assets/images/brand-logo/brand-logo-6.png" alt="">
+                    <img src="/assets/images/brand-logo/brand-logo-6.png" alt="">
                 </div>
             </div>
         </div>
@@ -287,7 +272,7 @@
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="blog-wrap mb-30">
                     <div class="blog-img mb-35">
-                        <a href="blog-details.html"><img src="assets/images/blog/blog-10.jpg" alt=""></a>
+                        <a href="blog-details.html"><img src="/assets/images/blog/blog-10.jpg" alt=""></a>
                     </div>
                     <div class="blog-content">
                         <h3><a href="blog-details.html">Professionally e-enable high payoff data before sticky opportunities. </a></h3>
@@ -299,7 +284,7 @@
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="blog-wrap mb-30">
                     <div class="blog-img mb-35">
-                        <a href="blog-details.html"><img src="assets/images/blog/blog-11.jpg" alt=""></a>
+                        <a href="blog-details.html"><img src="/assets/images/blog/blog-11.jpg" alt=""></a>
                     </div>
                     <div class="blog-content">
                         <h3><a href="blog-details.html">Designers matched perfectly to you on Envato Studio</a></h3>
@@ -311,7 +296,7 @@
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="blog-wrap mb-30">
                     <div class="blog-img mb-35">
-                        <a href="blog-details.html"><img src="assets/images/blog/blog-12.jpg" alt=""></a>
+                        <a href="blog-details.html"><img src="/assets/images/blog/blog-12.jpg" alt=""></a>
                     </div>
                     <div class="blog-content">
                         <h3><a href="blog-details.html">Phos fluorescently leverage existing client-based technologies.</a></h3>

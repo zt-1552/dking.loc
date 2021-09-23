@@ -49,6 +49,7 @@ return [
 //                '' => 'home/index',
 //                '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',
                 'category/<id:\d+>' => 'category/view',
+                'product/<id:\d+>' => 'product/view',
             ],
         ],
     ],
