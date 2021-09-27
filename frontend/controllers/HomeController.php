@@ -25,6 +25,15 @@ class HomeController extends AppController
         return $this->render('index', compact('offers'));
     }
 
+    public function actionIndex1()
+    {
+        $this->layout = 'front1';
+        $offers = Product::find()->where(['is_offer' => 1])->limit(5)->all();
+
+        return $this->render('index1', compact('offers'));
+    }
+
+
     public function actionError()
     {
         $this->layout = 'front';
