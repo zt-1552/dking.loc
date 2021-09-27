@@ -49,10 +49,10 @@ class MenuWidget extends Widget
         $this->data = Category::find()->select('id, parent_id, name')->indexBy('id')->asArray()->all();
         $this->tree = $this->getTree();
         $this->menuHtml = $this->getMenuHtml($this->tree);
-        //        debug($this->tree);
+//                debug($this->tree);
 
         //set Cache
-        \Yii::$app->cache->set('menu', $this->menuHtml, 60);
+        \Yii::$app->cache->set('menu', $this->menuHtml, 3600);
 
         return $this->menuHtml;
     }

@@ -11,10 +11,10 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
-    'defaultRoute' => 'home/index',
+    'defaultRoute' => 'home/index1',
     'language' => 'ru',
-    'layout' => 'front',
-    'name' => 'Интернет-магазин dKing',
+    'layout' => 'front1',
+    'name' => 'Интернет-магазин OneTouch',
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',

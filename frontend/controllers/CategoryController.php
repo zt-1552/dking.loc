@@ -14,6 +14,7 @@ class CategoryController extends AppController
 
     public function actionView($id)
     {
+        $this->layout = 'category';
 
         $category = Category::findOne($id);
 

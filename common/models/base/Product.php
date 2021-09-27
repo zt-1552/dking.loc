@@ -3,7 +3,6 @@
 namespace common\models\base;
 
 use Yii;
-use common\models\base\ActiveRecord;
 
 /**
  * This is the model class for table "product".
@@ -18,11 +17,12 @@ use common\models\base\ActiveRecord;
  * @property string|null $meta_description
  * @property string|null $image
  * @property int|null $is_offer
+ * @property int|null $bestsellers
  * @property int|null $created_at
  *
  * @property Category $category
  */
-class Product extends ActiveRecord
+class Product extends \common\models\base\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -38,7 +38,7 @@ class Product extends ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'price', 'old_price', 'is_offer', 'created_at'], 'integer'],
+            [['category_id', 'price', 'old_price', 'is_offer', 'bestsellers', 'created_at'], 'integer'],
             [['content'], 'string'],
             [['title', 'meta_title', 'meta_description', 'image'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
@@ -61,6 +61,7 @@ class Product extends ActiveRecord
             'meta_description' => 'Meta Description',
             'image' => 'Image',
             'is_offer' => 'Is Offer',
+            'bestsellers' => 'Bestsellers',
             'created_at' => 'Created At',
         ];
     }

@@ -954,6 +954,7 @@ select option
 	-ms-transition: all 200ms ease;
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
+	min-width: 340px;
 }
 .cat_menu li a:hover
 {
@@ -1707,12 +1708,13 @@ select option
 	font-size: 14px;
 	font-weight: 400;
 	color: #000000;
-	white-space: nowrap;
+	/*white-space: nowrap;*/
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
+	padding: 5px 10px 5px 0px;
 }
 .product_name div a:hover
 {

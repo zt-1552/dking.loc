@@ -1400,6 +1400,7 @@ select option
 	padding-top: 40px;
 	padding-bottom: 24px;
 	text-align: center;
+	min-height: 310px;
 }
 .product_border
 {
@@ -1470,7 +1471,7 @@ select option
 	font-size: 14px;
 	font-weight: 400;
 	color: #000000;
-	white-space: nowrap;
+	/*white-space: nowrap;*/
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;

@@ -28,15 +28,16 @@ class HomeController extends AppController
     public function actionIndex1()
     {
         $this->layout = 'front1';
-        $offers = Product::find()->where(['is_offer' => 1])->limit(5)->all();
+        $offers = Product::find()->where(['is_offer' => 1])->limit(16)->all();
+        $bestsellers = Product::find()->where(['bestsellers' => 1])->limit(3)->all();
 
-        return $this->render('index1', compact('offers'));
+        return $this->render('index1', compact('offers', 'bestsellers'));
     }
 
 
     public function actionError()
     {
-        $this->layout = 'front';
+        $this->layout = 'front1';
 
     }
 
