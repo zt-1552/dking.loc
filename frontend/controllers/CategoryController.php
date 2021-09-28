@@ -12,6 +12,11 @@ use yii\web\NotFoundHttpException;
 class CategoryController extends AppController
 {
 
+    /**
+     * @param $id
+     * @return string
+     * @throws NotFoundHttpException
+     */
     public function actionView($id)
     {
         $this->layout = 'category';

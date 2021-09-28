@@ -37,7 +37,7 @@ class HomeController extends AppController
 
     public function actionError()
     {
-        $this->layout = 'front1';
+        $this->layout = 'category';
 
     }
 
