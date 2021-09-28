@@ -27,12 +27,13 @@ class CategoryController extends AppController
             throw new NotFoundHttpException('Такой категории нет....');
         }
 
+//debug($category);
 
         $breadcrumbs = [];
+        $category_b = Category::find()->indexBy('id')->asArray()->all();
+        array_unshift($breadcrumbs, $category_b[$category->id]);
+
         if($category->parent_id != 0) {
-            $category_b = Category::find()->indexBy('id')->asArray()->all();
-            array_unshift($breadcrumbs, $category_b[$category->id]);
-//debug($breadcrumbs);
 
             $parent = $breadcrumbs;
 
@@ -43,12 +44,26 @@ class CategoryController extends AppController
             }
         }
 
-//        debug($breadcrumbs);
+        $main_categories = [];
+        foreach ($category_b as $category_m):
+            if($category_m['parent_id'] == null) {
+//                print_r($category_m);
+                array_push($main_categories, $category_m);
+            }
+        endforeach;
+
+
+
+
+
+
+//        debug($main_categories);
+
 
 
         $products = Product::find()->where(['category_id' => $id])->all();
 
-        return $this->render('view', compact('products', 'category', 'breadcrumbs'));
+        return $this->render('view', compact('products', 'category', 'breadcrumbs', 'main_categories'));
 
     }
 

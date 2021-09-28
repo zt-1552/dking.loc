@@ -16,16 +16,13 @@
     <div class="container">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Главная</a></li>
-            <?= debug($breadcrumbs); ?>
-            <?php foreach ($breadcrumbs as $breadcrumb):?>
-            <li class="breadcrumb-item"><a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $breadcrumb['id']]) ?>"><?= $breadcrumb['name'] ?> - </a></li>
+<!--            --><?//= debug($breadcrumbs); ?>
+            <?php
+            $end = array_pop($breadcrumbs);
+            foreach ($breadcrumbs as $breadcrumb):?>
+            <li class="breadcrumb-item"><a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $breadcrumb['id']]) ?>"><?= $breadcrumb['name'] ?></a></li>
             <?php endforeach; ?>
-
-
-<!--            <li class="breadcrumb-item"><a href="#">Комплектующие, компьютеры и ноутбуки</a></li>-->
-<!--            <li class="breadcrumb-item"><a href="#">Периферия и аксессуары</a></li>-->
-<!--            <li class="breadcrumb-item"><a href="#">Мыши</a></li>-->
-<!--            <li class="breadcrumb-item active">Компактная мышь проводная Defender Patch MS-759 черный</li>-->
+            <li class="breadcrumb-item"><?= $end['name']; ?></li>
         </ol>
     </div>>
 
@@ -40,15 +37,20 @@
                     <div class="sidebar_section">
                         <div class="sidebar_title">Categories</div>
                         <ul class="sidebar_categories">
-                            <li><a href="#">Computers & Laptops</a></li>
-                            <li><a href="#">Cameras & Photos</a></li>
-                            <li><a href="#">Hardware</a></li>
-                            <li><a href="#">Smartphones & Tablets</a></li>
-                            <li><a href="#">TV & Audio</a></li>
-                            <li><a href="#">Gadgets</a></li>
-                            <li><a href="#">Car Electronics</a></li>
-                            <li><a href="#">Video Games & Consoles</a></li>
-                            <li><a href="#">Accessories</a></li>
+                            <?php foreach ($main_categories as $main_category): ?>
+
+                            <li><a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $main_category['id']]) ?>"><?= $main_category['name']; ?></a></li>
+
+                            <?php endforeach; ?>
+
+<!--                            <li><a href="#">Cameras & Photos</a></li>-->
+<!--                            <li><a href="#">Hardware</a></li>-->
+<!--                            <li><a href="#">Smartphones & Tablets</a></li>-->
+<!--                            <li><a href="#">TV & Audio</a></li>-->
+<!--                            <li><a href="#">Gadgets</a></li>-->
+<!--                            <li><a href="#">Car Electronics</a></li>-->
+<!--                            <li><a href="#">Video Games & Consoles</a></li>-->
+<!--                            <li><a href="#">Accessories</a></li>-->
                         </ul>
                     </div>
                     <div class="sidebar_section filter_by_section">
