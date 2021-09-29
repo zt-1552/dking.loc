@@ -42,15 +42,6 @@
                             <li><a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $main_category['id']]) ?>"><?= $main_category['name']; ?></a></li>
 
                             <?php endforeach; ?>
-
-<!--                            <li><a href="#">Cameras & Photos</a></li>-->
-<!--                            <li><a href="#">Hardware</a></li>-->
-<!--                            <li><a href="#">Smartphones & Tablets</a></li>-->
-<!--                            <li><a href="#">TV & Audio</a></li>-->
-<!--                            <li><a href="#">Gadgets</a></li>-->
-<!--                            <li><a href="#">Car Electronics</a></li>-->
-<!--                            <li><a href="#">Video Games & Consoles</a></li>-->
-<!--                            <li><a href="#">Accessories</a></li>-->
                         </ul>
                     </div>
                     <div class="sidebar_section filter_by_section">
@@ -144,17 +135,16 @@
                     </div>
 
                     <!-- Shop Page Navigation -->
-
                     <div class="shop_page_nav d-flex flex-row">
-                        <div class="page_prev d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-left"></i></div>
-                        <ul class="page_nav d-flex flex-row">
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">...</a></li>
-                            <li><a href="#">21</a></li>
-                        </ul>
-                        <div class="page_next d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-right"></i></div>
+<!--                        <div class="page_prev d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-left"></i></div>-->
+                        <?= \yii\widgets\LinkPager::widget([
+                            'pagination' => $pages,
+                            'options' => [
+                                'tag' => 'ul',
+                                'class' => 'page_nav d-flex flex-row',
+                            ],
+                        ])?>
+<!--                        <div class="page_next d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-right"></i></div>-->
                     </div>
 
                 </div>
