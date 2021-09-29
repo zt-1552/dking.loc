@@ -14,8 +14,21 @@ class m210923_170220_create_values_table extends Migration
     {
         $this->createTable('{{%values}}', [
             'id' => $this->primaryKey(),
-
+            'attributes_id' => $this->integer()->notNull(),
+            'value' => $this->string(100)->notNull(),
+            'slug' => $this->string(100),
         ]);
+
+        // add foreign key for table `category`
+        $this->addForeignKey(
+            'fk-values-attributes_id',
+            'values',
+            'attributes_id',
+            'attributes',
+            'id'
+        );
+
+
     }
 
     /**

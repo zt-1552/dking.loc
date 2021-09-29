@@ -27,6 +27,8 @@ class CategoryController extends AppController
             throw new NotFoundHttpException('Такой категории нет....');
         }
 
+        $this->setMeta("{$category->meta_title} :: " . \Yii::$app->name, $category->meta_description);
+
 //debug($category);
 
         $breadcrumbs = [];

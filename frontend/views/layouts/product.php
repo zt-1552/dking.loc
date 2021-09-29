@@ -12,13 +12,11 @@ OneProductAppAsset::register($this);
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
 <head>
-    <title>OneTech</title>
     <meta charset="<?= Yii::$app->charset ?>">
     <base href="/">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><?= Html::encode($this->title) ?>"</title>
-    <meta name="description" content="OneTech shop project">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <?php $this->registerCsrfMetaTags() ?>
