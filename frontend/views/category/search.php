@@ -12,20 +12,6 @@
 <!-- Shop -->
 
 <div class="shop">
-    <!-- breadcrumb Bootstrap 4 -->
-    <div class="container">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Главная</a></li>
-<!--            --><?//= debug($breadcrumbs); ?>
-            <?php
-            $end = array_pop($breadcrumbs);
-            foreach ($breadcrumbs as $breadcrumb):?>
-            <li class="breadcrumb-item"><a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $breadcrumb['id']]) ?>"><?= $breadcrumb['name'] ?></a></li>
-            <?php endforeach; ?>
-            <li class="breadcrumb-item"><?= $end['name']; ?></li>
-        </ol>
-    </div>>
-
 
     <div class="container">
 
@@ -38,7 +24,9 @@
                         <div class="sidebar_title">Categories</div>
                         <ul class="sidebar_categories">
                             <?php foreach ($main_categories as $main_category): ?>
-                                <li><a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $main_category['id']]) ?>"><?= $main_category['name']; ?></a></li>
+
+                            <li><a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $main_category['id']]) ?>"><?= $main_category['name']; ?></a></li>
+
                             <?php endforeach; ?>
                         </ul>
                     </div>
@@ -126,7 +114,7 @@
 
                             <?php  endforeach; ?>
                         <?php else: ?>
-                            <h3>Здесь пока нету товаров....</h3>
+                            <h2>Поиск не нашел товаров....</h2>
                         <?php endif; ?>
 
 
