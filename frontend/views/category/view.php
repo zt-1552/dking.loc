@@ -12,6 +12,10 @@
 <!-- Shop -->
 
 <div class="shop">
+
+
+
+
     <!-- breadcrumb Bootstrap 4 -->
     <div class="container">
         <ol class="breadcrumb">
@@ -37,11 +41,13 @@
                     <div class="sidebar_section">
                         <div class="sidebar_title">Categories</div>
                         <ul class="sidebar_categories">
+                            <?php if(isset($main_categories)) {?>
                             <?php foreach ($main_categories as $main_category): ?>
 
                             <li><a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $main_category['id']]) ?>"><?= $main_category['name']; ?></a></li>
 
                             <?php endforeach; ?>
+                            <?php } ?>
                         </ul>
                     </div>
                     <div class="sidebar_section filter_by_section">

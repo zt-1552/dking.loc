@@ -1,3 +1,8 @@
+<?php
+
+use yii\helpers\Url;
+
+?>
 <!-- Header -->
 
 <header class="header">
@@ -52,8 +57,10 @@
                     <div class="header_search">
                         <div class="header_search_content">
                             <div class="header_search_form_container">
-                                <form action="#" class="header_search_form clearfix">
-                                    <input type="search" required="required" class="header_search_input" placeholder="Search for products...">
+
+                                <form method="get" action="<?= Url::to(['catalog/search']); ?>" class="header_search_form clearfix">
+                                    <input type="search" name="query" required="required" class="header_search_input" placeholder="Search for products...">
+
                                     <div class="custom_dropdown">
                                         <div class="custom_dropdown_list">
                                             <span class="custom_dropdown_placeholder clc">All Categories</span>
@@ -68,8 +75,10 @@
                                             </ul>
                                         </div>
                                     </div>
+
                                     <button type="submit" class="header_search_button trans_300" value="Submit"><img src="images/search.png" alt=""></button>
                                 </form>
+
                             </div>
                         </div>
                     </div>
