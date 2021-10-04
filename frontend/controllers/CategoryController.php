@@ -72,7 +72,7 @@ class CategoryController extends AppController
             }
         }
 
-        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 4, 'forcePageParam' => false, 'pageSizeParam' => false]);
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
 
         return $this->render('view', compact('products', 'category', 'breadcrumbs', 'main_categories', 'pages'));

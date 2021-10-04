@@ -16,22 +16,7 @@
 
 <div class="shop">
 
-
-
 <?= $this->render('../inc/breadcrumbs')?>
-
-
-        <!--        <ol class="breadcrumb">-->
-<!--            <li class="breadcrumb-item"><a href="/">Главная</a></li>-->
-<!--            --><?php
-//            $end = array_pop($breadcrumbs);
-//            foreach ($breadcrumbs as $breadcrumb):?>
-<!--            <li class="breadcrumb-item"><a href="--><?//= \yii\helpers\Url::to(['category/view', 'id' => $breadcrumb['id']]) ?><!--">--><?//= $breadcrumb['name'] ?><!--</a></li>-->
-<!--            --><?php //endforeach; ?>
-<!--            <li class="breadcrumb-item">--><?//= $end['name']; ?><!--</li>-->
-<!--        </ol>-->
-    </div>
-
 
     <div class="container">
 
@@ -39,7 +24,7 @@
             <div class="col-lg-3">
 
                 <!-- Shop Sidebar -->
-                <div class="shop_sidebar">
+                <div class="">
                     <div class="sidebar_section">
                         <div class="sidebar_title">Categories</div>
                         <ul class="sidebar_categories">
@@ -95,7 +80,7 @@
 
                 <div class="shop_content">
                     <div class="shop_bar clearfix">
-                        <div class="shop_product_count"><span><?= count($products)?></span> товаров найдено</div>
+                        <div class="shop_product_count"><span><?= $pages->totalCount; ?></span> товаров найдено, показано <?= count($products)?></div>
                         <div class="shop_sorting">
                             <span>Sort by:</span>
                             <ul>

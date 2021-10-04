@@ -19,3 +19,5 @@ use yii\widgets\Breadcrumbs;
         ]);
         ?>
     </div>
+</div>
+

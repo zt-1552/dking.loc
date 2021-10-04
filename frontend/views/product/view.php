@@ -4,9 +4,10 @@
 <!-- Single Product -->
 
 <div class="single_product">
-    <div class="container">
 
-        <?= $this->render('../inc/breadcrumbs')?>
+    <?= $this->render('../inc/breadcrumbs')?>
+
+    <div class="container">
 
         <div class="row">
 
