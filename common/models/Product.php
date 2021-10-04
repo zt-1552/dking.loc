@@ -16,13 +16,8 @@ class Product extends baseProduct
             return [null, null];
         }
 
-        // пробуем извлечь данные из кеша
-        $key = 'search-'.md5($search).'-page-'.$page;
-        $data = Yii::$app->cache->get($key);
-
-        if ($data === false) {
             // данных нет в кеше, получаем их заново
-            $query = self::find()->where(['like', 'name', $search]);
+            $query = self::find()->where(['like', 'title', $search]);
             // постраничная навигация
             $pages = new Pagination([
                 'totalCount' => $query->count(),
@@ -37,15 +32,13 @@ class Product extends baseProduct
                 ->all();
             // сохраняем полученные данные в кеше
             $data = [$products, $pages];
-            Yii::$app->cache->set($key, $data, 600);
-        }
 
         return $data;
     }
 
     /**
      * Вспомогательная функция, очищает строку поискового запроса с сайта
-     * от всякого мусора
+     * от мусора
      * @param $search
      * @return string
      */
