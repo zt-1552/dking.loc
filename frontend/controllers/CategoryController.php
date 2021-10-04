@@ -16,6 +16,8 @@ use yii\web\NotFoundHttpException;
 class CategoryController extends AppController
 {
 
+    public $layout = 'category';
+
     /**
      * @param $id
      * @return string
@@ -23,7 +25,7 @@ class CategoryController extends AppController
      */
     public function actionView($id)
     {
-        $this->layout = 'category';
+//        $this->layout = 'category';
 
         $category = Category::findOne($id);
 
@@ -50,9 +52,9 @@ class CategoryController extends AppController
             $this->view->params['breadcrumbs'][]['label'] =  $last_bread['name'];
         }
 
-        $temp = new Category();
-        $childAllNew = $temp->getAllChildIds($id);
-        debug($childAllNew);
+//        $temp = new Category();
+//        $childAllNew = $temp->getAllChildIds($id);
+//        debug($childAllNew);
 
 
         $main_categories = $this->getMainCategories();
@@ -102,12 +104,16 @@ class CategoryController extends AppController
         // получаем результаты поиска с постраничной навигацией
         list($products, $pages) = (new Product())->getSearchResult($query, $page);
 
+//        debug($products);
+
+        $main_categories = $this->getMainCategories();
+
         // устанавливаем мета-теги для страницы
-        $this->setMetaTags('Поиск по каталогу');
+//        $this->setMetaTags('Поиск по каталогу');
 
         return $this->render(
             'search',
-            compact('products', 'page')
+            compact('products', 'pages', 'main_categories')
         );
     }
 
@@ -180,7 +186,7 @@ class CategoryController extends AppController
 //        debug($child);
 
 //        set Cache
-        \Yii::$app->cache->set('parents_category_' . $category_id, $parents, 360);
+        \Yii::$app->cache->set('child_category_' . $category_id, $child, 360);
         return $child;
     }
 

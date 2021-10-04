@@ -34,7 +34,7 @@ class Category extends BaseCategory
         $ids = [];
         foreach ($children as $child) {
             $ids[] = $child['id'];
-            debug($ids);
+//            debug($ids);
         }
         return $ids;
     }
