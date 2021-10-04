@@ -1,8 +1,13 @@
 
+
+
 <!-- Single Product -->
 
 <div class="single_product">
     <div class="container">
+
+        <?= $this->render('../inc/breadcrumbs')?>
+
         <div class="row">
 
             <!-- Images -->

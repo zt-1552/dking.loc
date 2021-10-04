@@ -1,3 +1,8 @@
+<?php
+
+use yii\helpers\Url;
+
+?>
 <!-- Header -->
 
 <header class="header">
@@ -52,33 +57,35 @@
                     <div class="header_search">
                         <div class="header_search_content">
                             <div class="header_search_form_container">
+
                                 <form action="<? \yii\helpers\Url::to(['catalog/search']); ?>" method="get" class="header_search_form clearfix">
                                     <input type="search" required="required" class="header_search_input" placeholder="Поиск товаров...">
-<!--                                    <div class="custom_dropdown">-->
-<!--                                        <div class="custom_dropdown_list">-->
-<!--                                            <span class="custom_dropdown_placeholder clc">All Categories</span>-->
-<!--                                            <i class="fas fa-chevron-down"></i>-->
+                                    <div class="custom_dropdown">
+                                        <div class="custom_dropdown_list">
+                                            <span class="custom_dropdown_placeholder clc">All Categories</span>
+                                            <i class="fas fa-chevron-down"></i>
 
 
-<!--                                            <select class="custom_list clc" id="country" name="country">-->
+                                            <select class="custom_list clc" id="country" name="country">
 
-<!--                                            <ul class="custom_list clc">-->
-<!--                                                <li class="clc"><option value="australia">Australia</option></li>-->
-<!--                                                <li class="clc"><option value="canada">Canada</option></li>-->
-<!--                                                <li class="clc"><option value="usa">USA</option></li>-->
-<!--                                                <li><a class="clc" href="#">All Categories</a></li>-->
-<!--                                                <li><a class="clc" href="#">Computers</a></li>-->
-<!--                                                <li><a class="clc" href="#">Laptops</a></li>-->
-<!--                                                <li><a class="clc" href="#">Cameras</a></li>-->
-<!--                                                <li><a class="clc" href="#">Hardware</a></li>-->
-<!--                                                <li><a class="clc" href="#">Smartphones</a></li>-->
-<!--                                            </ul>-->
-<!--                                            </select>-->
+                                            <ul class="custom_list clc">
+                                                <li class="clc"><option value="australia">Australia</option></li>
+                                                <li class="clc"><option value="canada">Canada</option></li>
+                                                <li class="clc"><option value="usa">USA</option></li>
+                                                <li><a class="clc" href="#">All Categories</a></li>
+                                                <li><a class="clc" href="#">Computers</a></li>
+                                                <li><a class="clc" href="#">Laptops</a></li>
+                                                <li><a class="clc" href="#">Cameras</a></li>
+                                                <li><a class="clc" href="#">Hardware</a></li>
+                                                <li><a class="clc" href="#">Smartphones</a></li>
+                                            </ul>
+                                            </select>
 
-<!--                                        </div>-->
-<!--                                    </div>-->
+                                        </div>
+                                    </div>
                                     <button type="submit" class="header_search_button trans_300" value="Submit"><img src="images/search.png" alt=""></button>
                                 </form>
+
                             </div>
                         </div>
                     </div>

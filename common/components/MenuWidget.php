@@ -54,6 +54,7 @@ class MenuWidget extends Widget
         //set Cache
         \Yii::$app->cache->set('menu', $this->menuHtml, 600);
 
+
         return $this->menuHtml;
     }
 
