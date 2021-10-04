@@ -1,3 +1,8 @@
+<?php
+
+use yii\widgets\Breadcrumbs;
+
+?>
 <!-- Home -->
 
 <div class="home">
@@ -13,22 +18,49 @@
 
 <div class="shop">
 
-
+    <!-- breadcrumb YII2 Widget -->
+    <div class="bread">
+        <?php echo Breadcrumbs::widget([
+            'options' => [
+                'class' => false,
+            ],
+            'homeLink' => [
+                'label' => Yii::t('yii', 'Home'),
+                'url' => ['/'],
+                'class' => 'home',
+                'template' => '<li>{link}</li>',
+            ],
+//            'links' => [
+//                [
+//                    'label' => "{ link['name'] }",
+//                    'url' => ['category/view', 'id' => 10],
+//                    'template' => "<li><b>{link}</b></li>\n", // template for this link only
+//                ],
+//                ['label' => 'Sample Post', 'url' => ['post/edit', 'id' => 1]],
+//                'Edit',
+//            ],
+            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'itemTemplate' => '<li>{link}</li>',
+            'activeItemTemplate' => '<li class="active">{link}</li>',
+            'tag' => 'ul',
+            'encodeLabels' => false
+        ]);
+        ?>
+    </div>
 
 
     <!-- breadcrumb Bootstrap 4 -->
-    <div class="container">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Главная</a></li>
-<!--            --><?//= debug($breadcrumbs); ?>
-            <?php
-            $end = array_pop($breadcrumbs);
-            foreach ($breadcrumbs as $breadcrumb):?>
-            <li class="breadcrumb-item"><a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $breadcrumb['id']]) ?>"><?= $breadcrumb['name'] ?></a></li>
-            <?php endforeach; ?>
-            <li class="breadcrumb-item"><?= $end['name']; ?></li>
-        </ol>
-    </div>>
+<!--    <div class="container">-->
+<!--        <ol class="breadcrumb">-->
+<!--            <li class="breadcrumb-item"><a href="/">Главная</a></li>-->
+<!--            --><?php
+//            $end = array_pop($breadcrumbs);
+//            foreach ($breadcrumbs as $breadcrumb):?>
+<!--            <li class="breadcrumb-item"><a href="--><?//= \yii\helpers\Url::to(['category/view', 'id' => $breadcrumb['id']]) ?><!--">--><?//= $breadcrumb['name'] ?><!--</a></li>-->
+<!--            --><?php //endforeach; ?>
+<!--            <li class="breadcrumb-item">--><?//= $end['name']; ?><!--</li>-->
+<!--        </ol>-->
+<!--    </div>>-->
 
 
     <div class="container">

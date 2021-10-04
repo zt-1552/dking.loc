@@ -8,6 +8,8 @@ use backend\components\AppController;
 use common\models\Category;
 use common\models\Product;
 use yii\data\Pagination;
+use yii\helpers\BaseUrl;
+use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 
 class CategoryController extends AppController
@@ -31,21 +33,34 @@ class CategoryController extends AppController
         $this->setMeta("{$category->meta_title} :: " . \Yii::$app->name, $category->meta_description);
 
 
-        $breadcrumbs = [];
-        $category_b = Category::find()->indexBy('id')->asArray()->all();
-        array_unshift($breadcrumbs, $category_b[$category->id]);
-
-        if($category->parent_id != 0) {
-
-            $parent = $breadcrumbs;
-
-            while ($parent[0]['parent_id'] != 0) {
-                $parent[0] = $category_b[$parent[0]['parent_id']];
-                array_unshift($breadcrumbs, $parent[0]);
-            }
-        }
+//        $breadcrumbs = [];
+//        $category_b = Category::find()->indexBy('id')->asArray()->all();
+//        array_unshift($breadcrumbs, $category_b[$category->id]);
+//
+//        if($category->parent_id != 0) {
+//
+//            $parent = $breadcrumbs;
+//
+//            while ($parent[0]['parent_id'] != 0) {
+//                $parent[0] = $category_b[$parent[0]['parent_id']];
+//                array_unshift($breadcrumbs, $parent[0]);
+//            }
+//        }
 
         $main_categories = $this->getMainCategories();
+
+        $breadcrumbs = $this->getParents($id);
+        $last_bread = array_pop($breadcrumbs);
+
+        for ($i = 0; $i < count($breadcrumbs); $i++) {
+            $this->view->params['breadcrumbs'][$i]['label'] = $breadcrumbs[$i]['name'];
+            $this->view->params['breadcrumbs'][$i]['url'] = Url::to(['category/view', 'id' => $breadcrumbs[$i]['id']]);
+//            debug($breadcrumb);
+        };
+
+        array_push($this->view->params['breadcrumbs'], array('label' => $last_bread['name']));
+
+//        debug($this->view->params['breadcrumbs']);
 
 
         $query = Product::find()->where(['category_id' => $id]);
@@ -69,11 +84,41 @@ class CategoryController extends AppController
 
         $main_categories = Category::find()->where(['parent_id' => null])->indexBy('id')->asArray()->all();
 
-
         //set Cache
         \Yii::$app->cache->set('main_categories', $main_categories, 360);
-
         return $main_categories;
+    }
+
+
+    /**
+     * @param $category_id
+     * @return mixed
+     */
+    public function getParents($category_id)
+    {
+        $parents = \Yii::$app->cache->get('parents_category_' . $category_id);
+
+        if ($parents) {
+            return $parents;
+        };
+
+        $category_all = Category::find()->indexBy('id')->asArray()->all();
+
+        $category = $category_all[$category_id];
+
+        $parents[0] = $category;
+
+        if($category['parent_id'] != 0) {
+
+            while ($parents[0]['parent_id'] != 0) {
+                $parent = $category_all[$parents[0]['parent_id']];
+                array_unshift($parents, $parent);
+            }
+        }
+
+//        set Cache
+        \Yii::$app->cache->set('parents_category_' . $category_id, $parents, 360);
+        return $parents;
     }
 
 }
