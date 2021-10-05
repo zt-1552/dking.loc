@@ -18,6 +18,10 @@ class ProductController extends AppController
         $this->layout = 'product';
 
         $product = Product::findOne($id);
+        if (empty($product)) {
+            throw new NotFoundHttpException('Такого товара нет....   пока нет)');
+        }
+
         $category = Category::find()->where(['id' => $product->category_id])->one();
 
 
