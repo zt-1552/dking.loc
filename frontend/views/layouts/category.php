@@ -2,6 +2,7 @@
 
 use frontend\assets\OneShopAppAsset;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 
 OneShopAppAsset::register($this);
@@ -18,6 +19,8 @@ OneShopAppAsset::register($this);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title><?= Html::encode($this->title) ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <?php $this->registerLinkTag(['rel' => 'canonical', 'href' => Url::canonical()]); ?>
 
     <?php $this->registerCsrfMetaTags() ?>
     <?php $this->head() ?>
