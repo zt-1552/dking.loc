@@ -109,9 +109,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                ...
-            </div>
+            <div class="modal-body"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-dismiss="modal">Продолжить покупки</button>
                 <a href="<?= \yii\helpers\Url::to('cart/view')?>" class="btn btn-success">Оформить заказ</a>

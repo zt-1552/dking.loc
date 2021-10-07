@@ -19,6 +19,8 @@ class OneProductAppAsset extends AssetBundle
         '/plugins/OwlCarousel2-2.2.1/animate.css',
         '/styles/product_styles.css',
         '/styles/product_responsive.css',
+        '/styles/main.css',
+
     ];
 
 
@@ -36,6 +38,7 @@ class OneProductAppAsset extends AssetBundle
         '/plugins/easing/easing.js',
         '/plugins/jquery-ui-1.12.1.custom/jquery-ui.js',
         '/js/product_custom.js',
+        '/js/main.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

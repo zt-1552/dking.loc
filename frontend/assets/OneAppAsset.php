@@ -19,7 +19,8 @@ class OneAppAsset extends AssetBundle
         '/plugins/OwlCarousel2-2.2.1/animate.css',
         '/plugins/slick-1.8.0/slick.css',
         '/styles/main_styles.css',
-        '/styles/responsive.css'
+        '/styles/responsive.css',
+        '/styles/main.css',
     ];
 
 
@@ -37,6 +38,7 @@ class OneAppAsset extends AssetBundle
         '/plugins/slick-1.8.0/slick.js',
         '/plugins/easing/easing.js',
         '/js/custom.js',
+        '/js/main.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
