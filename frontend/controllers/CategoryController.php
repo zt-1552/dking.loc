@@ -44,7 +44,6 @@ class CategoryController extends AppController
             for ($i = 0; $i < count($breadcrumbs); $i++) {
                 $this->view->params['breadcrumbs'][$i]['label'] = $breadcrumbs[$i]['name'];
                 $this->view->params['breadcrumbs'][$i]['url'] = Url::to(['category/view', 'id' => $breadcrumbs[$i]['id']]);
-//            debug($breadcrumb);
                 array_push($this->view->params['breadcrumbs'], array('label' => $last_bread['name']));
             };
         } else {
@@ -52,17 +51,10 @@ class CategoryController extends AppController
             $this->view->params['breadcrumbs'][]['label'] =  $last_bread['name'];
         }
 
-//        $temp = new Category();
-//        $childAllNew = $temp->getAllChildIds($id);
-//        debug($childAllNew);
-
-
         $main_categories = $this->getMainCategories();
 
-        $child_category = $this->getChild($id);
-//        debug($child_category);
-
-
+//        $child_category = $this->getChild($id);
+        $child_category = $this->getAllChild($id);
 
         $query = Product::find();
         $query->where(['category_id' => $id]);
@@ -76,9 +68,26 @@ class CategoryController extends AppController
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
 
         return $this->render('view', compact('products', 'category', 'breadcrumbs', 'main_categories', 'pages'));
-
     }
 
+
+    public function actionSearch($query = '', $page = 1)
+    {
+        $page = (int)$page;
+
+        // получаем результаты поиска с постраничной навигацией
+        list($products, $pages) = (new Product())->getSearchResult($query, $page);
+
+        $main_categories = $this->getMainCategories();
+
+        // устанавливаем мета-теги для страницы
+//        $this->setMetaTags('Поиск по каталогу');
+
+        return $this->render(
+            'search',
+            compact('products', 'pages', 'main_categories', 'query')
+        );
+    }
 
 
     /**
@@ -95,28 +104,6 @@ class CategoryController extends AppController
         }
         return $data;
     }
-
-
-    public function actionSearch($query = '', $page = 1)
-    {
-        $page = (int)$page;
-
-        // получаем результаты поиска с постраничной навигацией
-        list($products, $pages) = (new Product())->getSearchResult($query, $page);
-
-//        debug($products);
-
-        $main_categories = $this->getMainCategories();
-
-        // устанавливаем мета-теги для страницы
-//        $this->setMetaTags('Поиск по каталогу');
-
-        return $this->render(
-            'search',
-            compact('products', 'pages', 'main_categories')
-        );
-    }
-
 
     /**
      * @param $category_id
@@ -149,9 +136,33 @@ class CategoryController extends AppController
         return $parents;
     }
 
+    protected function getAllChild($id) {
+        $children = [];
+        $ids = $this->getChildIds($id);
+        foreach ($ids as $item) {
+            $children[] = $item;
+            $c = $this->getAllChild($item['id']);
+            foreach ($c as $v) {
+                $children[] = $v;
+            }
+        }
+        return $children;
+    }
+
+    protected function getChildIds($id) {
+        $children = Category::find()->where(['parent_id' => $id])->asArray()->all();
+        $ids = [];
+        foreach ($children as $child) {
+            $ids[] = $child;
+        }
+        return $ids;
+    }
+
+
+
     public function getChild($category_id)
     {
-        $child_category = \Yii::$app->cache->get('child_category_' . $category_id);
+//        $child_category = \Yii::$app->cache->get('child_category_' . $category_id);
 
         if ($child_category) {
             return $child_category;
@@ -169,6 +180,8 @@ class CategoryController extends AppController
             }
         }
 
+
+
         $child_two = [];
         foreach ($child as $item_child) {
             foreach ($category_all as $item) {
@@ -177,6 +190,8 @@ class CategoryController extends AppController
                 }
             }
         }
+
+//        debug($child_two);
 
         foreach ($child_two as $item) {
             array_push($child, $item);
