@@ -15,19 +15,19 @@
                                 <div class="cart_item_image"><?= \yii\helpers\Html::img($item['image'], ['alt' => $item['title']])?></div>
                                 <div class="cart_item_info d-flex flex-md-row flex-column justify-content-between">
                                     <div class="cart_item_name cart_info_col">
-                                        <div class="cart_item_title">Name</div>
+                                        <div class="cart_item_title"> </div>
                                         <div class="cart_item_text"><?= $item['title']?></div>
                                     </div>
                                     <div class="cart_item_quantity cart_info_col">
-                                        <div class="cart_item_title">Quantity</div>
+                                        <div class="cart_item_title">Кол-во</div>
                                         <div class="cart_item_text"><?= $item['qty']?></div>
                                     </div>
                                     <div class="cart_item_price cart_info_col">
-                                        <div class="cart_item_title">Price</div>
+                                        <div class="cart_item_title">Цена</div>
                                         <div class="cart_item_text"><?= $item['price']?></div>
                                     </div>
                                     <div class="cart_item_total cart_info_col">
-                                        <div class="cart_item_title">Total</div>
+                                        <div class="cart_item_title">Сумма</div>
                                         <div class="cart_item_text"><?= $item['price'] * $item['qty'] ?></div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                     <div class="order_total">
                         <div class="order_total_content text-md-right">
                             <div class="order_total_title">Order Total:</div>
-                            <div class="order_total_amount">$2000</div>
+                            <div class="order_total_amount"><?= $session['cart.sum'] ?></div>
                         </div>
                     </div>
 

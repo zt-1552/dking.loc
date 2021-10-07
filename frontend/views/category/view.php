@@ -26,7 +26,7 @@
                 <!-- Shop Sidebar -->
                 <div class="">
                     <div class="sidebar_section">
-                        <div class="sidebar_title">Categories</div>
+                        <div class="sidebar_title">Главные категории</div>
                         <ul class="sidebar_categories">
                             <?php if(isset($main_categories)) {?>
                             <?php foreach ($main_categories as $main_category): ?>
