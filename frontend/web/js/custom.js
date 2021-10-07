@@ -1029,4 +1029,30 @@ $(document).ready(function()
     		});	
     	}	
     }
+
+
+
+	$('#CartModal').on('shown.bs.modal', function () {
+		$('#CartModal').trigger('focus')
+	})
+
+	/* Cart    */
+	$('.add_to_cart').on('click', function () {
+		let id = $(this).data('id');
+		$.ajax({
+			url: 'cart/add',
+			data: {id: id},
+			type: 'GET',
+			success: function () {
+
+			},
+			error: function () {
+				alert('Ошибка');
+			}
+		})
+
+		return false;
+	})
+
+
 });
