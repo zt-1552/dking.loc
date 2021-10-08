@@ -9,6 +9,11 @@ $(document).ready(function()
     function showCart(cart) {
         $('#CartModal .modal-body').html(cart);
         $('#CartModal').modal();
+        let cartSum = $('#cart-sum').text() ? '$ ' + $('#cart-sum').text() : '$ 0';
+        if (cartSum) {
+            $('.cart-sum').text(cartSum);
+            console.log(cartSum);
+        }
 
     }
 
@@ -29,6 +34,11 @@ $(document).ready(function()
         })
         return false;
     })
+
+    function getCart() {
+
+    }
+
 
 
 });
