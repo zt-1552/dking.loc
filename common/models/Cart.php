@@ -20,7 +20,7 @@ class Cart extends \yii\base\Model
             ];
         }
 
-        $_SESSION['cart.qtw'] = isset($_SESSION['cart.qtw']) ? $_SESSION['cart.qtw'] + $qty : $qty;
+        $_SESSION['cart.qty'] = isset($_SESSION['cart.qty']) ? $_SESSION['cart.qty'] + $qty : $qty;
         $_SESSION['cart.sum'] = (isset($_SESSION['cart.sum'])) ? $_SESSION['cart.sum'] + $qty * $product->price : $qty * $product->price;
     }
 

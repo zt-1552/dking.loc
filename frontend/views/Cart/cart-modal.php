@@ -1,6 +1,6 @@
 <?php if(!empty($session['cart'])): ?>
 <!-- Cart -->
-
+<?php //debug($_SESSION); ?>
 <div class="cart_section">
     <div class="container">
         <div class="row">
@@ -40,8 +40,14 @@
                     <!-- Order Total -->
                     <div class="order_total">
                         <div class="order_total_content text-md-right">
-                            <div class="order_total_title">Order Total:</div>
-                            <div class="order_total_amount"><?= $session['cart.sum'] ?></div>
+                            <div class="order_total_title">Всего товаров:</div>
+                            <div id="cart-qty" class="order_total_amount"><?= $session['cart.qty'] ?></div>
+                        </div>
+                    </div>
+                    <div class="order_total">
+                        <div class="order_total_content text-md-right">
+                            <div class="order_total_title">Общая сумма:</div>
+                            <div id="cart-sum" class="order_total_amount"><?= $session['cart.sum'] ?></div>
                         </div>
                     </div>
 

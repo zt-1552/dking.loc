@@ -24,11 +24,19 @@ class CartController extends AppController
         $cart->AddToCart($product);
 
         if(\Yii::$app->request->isAjax) {
-//            $session->destroy();
+            $session->destroy();
             return $this->renderPartial('cart-modal', compact('session'));
         }
         return $this->redirect(\Yii::$app->request->referrer);
 
+    }
+
+    public function actionShow()
+    {
+        $session = \Yii::$app->session;
+        $session->open();
+//            $session->destroy();
+            return $this->renderPartial('cart-modal', compact('session'));
     }
 
 }
