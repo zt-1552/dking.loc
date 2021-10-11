@@ -1787,6 +1787,7 @@ select option
 }
 .product_cart_button
 {
+	display: block;
 	position: relative;
 	left: 0px;
 	visibility: hidden;
@@ -1797,6 +1798,7 @@ select option
 	border: none;
 	outline: none;
 	font-size: 18px;
+	line-height: 2.5;
 	font-weight: 400;
 	color: #FFFFFF;
 	cursor: pointer;

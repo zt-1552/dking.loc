@@ -177,7 +177,7 @@
 														<input type="radio" name="product_color" style="background:#000000">
 														<input type="radio" name="product_color" style="background:#999999">
 													</div>
-													<button class="product_cart_button">Add to Cart</button>
+													<a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $offer->id])?>" data-id="<?= $offer->id ?>" class="add_to_cart product_cart_button">Купить</a>
 												</div>
 											</div>
 											<div class="product_fav"><i class="fas fa-heart"></i></div>

@@ -97,14 +97,14 @@ use yii\helpers\Url;
 
                         <!-- Cart -->
                         <div class="cart">
-                            <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+                            <div id="cart_container" class="cart_container d-flex flex-row align-items-center justify-content-end">
                                 <div class="cart_icon">
                                     <img src="images/cart.png" alt="">
-                                    <div class="cart_count"><span>10</span></div>
+                                    <div class="cart_count"><span class="cart-qty"><?= $_SESSION['cart.qty'] ?? '0'?></span></div>
                                 </div>
-                                <div class="cart_content">
-                                    <div class="cart_text"><a href="#">Cart</a></div>
-                                    <div class="cart_price">$85</div>
+                                <div  class="cart_content">
+                                    <div class="cart_text"><a href="#" data-toggle="modal" data-target="#CartModal">Корзина</a></div>
+                                    <div class="cart-sum">$ <?= $_SESSION['cart.sum'] ?? '0' ?></div>
                                 </div>
                             </div>
                         </div>

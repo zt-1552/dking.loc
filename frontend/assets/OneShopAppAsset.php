@@ -23,6 +23,7 @@ class OneShopAppAsset extends AssetBundle
 //        '/styles/responsive.css',
         '/styles/shop_styles.css',
         '/styles/shop_responsive.css',
+        '/styles/main.css',
     ];
 
 
@@ -43,6 +44,7 @@ class OneShopAppAsset extends AssetBundle
         '/plugins/jquery-ui-1.12.1.custom/jquery-ui.js',
         '/plugins/parallax-js-master/parallax.min.js',
         '/js/shop_custom.js',
+        '/js/main.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

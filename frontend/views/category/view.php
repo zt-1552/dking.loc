@@ -26,7 +26,7 @@
                 <!-- Shop Sidebar -->
                 <div class="">
                     <div class="sidebar_section">
-                        <div class="sidebar_title">Categories</div>
+                        <div class="sidebar_title">Главные категории</div>
                         <ul class="sidebar_categories">
                             <?php if(isset($main_categories)) {?>
                             <?php foreach ($main_categories as $main_category): ?>
@@ -110,6 +110,7 @@
                                 <div class="product_price">$<?= $product->price ?></div>
                                 <div class="product_name"><div><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $product->id]) ?>" tabindex="0"><?= $product->title ?></a></div></div>
                             </div>
+                            <a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $product->id])?>" data-id="<?= $product->id ?>" class="add_to_cart btn btn-light btn-sm">Купить</a>
                             <div class="product_fav"><i class="fas fa-heart"></i></div>
                             <ul class="product_marks">
                                 <?= ($product->is_offer === 1) ? '<li class="product_mark product_discount">Sale</li>' : ''; ?>
