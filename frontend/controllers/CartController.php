@@ -24,7 +24,7 @@ class CartController extends AppController
         $cart->AddToCart($product);
 
         if(\Yii::$app->request->isAjax) {
-            $session->destroy();
+//            $session->destroy();
             return $this->renderPartial('cart-modal', compact('session'));
         }
         return $this->redirect(\Yii::$app->request->referrer);
@@ -35,8 +35,26 @@ class CartController extends AppController
     {
         $session = \Yii::$app->session;
         $session->open();
-//            $session->destroy();
             return $this->renderPartial('cart-modal', compact('session'));
+    }
+
+    public function actionDelItem ($id)
+    {
+        $session = \Yii::$app->session;
+        $session->open();
+        $cart = new Cart();
+        $cart->recalc($id);
+        return $this->renderPartial('cart-modal', compact('session'));
+    }
+
+    public function actionCleanCart ()
+    {
+        $session = \Yii::$app->session;
+        $session->open();
+        $session->remove('cart');
+        $session->remove('cart.qty');
+        $session->remove('cart.sum');
+        return $this->renderPartial('cart-modal', compact('session'));
     }
 
 }

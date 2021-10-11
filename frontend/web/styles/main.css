@@ -1229,7 +1229,7 @@ select option
 {
     width: 100%;
     padding: 15px;
-    padding-right: 46px;
+    padding-right: 15px;
 }
 .cart_item_image
 {
@@ -1243,7 +1243,7 @@ select option
 }
 .cart_item_info
 {
-    width: calc(100% - 133px);
+    width: calc(100% - 110px);
     float: left;
     padding-top: 20px;
 }

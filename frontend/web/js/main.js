@@ -14,7 +14,7 @@ $(document).ready(function()
 
     function showCartHead() {
         let cartSum = $('#cart-sum').text() ? '$ ' + $('#cart-sum').text() : '$ 0';
-        let cartQty = $('#cart-qty').text() ? $('#cart-qty').text() : '$ 0';
+        let cartQty = $('#cart-qty').text() ? $('#cart-qty').text() : '0';
         if (cartSum) {
             $('.cart-sum').text(cartSum);
             // console.log(cartSum);
@@ -59,8 +59,38 @@ $(document).ready(function()
         return false;
     })
 
+    $('#CartModal .modal-body').on('click', '.del-item-cart', function () {
+        let id = $(this).data('id');
+        $.ajax({
+            url: 'cart/del-item',
+            data: {id: id},
+            type: 'GET',
+            success: function (res) {
+                if(!res) alert('Товар не удален, ошибка');
+                showCart(res);
+                showCartHead();
+            },
+            error: function () {
+                alert('Ошибка');
+            }
+        })
+        return false;
+    })
 
-
-
+    $('#clean').on('click', function () {
+        $.ajax({
+            url: 'cart/clean-cart',
+            type: 'GET',
+            success: function (res) {
+                if(!res) alert('Корзина не очищена, ошибка');
+                showCart(res);
+                showCartHead();
+            },
+            error: function () {
+                alert('Ошибка');
+            }
+        })
+        return false;
+    })
 
 });

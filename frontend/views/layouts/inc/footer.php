@@ -113,7 +113,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-dismiss="modal">Продолжить покупки</button>
                 <a href="<?= \yii\helpers\Url::to('cart/view')?>" class="btn btn-success">Оформить заказ</a>
-                <button type="button" class="btn btn-danger">Очистить корзину</button>
+                <button id="clean" type="button" class="btn btn-danger clean-cart">Очистить корзину</button>
             </div>
         </div>
     </div>

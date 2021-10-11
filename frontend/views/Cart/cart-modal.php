@@ -30,7 +30,11 @@
                                         <div class="cart_item_title">Сумма</div>
                                         <div class="cart_item_text"><?= $item['price'] * $item['qty'] ?></div>
                                     </div>
+                                    <button type="button" class="close del-item-cart" data-id="<?= $id ?>">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
+
                             </li>
 
                             <?php endforeach; ?>
