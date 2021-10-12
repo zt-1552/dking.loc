@@ -41,4 +41,14 @@ class HomeController extends AppController
 
     }
 
+    /**
+     * Displays about page.
+     *
+     * @return mixed
+     */
+    public function actionContact()
+    {
+        return $this->render('contact');
+    }
+
 }
