@@ -34,7 +34,7 @@ class m211012_085218_create_orders_item_table extends Migration
 
         $this->addForeignKey(
             'fk-orders_item-product_id',
-            'orders_ite',
+            'orders_item',
             'product_id',
             'product',
             'id'

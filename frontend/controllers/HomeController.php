@@ -4,6 +4,7 @@
 namespace frontend\controllers;
 
 use backend\components\AppController;
+use common\models\Category;
 use common\models\Product;
 
 class HomeController extends AppController
@@ -18,18 +19,20 @@ class HomeController extends AppController
         ];
     }
 
-    public function actionIndex()
-    {
-        $offers = Product::find()->where(['is_offer' => 1])->limit(5)->all();
-
-        return $this->render('index', compact('offers'));
-    }
+//    public function actionIndex()
+//    {
+//        $offers = Product::find()->where(['is_offer' => 1])->limit(5)->all();
+//
+//        return $this->render('index', compact('offers'));
+//    }
 
     public function actionIndex1()
     {
         $this->layout = 'front1';
         $offers = Product::find()->where(['is_offer' => 1])->limit(16)->all();
         $bestsellers = Product::find()->where(['bestsellers' => 1])->limit(3)->all();
+        \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
+
 
         return $this->render('index1', compact('offers', 'bestsellers'));
     }
@@ -48,6 +51,8 @@ class HomeController extends AppController
      */
     public function actionContact()
     {
+        \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
+
         return $this->render('contact');
     }
 

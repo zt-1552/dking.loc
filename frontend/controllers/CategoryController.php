@@ -25,8 +25,6 @@ class CategoryController extends AppController
      */
     public function actionView($id)
     {
-//        $this->layout = 'category';
-
         $category = Category::findOne($id);
 
         if (empty($category)) {
@@ -51,23 +49,25 @@ class CategoryController extends AppController
             $this->view->params['breadcrumbs'][]['label'] =  $last_bread['name'];
         }
 
-        $main_categories = $this->getMainCategories();
+        \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
 
-//        $child_category = $this->getChild($id);
-        $child_category = $this->getAllChild($id);
+//        $child_category = $this->getChild($id); // max 3 level tree, min request
+        $child_all_category = $this->getAllChild($id);// for all level tree, + request
 
         $query = Product::find();
         $query->where(['category_id' => $id]);
-        if(isset($child_category)) {
-            foreach ($child_category as $item) {
+        if(isset($child_all_category[1])) {
+            foreach ($child_all_category[1] as $item) {
                 $query->orWhere(['category_id' => $item['id']]);
             }
         }
 
+        $child_categories = $child_all_category[0];
+
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
 
-        return $this->render('view', compact('products', 'category', 'breadcrumbs', 'main_categories', 'pages'));
+        return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'pages'));
     }
 
 
@@ -78,32 +78,18 @@ class CategoryController extends AppController
         // получаем результаты поиска с постраничной навигацией
         list($products, $pages) = (new Product())->getSearchResult($query, $page);
 
-        $main_categories = $this->getMainCategories();
+        \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
 
         // устанавливаем мета-теги для страницы
 //        $this->setMetaTags('Поиск по каталогу');
 
         return $this->render(
             'search',
-            compact('products', 'pages', 'main_categories', 'query')
+            compact('products', 'pages', 'query')
         );
     }
 
 
-    /**
-     * Главные категории
-     * @return array|mixed
-     */
-    public function getMainCategories()
-    {
-        $data = \Yii::$app->cache->get('main_categories');
-        if ($data === false) {
-            $data = Category::find()->where(['parent_id' => null])->indexBy('id')->asArray()->all();
-
-            \Yii::$app->cache->set('main_categories', $data, 30);
-        }
-        return $data;
-    }
 
     /**
      * @param $category_id
@@ -136,6 +122,11 @@ class CategoryController extends AppController
         return $parents;
     }
 
+    /**
+     * This method for 4 and up level tree
+     * @param $id
+     * @return array
+     */
     protected function getAllChild($id) {
         $children = [];
         $ids = $this->getChildIds($id);
@@ -146,9 +137,13 @@ class CategoryController extends AppController
                 $children[] = $v;
             }
         }
-        return $children;
+        return [$ids, $children];
     }
 
+    /**
+     * @param $id
+     * @return array
+     */
     protected function getChildIds($id) {
         $children = Category::find()->where(['parent_id' => $id])->asArray()->all();
         $ids = [];
@@ -159,7 +154,11 @@ class CategoryController extends AppController
     }
 
 
-
+    /**
+     * This method for max 3 level tree
+     * @param $category_id
+     * @return array
+     */
     public function getChild($category_id)
     {
 //        $child_category = \Yii::$app->cache->get('child_category_' . $category_id);
@@ -180,8 +179,6 @@ class CategoryController extends AppController
             }
         }
 
-
-
         $child_two = [];
         foreach ($child as $item_child) {
             foreach ($category_all as $item) {
@@ -191,14 +188,9 @@ class CategoryController extends AppController
             }
         }
 
-//        debug($child_two);
-
         foreach ($child_two as $item) {
             array_push($child, $item);
         }
-
-
-//        debug($child);
 
 //        set Cache
         \Yii::$app->cache->set('child_category_' . $category_id, $child, 360);
