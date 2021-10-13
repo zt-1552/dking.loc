@@ -24,6 +24,7 @@ class ProductController extends AppController
 
         $category = Category::find()->where(['id' => $product->category_id])->one();
 
+        \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
 
         // Breadcrumbs
         $breadcrumbs = $this->getParents($product->category_id);

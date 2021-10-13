@@ -25,16 +25,16 @@
 
                 <!-- Shop Sidebar -->
                 <div class="">
+                    <?php if(!empty($child_categories)) {?>
                     <div class="sidebar_section">
-                        <div class="sidebar_title">Главные категории</div>
+                        <div class="sidebar_title">Подкатегории</div>
                         <ul class="sidebar_categories">
-                            <?php if(isset($main_categories)) {?>
-                            <?php foreach ($main_categories as $main_category): ?>
-                                <li><a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $main_category['id']]) ?>"><?= $main_category['name']; ?></a></li>
+                            <?php foreach ($child_categories as $child_category): ?>
+                                <li><a href="<?= \yii\helpers\Url::to(['category/view', 'id' => $child_category['id']]) ?>"><?= $child_category['name']; ?></a></li>
                             <?php endforeach; ?>
-                            <?php } ?>
                         </ul>
                     </div>
+                    <?php } ?>
                     <div class="sidebar_section filter_by_section">
                         <div class="sidebar_title">Filter By</div>
                         <div class="sidebar_subtitle">Price</div>
@@ -43,17 +43,6 @@
                             <p>Range: </p>
                             <p><input type="text" id="amount" class="amount" readonly style="border:0; font-weight:bold;"></p>
                         </div>
-                    </div>
-                    <div class="sidebar_section">
-                        <div class="sidebar_subtitle color_subtitle">Color</div>
-                        <ul class="colors_list">
-                            <li class="color"><a href="#" style="background: #b19c83;"></a></li>
-                            <li class="color"><a href="#" style="background: #000000;"></a></li>
-                            <li class="color"><a href="#" style="background: #999999;"></a></li>
-                            <li class="color"><a href="#" style="background: #0e8ce4;"></a></li>
-                            <li class="color"><a href="#" style="background: #df3b3b;"></a></li>
-                            <li class="color"><a href="#" style="background: #ffffff; border: solid 1px #e1e1e1;"></a></li>
-                        </ul>
                     </div>
                     <div class="sidebar_section">
                         <div class="sidebar_subtitle brands_subtitle">Brands</div>
@@ -82,14 +71,14 @@
                     <div class="shop_bar clearfix">
                         <div class="shop_product_count"><span><?= $pages->totalCount; ?></span> товаров найдено, показано <?= count($products)?></div>
                         <div class="shop_sorting">
-                            <span>Sort by:</span>
+                            <span>Сортировка:</span>
                             <ul>
                                 <li>
-                                    <span class="sorting_text">highest rated<i class="fas fa-chevron-down"></span></i>
+                                    <span class="sorting_text">По умолчанию<i class="fas fa-chevron-down"></span></i>
                                     <ul>
-                                        <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>highest rated</li>
-                                        <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>name</li>
-                                        <li class="shop_sorting_button"data-isotope-option='{ "sortBy": "price" }'>price</li>
+                                        <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "original-order" }'>По умолчанию</li>
+                                        <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "name" }'>От А до Я</li>
+                                        <li class="shop_sorting_button" data-isotope-option='{ "sortBy": "price" }'>По возрастанию цены</li>
                                     </ul>
                                 </li>
                             </ul>
