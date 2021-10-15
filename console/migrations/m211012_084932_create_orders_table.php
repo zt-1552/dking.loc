@@ -19,7 +19,7 @@ class m211012_084932_create_orders_table extends Migration
             'email' => $this->string(50)->notNull(),
             'address' => $this->string(100)->notNull(),
             'comment' => $this->string(100)->defaultValue('Без комментария'),
-            'summa' => $this->integer(),
+            'summa' => $this->integer()->unsigned(),
             'status' => $this->tinyInteger()->defaultValue(0),
             'created_at' => $this->date()->defaultValue(null),
             'updated_at' => $this->date()->defaultValue(null),

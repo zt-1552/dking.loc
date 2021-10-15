@@ -93,4 +93,26 @@ $(document).ready(function()
         return false;
     })
 
+    $('button.change-qty').on('click', function () {
+        let id = $(this).data('id'),
+            qty = $(this).data('qty');
+        $('button.change-qty').attr('disabled');
+        $.ajax({
+            url: 'cart/change-cart',
+            data:
+                {id: id,
+                qty: qty},
+            type: 'GET',
+            success: function (res) {
+                if(!res) alert('Ошибка qty');
+                location = 'cart/checkout';
+                $('button.change-qty').removeAttr('disabled');
+            },
+            error: function () {
+                alert('Ошибка');
+            }
+        })
+        return false;
+    })
+
 });

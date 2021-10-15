@@ -11,6 +11,8 @@ use common\models\Product;
 class CartController extends AppController
 {
 
+    public $layout = 'front1';
+
     public function actionAdd($id)
     {
         $product = Product::findOne($id);
@@ -44,7 +46,11 @@ class CartController extends AppController
         $session->open();
         $cart = new Cart();
         $cart->recalc($id);
-        return $this->renderPartial('cart-modal', compact('session'));
+        if (\Yii::$app->request->isAjax) {
+            return $this->renderPartial('cart-modal', compact('session'));
+        }
+        return $this->redirect(\Yii::$app->request->referrer);
+
     }
 
     public function actionCleanCart ()
@@ -54,6 +60,33 @@ class CartController extends AppController
         $session->remove('cart');
         $session->remove('cart.qty');
         $session->remove('cart.sum');
+        return $this->renderPartial('cart-modal', compact('session'));
+    }
+
+    public function actionCheckout()
+    {
+        \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
+
+        $session = \Yii::$app->session;
+        $session->open();
+
+        return $this->render('checkout', compact('session'));
+    }
+
+    public function actionChangeCart()
+    {
+        $id = \Yii::$app->request->get('id');
+        $qty = \Yii::$app->request->get('qty');
+        $product = Product::findOne($id);
+        if (empty($product)) {
+            return false;
+        }
+
+        $session = \Yii::$app->session;
+        $session->open();
+        $cart = new Cart();
+        $cart->AddToCart($product, $qty);
+
         return $this->renderPartial('cart-modal', compact('session'));
     }
 
