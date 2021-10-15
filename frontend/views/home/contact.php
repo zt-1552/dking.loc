@@ -11,7 +11,16 @@ $this->registerCssFile("@web/styles/contact_responsive.css", [
     'depends' => [BootstrapAsset::class],
 ], 'css-contact-responsive');
 
+
+$this -> params['breadcrumbs'][] = [
+    'label' => 'Контакты', // название ссылки
+];
+
+
 ?>
+
+<?= $this->render('../inc/breadcrumbs')?>
+
 
 <!-- Contact Info -->
 

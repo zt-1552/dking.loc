@@ -1636,3 +1636,138 @@ select option
 {
     margin-right: 0px;
 }
+
+/*-- checkout --*/
+.checkout h2{
+    font-size:1em;
+    color:#212121;
+    text-transform:uppercase;
+    margin:0 0 3em;
+}
+.checkout h2 span{
+    color:#3399cc;
+}
+table.timetable_sub {
+    width:100%;
+    margin:0 auto;
+}
+.timetable_sub thead {
+    background: #004284;
+}
+.timetable_sub th {
+    background: #212121;
+    color: #fff !important;
+    text-transform: capitalize;
+    font-size: 13px;
+    border-right: 1px solid #ded2d2;
+}
+.timetable_sub th, .timetable_sub td {
+    text-align: center;
+    padding: 7px;
+    font-size: 14px;
+    color: #212121;
+}
+.timetable_sub td {
+    border:1px solid #CDCDCD;
+}
+td.invert-image a img {
+    width:30%;
+    margin: 0 auto;
+}
+.rem{
+    position:relative;
+}
+.close1,.close2,.close3 {
+    background: url('../images/close_1.png') no-repeat 0px 0px;
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    right: 15px;
+    top: -13px;
+    -webkit-transition: color 0.2s ease-in-out;
+    -moz-transition: color 0.2s ease-in-out;
+    -o-transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out;
+}
+
+/*-- privacy --*/
+.privacy1-grid,.privacy2-grid{
+    margin:3em 0 0;
+}
+.privacy1-grid ul{
+    margin-bottom:2em;
+}
+.privacy1-grid ul li{
+    display: inline-block;
+    font-size: 1.2em;
+    color: #212121;
+    margin-bottom: 1em;
+}
+.privacy1-grid ul li i{
+    color:#84C639;
+    top: -.5em;
+}
+.privacy1-grid ul li span,.privacy2-grid1 p{
+    display:block;
+    font-size:14px;
+    color:#999;
+    line-height:1.8em;
+}
+.privacy1-grid ul {
+    padding: 0 2em 1em;
+    border-bottom: 1px solid #E1E1E1;
+}
+.privacy2-grid1{
+    padding:0 2em;
+}
+.privacy1-grid ul li:nth-child(1) {
+    margin-right: 2em;
+}
+.privacy1-grid ul:nth-child(4){
+    padding-bottom:0;
+    border-bottom:none;
+    margin-bottom:0;
+}
+.privacy1:nth-child(2){
+    margin:3em 0 0;
+}
+.privacy2-grid1 h4{
+    font-size: 1.5em;
+    color: #84C639;
+    margin: 0 0 1em;
+    line-height: 1.5em;
+    text-transform: capitalize;
+    font-weight: 300;
+}
+.privacy2-grid1 h5{
+    font-size: 1.2em;
+    color: #212121;
+    margin: 0 0 1em;
+    text-transform: capitalize;
+}
+.privacy2-grid1-sub:nth-child(2){
+    margin:2em 0;
+}
+.privacy1 h3 {
+    font-size: 1.5em;
+    color: #FA1818;
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 3px;
+    padding-bottom: .5em;
+    position: relative;
+}
+.privacy1 h3:after{
+    content:'';
+    position:absolute;
+    bottom:0%;
+    left:0%;
+    background:#212121;
+    height:2px;
+    width:10%;
+}
+.privacy2-grid1-sub {
+    margin: 2em 0 0;
+}
+/*-- //privacy --*/
