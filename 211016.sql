@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 13 2021 г., 10:58
+-- Время создания: Окт 16 2021 г., 18:10
 -- Версия сервера: 5.6.47
 -- Версия PHP: 7.4.5
 
@@ -110,6 +110,16 @@ CREATE TABLE `category_attributes` (
   `attributes_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Дамп данных таблицы `category_attributes`
+--
+
+INSERT INTO `category_attributes` (`category_id`, `attributes_id`) VALUES
+(17, 1),
+(17, 2),
+(17, 3),
+(17, 4);
+
 -- --------------------------------------------------------
 
 --
@@ -148,16 +158,23 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL DEFAULT '2',
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `comment` varchar(100) COLLATE utf8_unicode_ci DEFAULT 'Без комментария',
-  `summa` int(11) DEFAULT NULL,
-  `status` tinyint(3) DEFAULT '0',
-  `created_at` date DEFAULT NULL,
-  `updated_at` date DEFAULT NULL
+  `summa` int(11) NOT NULL,
+  `status` tinyint(3) NOT NULL DEFAULT '0',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `name`, `email`, `address`, `comment`, `summa`, `status`, `created_at`, `updated_at`) VALUES
+(14, 2, 'Юрий', 'zt1552@gmail.com', 'ул. Леси Украинки 14', 'fxhfxhxg', 2725, 0, '2021-10-16 17:54:35', '2021-10-16 17:54:35');
 
 -- --------------------------------------------------------
 
@@ -170,11 +187,20 @@ CREATE TABLE `orders_item` (
   `orders_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `product_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `price` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
-  `quantity` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `price` int(11) UNSIGNED NOT NULL,
+  `quantity` int(11) UNSIGNED NOT NULL,
   `comment` varchar(100) COLLATE utf8_unicode_ci DEFAULT '<Без комментария',
-  `summa` int(11) DEFAULT NULL
+  `summa` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `orders_item`
+--
+
+INSERT INTO `orders_item` (`id`, `orders_id`, `product_id`, `product_name`, `price`, `quantity`, `comment`, `summa`) VALUES
+(12, 14, 7, 'Мобильный телефон Самсунг', 2050, 1, '<Без комментария', 2050),
+(13, 14, 18, 'Huawei MediaPad', 225, 1, '<Без комментария', 225),
+(14, 14, 20, 'Canon STM Kit...', 225, 2, '<Без комментария', 450);
 
 -- --------------------------------------------------------
 
@@ -254,6 +280,48 @@ CREATE TABLE `product_values` (
   `values_id` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Дамп данных таблицы `product_values`
+--
+
+INSERT INTO `product_values` (`product_id`, `values_id`) VALUES
+(17, 1),
+(17, 5),
+(17, 9),
+(17, 12),
+(18, 2),
+(18, 6),
+(18, 10),
+(18, 13),
+(19, 3),
+(19, 6),
+(19, 10),
+(19, 12),
+(20, 3),
+(20, 7),
+(20, 11),
+(20, 14),
+(21, 1),
+(21, 8),
+(21, 9),
+(21, 15),
+(22, 2),
+(22, 6),
+(22, 10),
+(22, 16),
+(23, 3),
+(23, 6),
+(23, 10),
+(23, 17),
+(24, 3),
+(24, 7),
+(24, 11),
+(24, 18),
+(25, 1),
+(25, 7),
+(25, 9),
+(25, 19);
+
 -- --------------------------------------------------------
 
 --
@@ -278,7 +346,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`) VALUES
-(1, 'admin', '3npL4eCy5H0lBmkOIOft1Yix9ougDJAW', '$2y$13$tuDfjENGmEGBJah.DY5MROctwqgMN7801I7DOtR7vTUefeXNNhPSG', NULL, 'admin@admin.ua', 10, 1633021980, 1633021980, 'axGPROLFsoHZ8clfT7eCAOzTeR25ljmq_1633021980');
+(1, 'admin', '3npL4eCy5H0lBmkOIOft1Yix9ougDJAW', '$2y$13$tuDfjENGmEGBJah.DY5MROctwqgMN7801I7DOtR7vTUefeXNNhPSG', NULL, 'admin@admin.ua', 10, 1633021980, 1633021980, 'axGPROLFsoHZ8clfT7eCAOzTeR25ljmq_1633021980'),
+(2, 'admin2', 'Z7CuTMLFHzkfkH7vWTY8ylWMyUzfhVIq', '$2y$13$8yVPMm61ZI3utqfCByqtnu/Iinc6xjv/rz8PuH5WG8DH8glVL/t8y', NULL, 'zt15521@gmail.com', 9, 1634314946, 1634314946, '5NCcW3ImXNTzVZotleom5auQehDYtQQe_1634314946');
 
 -- --------------------------------------------------------
 
@@ -414,13 +483,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT для таблицы `orders_item`
 --
 ALTER TABLE `orders_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT для таблицы `product`
@@ -432,7 +501,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT для таблицы `values`
