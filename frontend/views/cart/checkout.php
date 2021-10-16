@@ -15,6 +15,8 @@ $this->params['breadcrumbs'][] = [
 
     <h2 class="m-5">Оформление заказа</h2>
 
+    <?= \common\widgets\Alert::widget() ?>
+
     <?php if(!empty($session['cart'])): ?>
 
     <div class="row">
@@ -70,53 +72,19 @@ $this->params['breadcrumbs'][] = [
     <?php endif; ?>
 
 
-    <div class="checkout-left">
-        <div class="col-md-8 address_form_agile">
-            <h4>Add a new Details</h4>
-            <form action="payment.html" method="post" class="creditly-card-form agileinfo_form">
-                <section class="creditly-wrapper wthree, w3_agileits_wrapper">
-                    <div class="information-wrapper">
-                        <div class="first-row form-group">
-                            <div class="controls">
-                                <label class="control-label">Full name: </label>
-                                <input class="billing-address-name form-control" type="text" name="name" placeholder="Full name">
-                            </div>
-                            <div class="w3_agileits_card_number_grids">
-                                <div class="w3_agileits_card_number_grid_left">
-                                    <div class="controls">
-                                        <label class="control-label">Mobile number:</label>
-                                        <input class="form-control" type="text" placeholder="Mobile number">
-                                    </div>
-                                </div>
-                                <div class="w3_agileits_card_number_grid_right">
-                                    <div class="controls">
-                                        <label class="control-label">Landmark: </label>
-                                        <input class="form-control" type="text" placeholder="Landmark">
-                                    </div>
-                                </div>
-                                <div class="clear"> </div>
-                            </div>
-                            <div class="controls">
-                                <label class="control-label">Town/City: </label>
-                                <input class="form-control" type="text" placeholder="Town/City">
-                            </div>
-                            <div class="controls">
-                                <label class="control-label">Address type: </label>
-                                <select class="form-control option-w3ls">
-                                    <option>Office</option>
-                                    <option>Home</option>
-                                    <option>Commercial</option>
-
-                                </select>
-                            </div>
-                        </div>
-                        <button class="submit check_out">Delivery to this Address</button>
-                    </div>
-                </section>
-            </form>
-            <div class="checkout-right-basket">
-                <a href="payment.html">Make a Payment <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></a>
-            </div>
+    <div class="row">
+        <div class="col-md-6 mb-5 mt-5">
+            <h3>Данные покупателя</h3>
+            <?php $form = \yii\widgets\ActiveForm::begin() ?>
+                <?= $form->field($formOrders, 'name') ?>
+                <?= $form->field($formOrders, 'email') ?>
+                <?= $form->field($formOrders, 'address') ?>
+<!--                --><?//= $form->field($formOrders, 'tel') ?>
+                <?= $form->field($formOrders, 'comment')->textarea(['rows' => 5]) ?>
+                <?= \yii\helpers\Html::submitButton('Заказать', [
+                    'class' => 'btn btn-success m-2'
+                ]) ?>
+            <?php $form = \yii\widgets\ActiveForm::end() ?>
         </div>
     </div>
 </div>
