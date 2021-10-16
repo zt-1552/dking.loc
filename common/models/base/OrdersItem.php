@@ -11,10 +11,10 @@ use Yii;
  * @property int $orders_id
  * @property int $product_id
  * @property string $product_name
- * @property string $price
- * @property string $quantity
+ * @property int $price
+ * @property int $quantity
  * @property string|null $comment
- * @property int|null $summa
+ * @property int $summa
  *
  * @property Orders $orders
  * @property Product $product
@@ -35,11 +35,10 @@ class OrdersItem extends \common\models\base\ActiveRecord
     public function rules()
     {
         return [
-            [['orders_id', 'product_id', 'product_name', 'quantity'], 'required'],
-            [['orders_id', 'product_id', 'summa'], 'integer'],
+            [['orders_id', 'product_id', 'product_name', 'price', 'quantity', 'summa'], 'required'],
+            [['orders_id', 'product_id', 'price', 'quantity', 'summa'], 'integer'],
             [['product_name'], 'string', 'max' => 255],
-            [['price'], 'string', 'max' => 50],
-            [['quantity', 'comment'], 'string', 'max' => 100],
+            [['comment'], 'string', 'max' => 100],
             [['orders_id'], 'exist', 'skipOnError' => true, 'targetClass' => Orders::className(), 'targetAttribute' => ['orders_id' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::className(), 'targetAttribute' => ['product_id' => 'id']],
         ];

@@ -5,6 +5,8 @@ namespace frontend\controllers;
 
 
 use backend\components\AppController;
+use common\models\OrdersItem;
+use common\models\Orders;
 use common\models\Cart;
 use common\models\Product;
 
@@ -70,7 +72,28 @@ class CartController extends AppController
         $session = \Yii::$app->session;
         $session->open();
 
-        return $this->render('checkout', compact('session'));
+        $formOrders = new Orders();
+        $formOrdersItem = new OrdersItem();
+
+        if($formOrders->load(\Yii::$app->request->post())) {
+            $formOrders->summa = $session['cart.sum'];
+            $transaction = \Yii::$app->getDb()->beginTransaction();
+//            debug($formOrders);
+            if (!$formOrders->save() || !$formOrdersItem->saveOrdersItem($session['cart'], $formOrders->id)) {
+                $transaction->rollBack();
+                \Yii::$app->session->setFlash('error', 'Ошибка сохранения заказа!');
+            } else {
+                $transaction->commit();
+                \Yii::$app->session->setFlash('success', 'Заказ принят!');
+                $session->remove('cart');
+                $session->remove('cart.qty');
+                $session->remove('cart.sum');
+                return  $this->refresh();
+            }
+        }
+
+
+        return $this->render('checkout', compact('session', 'formOrders', 'formOrdersItem'));
     }
 
     public function actionChangeCart()

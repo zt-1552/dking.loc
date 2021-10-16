@@ -2,6 +2,7 @@
 
 namespace common\models\base;
 
+use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -25,20 +26,6 @@ use yii\behaviors\TimestampBehavior;
 class Orders extends \common\models\base\ActiveRecord
 {
 
-    public function behaviors()
-    {
-        return [
-            [
-                'class' => TimestampBehavior::class,
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-                ],
-                // если вместо метки времени UNIX используется datetime:
-                // 'value' => new Expression('NOW()'),
-            ],
-        ];
-    }
 
 
     /**
@@ -55,13 +42,14 @@ class Orders extends \common\models\base\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'name', 'email', 'address'], 'required'],
+            [['name', 'email', 'address'], 'required'],
             [['user_id', 'summa', 'status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 255],
             [['email'], 'string', 'max' => 50],
             [['address', 'comment'], 'string', 'max' => 100],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+//            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'default', 'value' => 2]
         ];
     }
 
@@ -73,10 +61,10 @@ class Orders extends \common\models\base\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'name' => 'Name',
+            'name' => 'Имя',
             'email' => 'Email',
-            'address' => 'Address',
-            'comment' => 'Comment',
+            'address' => 'Адрес',
+            'comment' => 'Комментарий',
             'summa' => 'Summa',
             'status' => 'Status',
             'created_at' => 'Created At',

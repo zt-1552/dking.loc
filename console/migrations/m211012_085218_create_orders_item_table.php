@@ -17,10 +17,10 @@ class m211012_085218_create_orders_item_table extends Migration
             'orders_id' => $this->integer()->notNull(),
             'product_id' => $this->integer()->notNull(),
             'product_name' => $this->string(255)->notNull(),
-            'price' => $this->string(50)->notNull()->defaultValue(0),
-            'quantity' => $this->string(100)->unsigned()->notNull(),
+            'price' => $this->integer()->unsigned()->notNull(),
+            'quantity' => $this->integer()->unsigned()->notNull(),
             'comment' => $this->string(100)->defaultValue('<Без комментария'),
-            'summa' => $this->integer()->unsigned(),
+            'summa' => $this->integer()->unsigned()->notNull(),
 
         ]);
 

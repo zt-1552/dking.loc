@@ -16,6 +16,16 @@ return [
     'layout' => 'front1',
     'name' => 'Интернет-магазин OneTouch',
     'components' => [
+        'assetManager' => [
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'sourcePath' => null,   // не опубликовывать комплект
+                    'js' => [
+                        '/js/jquery-3.3.1.min.js',
+                    ]
+                ],
+            ],
+        ],
         'request' => [
             'csrfParam' => '_csrf-frontend',
             'baseUrl' => '',
