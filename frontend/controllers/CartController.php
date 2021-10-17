@@ -85,6 +85,15 @@ class CartController extends AppController
             } else {
                 $transaction->commit();
                 \Yii::$app->session->setFlash('success', 'Заказ принят!');
+
+                \Yii::$app->mailer->compose('order', ['cart' => $session['cart'], 'qty' => $session['cart.qty'], 'sum' => $session['cart.sum']])
+                    ->setFrom([\Yii::$app->params['senderEmail'] => \Yii::$app->params['senderName']])
+                    ->setTo($formOrders->email, \Yii::$app->params['adminEmail'])
+                    ->setSubject('Заказ на сайте')
+                    ->send();
+
+//                debug($session['cart']);
+
                 $session->remove('cart');
                 $session->remove('cart.qty');
                 $session->remove('cart.sum');
