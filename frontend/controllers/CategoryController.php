@@ -6,7 +6,9 @@ namespace frontend\controllers;
 
 use backend\components\AppController;
 use common\models\Category;
+use common\models\CategoryAttributes;
 use common\models\Product;
+use common\models\Values;
 use Yii;
 use yii\data\Pagination;
 use yii\helpers\BaseUrl;
@@ -54,6 +56,8 @@ class CategoryController extends AppController
 //        $child_category = $this->getChild($id); // max 3 level tree, min request
         $child_all_category = $this->getAllChild($id);// for all level tree, + request
 
+
+
         $query = Product::find();
         $query->where(['category_id' => $id]);
         if(isset($child_all_category[1])) {
@@ -61,11 +65,26 @@ class CategoryController extends AppController
                 $query->orWhere(['category_id' => $item['id']]);
             }
         }
-
         $child_categories = $child_all_category[0];
 
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
+
+
+        // filters (attributes + values)
+        $categoryAttributes = CategoryAttributes::find()->where(['category_id' => $id])->with('attributes0')->asArray()->all();
+//        debug($categoryAttributes);
+
+        if (!empty($categoryAttributes)) {
+             foreach ($categoryAttributes as $categoryAttribute):
+                 $attribute_id = $categoryAttribute['attributes0']['id'];
+                 $values = Values::find()->asArray()->where(['attributes_id' => $categoryAttribute['attributes0']['id']])->all();
+//                 debug($values);
+                 array_push($categoryAttribute, $values);
+                 debug($categoryAttribute);
+             endforeach;
+        }
+
 
         return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'pages'));
     }
