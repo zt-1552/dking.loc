@@ -1,5 +1,9 @@
 <?php
 
+use common\models\Product;
+use yii\data\ActiveDataProvider;
+use yii\widgets\ListView;
+
 ?>
 <!-- Home -->
 
@@ -57,11 +61,9 @@
 
                 <!-- Shop Content -->
 
-
-
                 <div class="shop_content">
                     <div class="shop_bar clearfix">
-                        <div class="shop_product_count"><span><?= $pages->totalCount; ?></span> товаров найдено, показано <?= count($products)?></div>
+<!--                        <div class="shop_product_count"><span>--><?//= $pages->totalCount; ?><!--</span> товаров найдено, показано --><?//= count($products)?><!--</div>-->
                         <div class="shop_sorting">
                             <span>Сортировка:</span>
                             <ul>
@@ -81,25 +83,14 @@
                         <div class="product_grid_border"></div>
 
                         <?php if(!empty($products)) : ?>
-                        <?php  foreach ($products as $product): ?>
+                        <?php
 
-                        <!-- Product Item -->
-                        <div class="product_item is_new">
-                            <div class="product_border"></div>
-                            <div class="product_image d-flex flex-column align-items-center justify-content-center"><?= \yii\helpers\Html::img("{$product->image}", ['alt' => $product->title]) ?></div>
-                            <div class="product_content">
-                                <div class="product_price">$<?= $product->price ?></div>
-                                <div class="product_name"><div><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $product->id]) ?>" tabindex="0"><?= $product->title ?></a></div></div>
-                            </div>
-                            <a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $product->id])?>" data-id="<?= $product->id ?>" class="add_to_cart btn btn-light btn-sm">Купить</a>
-                            <div class="product_fav"><i class="fas fa-heart"></i></div>
-                            <ul class="product_marks">
-                                <?= ($product->is_offer === 1) ? '<li class="product_mark product_discount">Sale</li>' : ''; ?>
-<!--                                <li class="product_mark product_new">new</li>-->
-                            </ul>
-                        </div>
+                            echo ListView::widget([
+                                'dataProvider' => $dataProvider,
+                                'itemView' => '_list',
+                            ]);
+                            ?>
 
-                            <?php  endforeach; ?>
                         <?php else: ?>
                             <h3>Здесь пока нету товаров....</h3>
                         <?php endif; ?>
@@ -109,15 +100,14 @@
 
                     <!-- Shop Page Navigation -->
                     <div class="shop_page_nav d-flex flex-row">
-<!--                        <div class="page_prev d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-left"></i></div>-->
-                        <?= \yii\widgets\LinkPager::widget([
-                            'pagination' => $pages,
-                            'options' => [
-                                'tag' => 'ul',
-                                'class' => 'page_nav d-flex flex-row',
-                            ],
-                        ])?>
-<!--                        <div class="page_next d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-right"></i></div>-->
+                        <div class="page_prev d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-left"></i></div>
+<!--                        --><?//= \yii\widgets\LinkPager::widget([
+//                            'options' => [
+//                                'tag' => 'ul',
+//                                'class' => 'page_nav d-flex flex-row',
+//                            ],
+//                        ])?>
+                        <div class="page_next d-flex flex-column align-items-center justify-content-center"><i class="fas fa-chevron-right"></i></div>
                     </div>
 
                 </div>

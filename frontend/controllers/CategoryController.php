@@ -8,8 +8,10 @@ use backend\components\AppController;
 use common\models\Category;
 use common\models\CategoryAttributes;
 use common\models\Product;
+use common\models\ProductSearch;
 use common\models\Values;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
 use yii\helpers\BaseUrl;
 use yii\helpers\Url;
@@ -68,11 +70,27 @@ class CategoryController extends AppController
             }
         }
 
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+//            'pagination' => [
+//                'pageSize' => 10,
+//            ],
+        ]);
+
+        $searchModel = new ProductSearch();
+
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
+
+        $dataProvider->setPagination(['pageSize' => 10]);
+
+
+
         // Подкатегории только нижнего уровня
         $child_categories = $child_all_category[0];
 
         // Пагинация
-        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
+//        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
 
 
@@ -87,7 +105,7 @@ class CategoryController extends AppController
 
 
 
-        return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'pages', 'categoryAttributes'));
+        return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'categoryAttributes', 'dataProvider', 'searchModel'));
     }
 
 
