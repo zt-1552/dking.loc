@@ -1770,4 +1770,12 @@ td.invert-image a img {
 .privacy2-grid1-sub {
     margin: 2em 0 0;
 }
+
+.custom_dropdown {
+    display: none;
+}
+
+.header_search_input {
+    width: calc((100% - 50px));
+}
 /*-- //privacy --*/

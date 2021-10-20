@@ -33,6 +33,7 @@ class CategoryController extends AppController
             throw new NotFoundHttpException('Такой категории нет....');
         }
 
+        // Установка метатегов
         $this->setMeta("{$category->meta_title} :: " . \Yii::$app->name, $category->meta_description);
 
 
@@ -51,39 +52,39 @@ class CategoryController extends AppController
             $this->view->params['breadcrumbs'][]['label'] =  $last_bread['name'];
         }
 
+        // Главные категории
         \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
 
+        //Все ПодКатегории всех уровней этой категории
 //        $child_category = $this->getChild($id); // max 3 level tree, min request
         $child_all_category = $this->getAllChild($id);// for all level tree, + request
 
-
-
+        // Список товаров
         $query = Product::find();
-        $query->where(['category_id' => $id]);
+        $query->with('values')->where(['category_id' => $id]);
         if(isset($child_all_category[1])) {
             foreach ($child_all_category[1] as $item) {
                 $query->orWhere(['category_id' => $item['id']]);
             }
         }
+
+        // Подкатегории только нижнего уровня
         $child_categories = $child_all_category[0];
 
+        // Пагинация
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
 
 
         // filters (attributes + values)
         $categoryAttributes = CategoryAttributes::find()->where(['category_id' => $id])->with('attributes0')->asArray()->all();
-//        debug($categoryAttributes);
-
         if (!empty($categoryAttributes)) {
              foreach ($categoryAttributes as &$categoryAttribute):
                  $values = Values::find()->asArray()->where(['attributes_id' => $categoryAttribute['attributes0']['id']])->all();
-//                 debug($values);
                  $categoryAttribute['attributeValue'] = $values;
-//                 array_push($categoryAttribute, $values);
              endforeach;
         }
-//        debug($categoryAttributes);
+
 
 
         return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'pages', 'categoryAttributes'));

@@ -39,19 +39,7 @@
                             <p><input type="text" id="amount" class="amount" readonly style="border:0; font-weight:bold;"></p>
                         </div>
                     </div>
-                    <div class="sidebar_section">
-                        <div class="sidebar_subtitle brands_subtitle">Brands</div>
-                        <ul class="brands_list">
-                            <li class="brand"><a href="#">Apple</a></li>
-                            <li class="brand"><a href="#">Beoplay</a></li>
-                            <li class="brand"><a href="#">Google</a></li>
-                            <li class="brand"><a href="#">Meizu</a></li>
-                            <li class="brand"><a href="#">OnePlus</a></li>
-                            <li class="brand"><a href="#">Samsung</a></li>
-                            <li class="brand"><a href="#">Sony</a></li>
-                            <li class="brand"><a href="#">Xiaomi</a></li>
-                        </ul>
-                    </div>
+
                 </div>
 
             </div>

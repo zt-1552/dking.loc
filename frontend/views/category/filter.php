@@ -1,13 +1,10 @@
 <div class="sidebar_section">
-    <div class="sidebar_subtitle brands_subtitle"><?= $categoryAttributes['attributes0']['title'] ?>></div>
+    <?php foreach ($categoryAttributes as $categoryAttribute):?>
+    <div class="sidebar_subtitle brands_subtitle"><?= $categoryAttribute['attributes0']['title'] ?></div>
     <ul class="brands_list">
-        <li class="brand"><a href="#">Apple</a></li>
-        <li class="brand"><a href="#">Beoplay</a></li>
-        <li class="brand"><a href="#">Google</a></li>
-        <li class="brand"><a href="#">Meizu</a></li>
-        <li class="brand"><a href="#">OnePlus</a></li>
-        <li class="brand"><a href="#">Samsung</a></li>
-        <li class="brand"><a href="#">Sony</a></li>
-        <li class="brand"><a href="#">Xiaomi</a></li>
+        <?php foreach ($categoryAttribute['attributeValue'] as $attributeValue):?>
+        <li class="brand" data-id="<?= $attributeValue['id'] ?>" data-slug="<?= $attributeValue['slug'] ?>"><a href=""><?= $attributeValue['value'] ?></a></li>
+        <?php endforeach;  ?>
     </ul>
+    <?php endforeach;  ?>
 </div>

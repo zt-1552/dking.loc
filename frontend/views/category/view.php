@@ -36,8 +36,8 @@
                     </div>
                     <?php } ?>
                     <div class="sidebar_section filter_by_section">
-                        <div class="sidebar_title">Filter By</div>
-                        <div class="sidebar_subtitle">Price</div>
+                        <div class="sidebar_title">Фильтры</div>
+                        <div class="sidebar_subtitle">Цена</div>
                         <div class="filter_price">
                             <div id="slider-range" class="slider_range"></div>
                             <p>Range: </p>
@@ -46,21 +46,9 @@
                     </div>
 
                     <?php if (!empty($categoryAttributes)) {?>
-
+                        <?= $this->render('filter', compact('categoryAttributes')); ?>
                     <?php } ?>
-<!--                    <div class="sidebar_section">-->
-<!--                        <div class="sidebar_subtitle brands_subtitle">Brands</div>-->
-<!--                        <ul class="brands_list">-->
-<!--                            <li class="brand"><a href="#">Apple</a></li>-->
-<!--                            <li class="brand"><a href="#">Beoplay</a></li>-->
-<!--                            <li class="brand"><a href="#">Google</a></li>-->
-<!--                            <li class="brand"><a href="#">Meizu</a></li>-->
-<!--                            <li class="brand"><a href="#">OnePlus</a></li>-->
-<!--                            <li class="brand"><a href="#">Samsung</a></li>-->
-<!--                            <li class="brand"><a href="#">Sony</a></li>-->
-<!--                            <li class="brand"><a href="#">Xiaomi</a></li>-->
-<!--                        </ul>-->
-<!--                    </div>-->
+
                 </div>
 
             </div>
