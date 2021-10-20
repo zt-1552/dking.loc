@@ -1,5 +1,5 @@
 <div class="sidebar_section">
-    <div class="sidebar_subtitle brands_subtitle">Brands</div>
+    <div class="sidebar_subtitle brands_subtitle"><?= $categoryAttributes['attributes0']['title'] ?>></div>
     <ul class="brands_list">
         <li class="brand"><a href="#">Apple</a></li>
         <li class="brand"><a href="#">Beoplay</a></li>

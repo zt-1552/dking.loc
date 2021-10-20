@@ -45,8 +45,9 @@
                         </div>
                     </div>
 
-<!--                    --><?php //if (!empty()) {?>
-<!--                    --><?php //} ?>
+                    <?php if (!empty($categoryAttributes)) {?>
+
+                    <?php } ?>
 <!--                    <div class="sidebar_section">-->
 <!--                        <div class="sidebar_subtitle brands_subtitle">Brands</div>-->
 <!--                        <ul class="brands_list">-->

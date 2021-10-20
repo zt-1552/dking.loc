@@ -37,6 +37,7 @@ class ProductController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = 'admin';
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 

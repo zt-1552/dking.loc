@@ -76,17 +76,17 @@ class CategoryController extends AppController
 //        debug($categoryAttributes);
 
         if (!empty($categoryAttributes)) {
-             foreach ($categoryAttributes as $categoryAttribute):
-                 $attribute_id = $categoryAttribute['attributes0']['id'];
+             foreach ($categoryAttributes as &$categoryAttribute):
                  $values = Values::find()->asArray()->where(['attributes_id' => $categoryAttribute['attributes0']['id']])->all();
 //                 debug($values);
-                 array_push($categoryAttribute, $values);
-                 debug($categoryAttribute);
+                 $categoryAttribute['attributeValue'] = $values;
+//                 array_push($categoryAttribute, $values);
              endforeach;
         }
+//        debug($categoryAttributes);
 
 
-        return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'pages'));
+        return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'pages', 'categoryAttributes'));
     }
 
 
@@ -99,8 +99,6 @@ class CategoryController extends AppController
 
         \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
 
-        // устанавливаем мета-теги для страницы
-//        $this->setMetaTags('Поиск по каталогу');
 
         return $this->render(
             'search',
