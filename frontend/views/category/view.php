@@ -2,6 +2,9 @@
 
 use common\models\Product;
 use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use yii\widgets\ListView;
 
 ?>
@@ -47,6 +50,31 @@ use yii\widgets\ListView;
                             <p>Range: </p>
                             <p><input type="text" id="amount" class="amount" readonly style="border:0; font-weight:bold;"></p>
                         </div>
+                    </div>
+
+                    <div class="product-search">
+
+                        <?php $form = ActiveForm::begin([
+                            'action' => ['view'],
+                            'method' => 'get',
+                        ]); ?>
+
+<!--                        --><?//= $form->field($searchModel, 'id') ?>
+
+<!--                        --><?//= $form->field($searchModel, 'category_id') ?>
+
+                        <?= $form->field($searchModel, 'title') ?>
+
+                        <?= $form->field($searchModel, 'id')->checkboxList(ArrayHelper::map(\common\models\ProductValues::find()->all(), 'slug', 'value', 'attributes_id')); ?>
+
+
+                        <div class="form-group">
+                            <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+                            <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+                        </div>
+
+                        <?php ActiveForm::end(); ?>
+
                     </div>
 
                     <?php if (!empty($categoryAttributes)) {?>

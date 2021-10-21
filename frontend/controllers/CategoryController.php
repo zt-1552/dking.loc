@@ -81,6 +81,7 @@ class CategoryController extends AppController
         $searchModel = new ProductSearch();
 
         $dataProvider = $searchModel->search(Yii::$app->request->get());
+//        $dataProvider = $searchModel->search($this->request->queryParams);
 
         $dataProvider->setPagination(['pageSize' => 10]);
 
