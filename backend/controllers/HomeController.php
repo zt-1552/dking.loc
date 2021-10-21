@@ -4,7 +4,7 @@
 namespace backend\controllers;
 
 
-class HomeController extends \backend\components\AppController
+class HomeController extends \backend\components\AppAdminController
 {
 
 

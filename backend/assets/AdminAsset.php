@@ -16,12 +16,10 @@ class AdminAsset extends AssetBundle
         'css/adminlte.min.css'
     ];
     public $js = [
-//        'js/jquery.min.js',
         'js/bootstrap.bundle.min.js',
         'js/adminlte.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
-//        'yii\bootstrap4\BootstrapAsset',
     ];
 }

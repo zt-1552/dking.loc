@@ -15,4 +15,7 @@ $config = yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/../config/main-local.php'
 );
 
+require_once __DIR__ . '/../../common/libs/functions.php';
+
+
 (new yii\web\Application($config))->run();
