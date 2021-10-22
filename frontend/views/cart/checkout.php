@@ -1,5 +1,7 @@
 <?php
 
+use yii\widgets\Pjax;
+
 $this->params['breadcrumbs'][] = [
     'label' => 'Оформление заказа', // название ссылки
 ];
@@ -19,6 +21,7 @@ $this->params['breadcrumbs'][] = [
 
     <?php if(!empty($session['cart'])): ?>
 
+        <?php Pjax::begin(); ?>
     <div class="row">
         <h3>В вашей корзине: <span><?= $session['cart.qty'] ?> товаров</span></h3>
         <table class="table table-bordered align-middle mb-0">
@@ -33,6 +36,8 @@ $this->params['breadcrumbs'][] = [
             </tr>
             </thead>
             <tbody>
+
+
 
             <?php
             $i = 0;
@@ -59,12 +64,15 @@ $this->params['breadcrumbs'][] = [
 
             <?php endforeach; ?>
 
+
             </tbody>
         </table>
         <div class="mb-2 p-3 w-100 text-end bg-info">
             <p class="h4 text-end">Общая сумма - $<?= $session['cart.sum'] ?></p>
         </div>
     </div>
+        <?php Pjax::end(); ?>
+
     <?php else:  ?>
 
         <h3 class="p-3 mb-5 bg-primary text-center">Корзина пуста</h3>

@@ -3,7 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Orders;
-use backend\controllers\OrdersSearchController;
+use common\models\OrdersSearch;
 use backend\components\AppAdminController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -37,7 +37,7 @@ class OrdersController extends AppAdminController
      */
     public function actionIndex()
     {
-        $searchModel = new OrdersSearchController();
+        $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
