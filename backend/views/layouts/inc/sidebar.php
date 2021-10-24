@@ -38,6 +38,28 @@
 
                     </ul>
                 </li>
+                <li class="nav-item treeview">
+                    <a href="#" class="nav-link">
+                        <!--                        <i class="nav-icon fas fa-tachometer-alt"></i>-->
+                        <p>
+                            Категории
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= \yii\helpers\Url::to(['/category/index'])?>" class="nav-link">
+                                <p>Список категорий</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= \yii\helpers\Url::to(['/category/create'])?>" class="nav-link">
+                                <p>Добавить категорию</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a href="<?= \yii\helpers\Url::to(['/product/'])?>" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>

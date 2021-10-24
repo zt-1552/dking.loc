@@ -50,8 +50,8 @@ class Category extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'parent_id' => 'Parent ID',
-            'name' => 'Name',
+            'parent_id' => 'Родительская категория',
+            'name' => 'Ниаменование',
             'meta_title' => 'Meta Title',
             'meta_description' => 'Meta Description',
             'content' => 'Content',

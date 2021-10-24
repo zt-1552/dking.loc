@@ -36,7 +36,6 @@ class CategoryController extends AppController
         // Установка метатегов
         $this->setMeta("{$category->meta_title} :: " . \Yii::$app->name, $category->meta_description);
 
-
         // Breadcrumbs
         $breadcrumbs = $this->getParents($id);
         if (count($breadcrumbs) > 1) {
@@ -85,8 +84,6 @@ class CategoryController extends AppController
              endforeach;
         }
 
-
-
         return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'pages', 'categoryAttributes'));
     }
 
@@ -106,7 +103,6 @@ class CategoryController extends AppController
             compact('products', 'pages', 'query')
         );
     }
-
 
 
     /**
