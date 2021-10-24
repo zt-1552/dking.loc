@@ -16,33 +16,33 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
+                <li class="nav-item treeview">
+                    <a href="#" class="nav-link">
 <!--                        <i class="nav-icon fas fa-tachometer-alt"></i>-->
                         <p>
-                            Главное меню
+                            Заказы
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="<?= \yii\helpers\Url::to(['/product/'])?>" class="nav-link">
-                                <p>Товары</p>
+                            <a href="<?= \yii\helpers\Url::to(['/orders/index'])?>" class="nav-link">
+                                <p>Управление заказами</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="<?= \yii\helpers\Url::to(['/orders/'])?>" class="nav-link">
-                                <p>Заказы</p>
+                            <a href="<?= \yii\helpers\Url::to(['/orders/create'])?>" class="nav-link">
+                                <p>Добавить заказ</p>
                             </a>
                         </li>
 
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= \yii\helpers\Url::to(['/orders/'])?>" class="nav-link">
+                    <a href="<?= \yii\helpers\Url::to(['/product/'])?>" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Заказы
+                            Товары
                         </p>
                     </a>
                 </li>

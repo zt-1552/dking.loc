@@ -47,7 +47,7 @@ class OrdersSearch extends Orders
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 2,
+                'pageSize' => 7,
             ]
         ]);
 

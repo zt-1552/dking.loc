@@ -65,10 +65,10 @@ class Orders extends \common\models\base\ActiveRecord
             'email' => 'Email',
             'address' => 'Адрес',
             'comment' => 'Комментарий',
-            'summa' => 'Summa',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'summa' => 'Сумма',
+            'status' => 'Статус',
+            'created_at' => 'Создано',
+            'updated_at' => 'Обновлено',
         ];
     }
 
@@ -79,7 +79,7 @@ class Orders extends \common\models\base\ActiveRecord
      */
     public function getOrdersItems()
     {
-        return $this->hasMany(OrdersItem::className(), ['orders_id' => 'id']);
+        return $this->hasMany(OrdersItem::class, ['orders_id' => 'id']);
     }
 
     /**
@@ -89,6 +89,6 @@ class Orders extends \common\models\base\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }

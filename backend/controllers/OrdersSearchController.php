@@ -46,8 +46,10 @@ class OrdersSearchController extends Orders
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => [
-                'pageSize' => 2,
+            'sort' => [
+                'defaultOrder' => [
+                    'status' => SORT_DESC,
+                ]
             ]
         ]);
 

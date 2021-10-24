@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Orders', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать заказ', ['create'], ['class' => 'btn btn-info']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -30,18 +30,40 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
 
-                    'id',
-                    'user_id',
+//                    'id',
+                    [
+                        'attribute' => 'id',
+                        'headerOptions' => ['style' => 'width:5%'],
+                    ],
+                    [
+                        'attribute' => 'user_id',
+                        'headerOptions' => ['style' => 'width:7%'],
+                    ],
                     'name',
-                    'email:email',
+                    'email',
                     'address',
-                    //'comment',
-                    //'summa',
-                    //'status',
-                    //'created_at',
-                    //'updated_at',
-
-                    ['class' => 'yii\grid\ActionColumn'],
+                    'comment',
+                    'summa',
+                    [
+                        'attribute' => 'status',
+                        'headerOptions' => ['style' => 'width:5%'],
+                        'value' => function($data){
+                            return $data->status ? '<span class="text-green">Завершен</span>' : '<span class="text-red">Новый</span>';
+                        },
+                        'format' => 'html',
+                    ],
+                    [
+                        'attribute' => 'created_at',
+                        'format' => 'datetime',
+                    ],
+                    [
+                        'attribute' => 'updated_at',
+                        'format' => 'datetime',
+                    ],
+                    ['class' => 'yii\grid\ActionColumn',
+                        'contentOptions' => ['style' => 'width:7%'],
+                        'header' => 'Действия',
+                    ],
                 ],
                 'pager' => [
                     'maxButtonCount' => 5, // максимум 5 кнопок

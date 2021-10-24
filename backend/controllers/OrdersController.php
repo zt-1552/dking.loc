@@ -22,7 +22,7 @@ class OrdersController extends AppAdminController
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -54,9 +54,11 @@ class OrdersController extends AppAdminController
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $model = $this->findModel($id);
+        $products = $model->ordersItems;
+//        debug($products);
+
+        return $this->render('view', compact('model', 'products'));
     }
 
     /**
@@ -93,8 +95,10 @@ class OrdersController extends AppAdminController
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            \Yii::$app->session->setFlash('success', 'Успешно обновлен');
             return $this->redirect(['view', 'id' => $model->id]);
         }
+
 
         return $this->render('update', [
             'model' => $model,

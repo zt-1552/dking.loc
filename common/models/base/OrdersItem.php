@@ -68,7 +68,7 @@ class OrdersItem extends \common\models\base\ActiveRecord
      */
     public function getOrders()
     {
-        return $this->hasOne(Orders::className(), ['id' => 'orders_id']);
+        return $this->hasOne(Orders::class, ['id' => 'orders_id']);
     }
 
     /**
@@ -78,6 +78,6 @@ class OrdersItem extends \common\models\base\ActiveRecord
      */
     public function getProduct()
     {
-        return $this->hasOne(Product::className(), ['id' => 'product_id']);
+        return $this->hasOne(Product::class, ['id' => 'product_id']);
     }
 }

@@ -16,6 +16,11 @@ return [
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
+        'formatter' => [
+            'defaultTimeZone' => 'Europe/Kiev',
+            'dateFormat' => 'php: d.m.Y',
+            'datetimeFormat' => 'php: d.m.Y H:i:s',
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
             'baseUrl' => '/admin',
