@@ -1,4 +1,4 @@
-@charset "utf-8";
+sidebar_categories@charset "utf-8";
 /* CSS Document */
 
 /******************************
@@ -533,7 +533,7 @@ section
 }
 .logo_container
 {
-	height: 175px;
+	height: 130px;
 }
 .logo
 {
@@ -552,7 +552,7 @@ section
 }
 .header_search
 {
-	height: 175px;
+	height: 130px;
 }
 .header_search_content
 {
@@ -764,7 +764,7 @@ select option
 }
 .wishlist_cart
 {
-	height: 175px;
+	height: 130px;
 }
 .wishlist
 {
@@ -1221,7 +1221,7 @@ select option
 .home
 {
 	width: 100%;
-	height: 260px;
+	height: 130px;
 	background: transparent;
 }
 .home_background
@@ -1259,7 +1259,7 @@ select option
 .shop
 {
 	background: #FFFFFF;
-	padding-top: 80px;
+	padding-top: 30px;
 	padding-bottom: 139px;
 }
 .shop_content
@@ -1671,10 +1671,11 @@ select option
 {
 	font-size: 18px;
 	font-weight: 500;
+	margin-top: 25px;
 }
 .sidebar_categories
 {
-	margin-top: 37px;
+	margin-top: 10px;
 }
 .sidebar_categories li
 {

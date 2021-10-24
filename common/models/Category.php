@@ -9,6 +9,22 @@ class Category extends BaseCategory
 
 
     /**
+     * Главные категории
+     * @return array|mixed
+     */
+    public function getMainCategories()
+    {
+        $data = \Yii::$app->cache->get('main_categories');
+        if ($data === false) {
+            $data = Category::find()->where(['parent_id' => null])->indexBy('id')->asArray()->all();
+
+            \Yii::$app->cache->set('main_categories', $data, 30);
+        }
+        return $data;
+    }
+
+
+    /**
      * Возвращает массив идентификаторов всех потомков категории $id,
      * т.е. дочерние, дочерние дочерних и так далее
      */
@@ -38,5 +54,7 @@ class Category extends BaseCategory
         }
         return $ids;
     }
+
+
 
 }

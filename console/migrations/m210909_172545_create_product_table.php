@@ -28,7 +28,8 @@ class m210909_172545_create_product_table extends Migration
             'meta_title'=>$this->string()->notNull()->defaultValue('Купить Тайтл для телефона Самсунг'),
             'meta_description'=>$this->string()->defaultValue('Заказать Дескрипшен Описание для телефона Самсунг'),
             'image'=>$this->string()->defaultValue("\images\product\product-1.jpg"),
-            'is_offer'=>$this->integer()->defaultValue(0),
+            'is_offer'=>$this->tinyInteger()->defaultValue(0),
+            'bestsellers'=>$this->integer()->defaultValue(0),
             'created_at'=>$this->integer()->defaultValue(null),
             ]);
 

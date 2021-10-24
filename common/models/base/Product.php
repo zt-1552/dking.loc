@@ -17,10 +17,13 @@ use Yii;
  * @property string|null $meta_description
  * @property string|null $image
  * @property int|null $is_offer
- * @property int|null $bestsellers
  * @property int|null $created_at
+ * @property int|null $bestsellers
  *
  * @property Category $category
+ * @property OrdersItem[] $ordersItems
+ * @property ProductValues[] $productValues
+ * @property Values[] $values
  */
 class Product extends \common\models\base\ActiveRecord
 {
@@ -38,7 +41,7 @@ class Product extends \common\models\base\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'price', 'old_price', 'is_offer', 'bestsellers', 'created_at'], 'integer'],
+            [['category_id', 'price', 'old_price', 'is_offer', 'created_at', 'bestsellers'], 'integer'],
             [['content'], 'string'],
             [['title', 'meta_title', 'meta_description', 'image'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
@@ -61,8 +64,8 @@ class Product extends \common\models\base\ActiveRecord
             'meta_description' => 'Meta Description',
             'image' => 'Image',
             'is_offer' => 'Is Offer',
-            'bestsellers' => 'Bestsellers',
             'created_at' => 'Created At',
+            'bestsellers' => 'Bestsellers',
         ];
     }
 
@@ -74,5 +77,35 @@ class Product extends \common\models\base\ActiveRecord
     public function getCategory()
     {
         return $this->hasOne(Category::className(), ['id' => 'category_id']);
+    }
+
+    /**
+     * Gets query for [[OrdersItems]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrdersItems()
+    {
+        return $this->hasMany(OrdersItem::className(), ['product_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[ProductValues]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductValues()
+    {
+        return $this->hasMany(ProductValues::className(), ['product_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Values]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getValues()
+    {
+        return $this->hasMany(Values::className(), ['id' => 'values_id'])->viaTable('product_values', ['product_id' => 'id']);
     }
 }
