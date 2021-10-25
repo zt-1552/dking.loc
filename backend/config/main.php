@@ -56,5 +56,16 @@ return [
             ],
         ],
     ],
+    'controllerMap' => [
+        'elfinder' => [
+            'class' => 'mihaildev\elfinder\PathController',
+            'access' => ['@'],
+            'root' => [
+                'baseUrl'=>'/files',
+                'basePath'=>'@frontend/web/files',
+                'name' => 'Files'
+            ],
+        ]
+    ],
     'params' => $params,
 ];

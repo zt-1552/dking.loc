@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $data->category->name;
                         },
                     ],
-                    'content:ntext',
+                    'content:raw',
                     'price',
                     'old_price',
                     'meta_title',

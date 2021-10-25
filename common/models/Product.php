@@ -10,6 +10,30 @@ use yii\data\Pagination;
 class Product extends baseProduct
 {
 
+    public $file;
+
+
+    public function rules()
+    {
+        return array_merge(
+            parent::rules(),
+            [
+                [['file'], 'image'],
+            ]
+        );
+    }
+
+    public function attributeLabels()
+    {
+
+        return array_merge(
+            parent::attributeLabels(),
+            [
+            'file' => 'Фото',
+            ]);
+    }
+
+
     public function getSearchResult($search, $page) {
         $search = $this->cleanSearchString($search);
         if (empty($search)) {

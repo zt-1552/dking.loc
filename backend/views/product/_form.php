@@ -1,8 +1,12 @@
 <?php
 
+use kartik\file\FileInput;
 use mihaildev\ckeditor\CKEditor;
+use mihaildev\elfinder\ElFinder;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+
+mihaildev\elfinder\Assets::noConflict($this);
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Product */
@@ -47,11 +51,17 @@ use yii\widgets\ActiveForm;
 
 <!--    --><?//= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'content')->widget(CKEditor::class,[
-        'editorOptions' => [
-            'preset' => 'full', //разработанны стандартные настройки basic, standard, full
-            'inline' => false, //по умолчанию false
-        ],
+<!--    --><?//= $form->field($model, 'content')->widget(CKEditor::class,[
+//        'editorOptions' => [
+//            'preset' => 'full', //разработанны стандартные настройки basic, standard, full
+//            'inline' => false, //по умолчанию false
+//        ],
+//    ]);?>
+
+    <?= $form->field($model, 'content')->widget(CKEditor::class, [
+
+        'editorOptions' => ElFinder::ckeditorOptions('elfinder',[/* Some CKEditor Options */]),
+
     ]);?>
 
     <?= $form->field($model, 'price')->textInput() ?>
@@ -62,11 +72,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'meta_description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+<!--    --><?//= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'file')->widget(FileInput::class, [
+        'options' => ['accept' => 'image/*'],
+    ]) ?>
 
     <?= $form->field($model, 'is_offer')->dropDownList(['', 'Sale']) ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
 
     <?= $form->field($model, 'bestsellers')->dropDownList(['', 'Bestseller']) ?>
 
