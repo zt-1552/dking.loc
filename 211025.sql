@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 24 2021 г., 09:32
--- Версия сервера: 5.6.47
--- Версия PHP: 7.4.5
+-- Время создания: Окт 25 2021 г., 21:44
+-- Версия сервера: 10.3.29-MariaDB
+-- Версия PHP: 7.4.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -55,13 +55,13 @@ CREATE TABLE `category` (
   `parent_id` int(11) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `meta_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `meta_description` text COLLATE utf8_unicode_ci,
-  `content` text COLLATE utf8_unicode_ci,
-  `short_content` text COLLATE utf8_unicode_ci,
+  `meta_description` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `content` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `short_content` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `status` int(11) DEFAULT '1',
-  `created_at` date DEFAULT NULL,
-  `updated_at` date DEFAULT NULL
+  `status` int(11) DEFAULT 1,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `parent_id`, `name`, `meta_title`, `meta_description`, `content`, `short_content`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Смартфоны и мобильные телефоны', 'Тайтл Смартфоны и мобильные телефоны ', 'Дескрипшен Смартфоны и мобильные телефоны\r\n', 'Какая-то статья', 'Какой-то маленький текст Смартфоны и мобильные телефоны\r\n', NULL, NULL, NULL, NULL),
+(1, NULL, 'Смартфоны и мобильные телефоны', 'Тайтл Смартфоны и мобильные телефоны ', 'Дескрипшен Смартфоны и мобильные телефоны\r\n', 'Какая-то статья', 'Какой-то маленький текст Смартфоны и мобильные телефоны\r\n', '', NULL, NULL, '2021-10-24 00:00:00'),
 (2, NULL, 'Аксессуары для телефонов и смартфонов', 'Тайтл Аксессуары для мобильных телефонов и смартфонов ', 'Дескрипшен Аксессуары для мобильных телефонов и смартфонов', 'Какая-то статья', 'Какой-то маленький текст Аксессуары для мобильных телефонов и смартфонов', NULL, NULL, NULL, NULL),
 (3, 2, 'Чехлы для мобильных телефонов', 'Тайтл Чехлы для мобильных телефонов', 'Дескрипшен Чехлы для мобильных телефонов', 'Какая-то статья', 'Какой-то маленький текстЧехлы для мобильных телефонов', NULL, NULL, NULL, NULL),
 (4, 2, 'Универсальные мобильные батареи', 'Тайтл Универсальные мобильные батареи', 'Дескрипшен Универсальные мобильные батареи', 'Какая-то статья', 'Какой-то маленький текст Универсальные мобильные батареи', NULL, NULL, NULL, NULL),
@@ -96,7 +96,7 @@ INSERT INTO `category` (`id`, `parent_id`, `name`, `meta_title`, `meta_descripti
 (25, 22, 'Усилители для наушников', 'Тайтл Усилители для наушников', 'Дескрипшен Усилители для наушников', 'Какая-то статья', 'Какой-то маленький текст Усилители для наушников', NULL, NULL, NULL, NULL),
 (26, 1, 'Мобильные телефоны', 'Тайтл Мобильные телефоны', 'Дескр Мобильные телефоны', NULL, NULL, NULL, NULL, NULL, NULL),
 (27, 1, 'Смартфоны', 'Тайтл Смартфоны', 'Декс Смартфоны', NULL, NULL, NULL, NULL, NULL, NULL),
-(28, 26, 'Samsung', 'Samsung', 'Samsung', NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 26, 'Samsung', 'Samsung', 'Samsung', '', '', '', NULL, NULL, '2021-10-24 17:58:30'),
 (29, 26, 'Apple', 'Apple', 'Apple', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -106,8 +106,8 @@ INSERT INTO `category` (`id`, `parent_id`, `name`, `meta_title`, `meta_descripti
 --
 
 CREATE TABLE `category_attributes` (
-  `category_id` int(11) NOT NULL DEFAULT '0',
-  `attributes_id` int(11) NOT NULL DEFAULT '0'
+  `category_id` int(11) NOT NULL DEFAULT 0,
+  `attributes_id` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -158,13 +158,13 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL DEFAULT '2',
+  `user_id` int(11) NOT NULL DEFAULT 2,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `comment` varchar(100) COLLATE utf8_unicode_ci DEFAULT 'Без комментария',
   `summa` int(11) NOT NULL,
-  `status` tinyint(3) NOT NULL DEFAULT '0',
+  `status` tinyint(3) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -239,17 +239,17 @@ INSERT INTO `orders_item` (`id`, `orders_id`, `product_id`, `product_name`, `pri
 
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
-  `category_id` int(11) DEFAULT '1',
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Мобильный телефон Самсунг',
-  `content` text COLLATE utf8_unicode_ci,
-  `price` int(11) DEFAULT '1700',
-  `old_price` int(11) DEFAULT '2100',
-  `meta_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Купить Тайтл для телефона Самсунг',
+  `category_id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `content` text COLLATE utf8_unicode_ci DEFAULT NULL,
+  `price` int(11) NOT NULL,
+  `old_price` int(11) DEFAULT 2100,
+  `meta_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `meta_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'Заказать Дескрипшен Описание для телефона Самсунг',
-  `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'imagesproductproduct-1.jpg',
+  `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `is_offer` tinyint(3) DEFAULT NULL,
-  `created_at` int(11) DEFAULT NULL,
-  `bestsellers` int(11) DEFAULT '0'
+  `created_at` datetime DEFAULT NULL,
+  `bestsellers` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -296,7 +296,13 @@ INSERT INTO `product` (`id`, `category_id`, `title`, `content`, `price`, `old_pr
 (37, 17, 'Мобильный телефон Самсунг', NULL, 1700, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '\\images\\best_4.png', 0, NULL, 0),
 (38, 17, 'Мобильный телефон Самсунг', NULL, 1700, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '\\images\\best_4.png', 0, NULL, 0),
 (39, 17, 'Мобильный телефон Самсунг', NULL, 1700, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '\\images\\best_4.png', 0, NULL, 0),
-(40, 17, 'Мобильный телефон Самсунг', NULL, 1700, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '\\images\\best_4.png', 0, NULL, 0);
+(40, 17, 'Мобильный телефон Самсунг', NULL, 1700, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '\\images\\best_4.png', 0, NULL, 0),
+(42, 27, 'Тестовый товар 51', '<p>asdfsdf</p>\r\n', 1888, 2100, 'вапва вапвап', 'Заказать Дескрипшен Описание для телефона Самсунг', NULL, 1, '2021-10-25 18:28:35', 1),
+(43, 27, 'Тестовый товар 51', '<p>asdfsdf</p>\r\n', 1888, 2100, 'вапва вапвап', 'Заказать Дескрипшен Описание для телефона Самсунг', NULL, 1, '2021-10-25 18:31:08', 1),
+(44, 1, 'Тестовый товар 55', '<p>2343</p>\r\n', 18, 2100, 'reter', 'Заказать Дескрипшен Описание для телефона Самсунг', NULL, 0, '2021-10-25 18:32:13', 0),
+(45, 1, 'Тестовый товар 522', '<p>sdf</p>\r\n', 1888, 2100, '', 'Заказать Дескрипшен Описание для телефона Самсунг', 'products/2021-10-25/6176d7b6cd0c9_banner_2_background.jpg', 0, '2021-10-25 19:13:42', 0),
+(46, 1, 'Тестовый товар 5144', '<p>смивапр</p>\r\n', 1888, 2100, 'вкп', 'Заказать Дескрипшен Описание для телефона Самсунг', '/products/2021-10-25/6176db8083bbe_brands_8.jpg', 0, '2021-10-25 19:29:52', 0),
+(47, 1, 'Тестовый товар 577733', '', 34, 2100, 'вапвап', 'Заказать Дескрипшен Описание для телефона Самсунг', '/products/2021-10-25/6176de3a667db_new_10.jpg', 0, '2021-10-25 19:41:30', 0);
 
 -- --------------------------------------------------------
 
@@ -305,8 +311,8 @@ INSERT INTO `product` (`id`, `category_id`, `title`, `content`, `price`, `old_pr
 --
 
 CREATE TABLE `product_values` (
-  `product_id` int(11) NOT NULL DEFAULT '0',
-  `values_id` int(11) NOT NULL DEFAULT '0'
+  `product_id` int(11) NOT NULL DEFAULT 0,
+  `values_id` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -364,7 +370,7 @@ CREATE TABLE `user` (
   `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `status` smallint(6) NOT NULL DEFAULT '10',
+  `status` smallint(6) NOT NULL DEFAULT 10,
   `created_at` int(11) NOT NULL,
   `updated_at` int(11) NOT NULL,
   `verification_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
@@ -506,7 +512,7 @@ ALTER TABLE `attributes`
 -- AUTO_INCREMENT для таблицы `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT для таблицы `orders`
@@ -524,7 +530,7 @@ ALTER TABLE `orders_item`
 -- AUTO_INCREMENT для таблицы `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT для таблицы `user`
