@@ -55,15 +55,15 @@ class Product extends \common\models\base\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'category_id' => 'Category ID',
-            'title' => 'Title',
+            'category_id' => 'Категория',
+            'title' => 'Название',
             'content' => 'Content',
-            'price' => 'Price',
-            'old_price' => 'Old Price',
+            'price' => 'Цена',
+            'old_price' => 'Старая цена',
             'meta_title' => 'Meta Title',
             'meta_description' => 'Meta Description',
-            'image' => 'Image',
-            'is_offer' => 'Is Offer',
+            'image' => 'Картинка',
+            'is_offer' => 'Распродажа',
             'created_at' => 'Created At',
             'bestsellers' => 'Bestsellers',
         ];

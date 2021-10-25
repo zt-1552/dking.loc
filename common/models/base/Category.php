@@ -17,8 +17,8 @@ use Yii;
  * @property string|null $short_content
  * @property string|null $image
  * @property int|null $status
- * @property int|null $created_at
- * @property int|null $updated_at
+ * @property string|null $created_at
+ * @property string|null $updated_at
  */
 class Category extends ActiveRecord
 {
@@ -36,8 +36,9 @@ class Category extends ActiveRecord
     public function rules()
     {
         return [
-            [['parent_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['parent_id', 'status'], 'integer'],
             [['name', 'meta_title'], 'required'],
+            [['created_at', 'updated_at'], 'safe'],
             [['content', 'short_content'], 'string'],
             [['name', 'meta_title', 'meta_description', 'image'], 'string', 'max' => 255],
         ];

@@ -4,6 +4,7 @@ namespace common\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
+use common\models\Product;
 
 /**
  * ProductSearch represents the model behind the search form of `common\models\Product`.
@@ -39,12 +40,15 @@ class ProductSearch extends Product
      */
     public function search($params)
     {
-        $query = Product::find();
+        $query = Product::find()->with('category');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 20,
+            ]
         ]);
 
         $this->load($params);

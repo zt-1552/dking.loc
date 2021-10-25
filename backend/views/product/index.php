@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\ProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Products';
+$this->title = 'Товары';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-index">
@@ -15,33 +15,73 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Product', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавть товар', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php  echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <div class="card">
+        <!-- /.card-header -->
+        <div class="card-body">
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'category_id',
-            'title',
-            'content:ntext',
-            'price',
-            //'old_price',
-            //'meta_title',
-            //'meta_description',
-            //'image',
-            //'is_offer',
-            //'created_at',
-            //'bestsellers',
+                    'id',
+//                    'category_id',
+                    [
+                        'attribute' => 'category_id',
+                        'value' => function($data) {
+                            return $data->category->name;
+                        },
+                    ],
+                    'title',
+//                    'content:ntext',
+                    'price',
+                    'old_price',
+                    //'meta_title',
+                    //'meta_description',
+//                    'image',
+                    [
+                        'attribute' => 'image',
+                        'format' => 'html',
+                        "value" => function($data){
+                            return ($data->image) ? Html::img($data->image) : false;
+                        }
+                    ],
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+//                    'is_offer',
+                    [
+                        'attribute' => 'is_offer',
+                        'headerOptions' => ['style' => 'width:5%'],
+                        'value' => function($data){
+                            return $data->is_offer ? '<span class="text-red">Sale</span>' : '';
+                        },
+                        'format' => 'html',
+                    ],
+                    //'created_at',
+//                    'bestsellers',
+
+                    ['class' => 'yii\grid\ActionColumn',
+                        'contentOptions' => ['style' => 'width:7%'],
+                        'header' => 'Действия',
+                    ],
+                ],
+                'pager' => [
+                    'maxButtonCount' => 5, // максимум 5 кнопок
+                    'options' => ['class' => 'pagination pagination-sm m-0 float-right'], // прикручиваем свой id чтобы создать собственный дизайн не касаясь основного.
+                    'linkContainerOptions' => ['class' => 'page-item'],
+                    'linkOptions' => ['class' => 'page-link'],
+                    'disabledPageCssClass' => ['class' => 'page-link'],
+                ],
+            ]); ?>
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+
 
 
 </div>

@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\Category;
 use common\models\CategorySearch;
 use backend\components\AppAdminController;
+use common\models\Product;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -96,6 +97,10 @@ class CategoryController extends AppAdminController
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        if(!$model->save()) {
+            print_r($model->errors);
+        }
+
         return $this->render('update', [
             'model' => $model,
         ]);
@@ -110,7 +115,14 @@ class CategoryController extends AppAdminController
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $cats = Category::find()->where(['parent_id' => $id])->count();
+        $prods = Product::find()->where(['category_id' => $id])->count();
+        if ($cats || $prods) {
+            \Yii::$app->session->setFlash('error', 'Удаление невозможно - осталось связанных категорий ' . $cats . ' или/и связанных товаров ' . $prods);
+        } else {
+            \Yii::$app->session->setFlash('success', 'Категория удалена успешно!');
+            $this->findModel($id)->delete();
+        }
 
         return $this->redirect(['index']);
     }

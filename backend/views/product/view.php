@@ -4,10 +4,10 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\base\Product */
+/* @var $model common\models\Product */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Products', 'url' => ['index']];
+$this->title = 'Просмтор товара ' . $model->title;
+$this->params['breadcrumbs'][] = ['label' => 'Товары', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -26,22 +26,30 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'category_id',
-            'title',
-            'content:ntext',
-            'price',
-            'old_price',
-            'meta_title',
-            'meta_description',
-            'image',
-            'is_offer',
-            'created_at',
-            'bestsellers',
-        ],
-    ]) ?>
+    <div class="card">
+        <!-- /.card-header -->
+        <div class="card-body">
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'id',
+                    'category_id',
+                    'title',
+                    'content:ntext',
+                    'price',
+                    'old_price',
+                    'meta_title',
+                    'meta_description',
+                    'image',
+                    'is_offer',
+                    'created_at',
+                    'bestsellers',
+                ],
+            ]) ?>
+
+        </div>
+        <!-- /.card-body -->
+    </div>
+
 
 </div>

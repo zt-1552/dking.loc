@@ -2,10 +2,9 @@
 
 namespace backend\controllers;
 
-use backend\components\AppAdminController;
-use common\models\base\Product;
+use common\models\Product;
 use common\models\ProductSearch;
-use yii\web\Controller;
+use backend\components\AppAdminController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -38,7 +37,6 @@ class ProductController extends AppAdminController
      */
     public function actionIndex()
     {
-        $this->layout = 'admin';
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 

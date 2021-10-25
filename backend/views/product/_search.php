@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
-<!--    --><?//= $form->field($model, 'content') ?>
+    <?= $form->field($model, 'content') ?>
 
     <?= $form->field($model, 'price') ?>
 
@@ -33,11 +33,11 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'image') ?>
 
-    <?= $form->field($model, 'is_offer') ?>
+    <?php // echo $form->field($model, 'is_offer') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 
-    <?= $form->field($model, 'bestsellers') ?>
+    <?php // echo $form->field($model, 'bestsellers') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

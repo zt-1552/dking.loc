@@ -31,13 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\SerialColumn'],
 
                     'id',
+                    'name',
                     [
                         'attribute' => 'parent_id',
                         'value' => function($data){
                             return $data->category->name ?? 'Корневая категория';
                         }
                     ],
-                    'name',
                     'meta_title',
                     'meta_description:ntext',
                     //'content:ntext',
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'pager' => [
                     'maxButtonCount' => 5, // максимум 5 кнопок
-                    'options' => ['class' => 'pagination pagination-sm m-0 float-right'], // прикручиваем свой id чтобы создать собственный дизайн не касаясь основного.
+                    'options' => ['class' => 'pagination pagination-sm m-0 float-right'], // прикручиваем собственный дизайн не касаясь основного.
                     'linkContainerOptions' => ['class' => 'page-item'],
                     'linkOptions' => ['class' => 'page-link'],
                     'disabledPageCssClass' => ['class' => 'page-link'],
