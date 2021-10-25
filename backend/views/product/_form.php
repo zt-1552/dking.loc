@@ -1,5 +1,6 @@
 <?php
 
+use mihaildev\ckeditor\CKEditor;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -21,11 +22,37 @@ use yii\widgets\ActiveForm;
         ]
     ]); ?>
 
-    <?= $form->field($model, 'category_id')->textInput() ?>
-
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+<!--    --><?//= $form->field($model, 'category_id')->textInput() ?>
+
+    <div class="form-group field-product-category_id has-success">
+        <div class='col-md-6'>
+
+            <label class="control-label" for="product-category_id">Категория</label>
+            <select id="product-category_id" class="form-control" name="Product[category_id]" aria-invalid="false">
+                <?= \common\components\MenuWidget::widget([
+                    'tpl' => 'select_create',
+                    'ul_class' => '',
+                    'model' => $model,
+                    'cache_time' => 0,
+                ])?>
+
+            </select>
+
+            <div><div class="help-block"></div></div>
+        </div>
+
+    </div>
+
+<!--    --><?//= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
+
+    <?= $form->field($model, 'content')->widget(CKEditor::class,[
+        'editorOptions' => [
+            'preset' => 'full', //разработанны стандартные настройки basic, standard, full
+            'inline' => false, //по умолчанию false
+        ],
+    ]);?>
 
     <?= $form->field($model, 'price')->textInput() ?>
 
@@ -44,7 +71,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'bestsellers')->dropDownList(['', 'Bestseller']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

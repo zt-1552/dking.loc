@@ -31,13 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                     'id',
 //                    'category_id',
+                    'title',
                     [
                         'attribute' => 'category_id',
                         'value' => function($data) {
                             return $data->category->name;
                         },
                     ],
-                    'title',
 //                    'content:ntext',
                     'price',
                     'old_price',
@@ -46,9 +46,9 @@ $this->params['breadcrumbs'][] = $this->title;
 //                    'image',
                     [
                         'attribute' => 'image',
-                        'format' => 'html',
+                        'format' => 'raw',
                         "value" => function($data){
-                            return ($data->image) ? Html::img($data->image) : false;
+                            return ($data->image) ? Html::img($data->image, ['width' => '50px']) : false;
                         }
                     ],
 
