@@ -8,16 +8,16 @@ use Yii;
  * This is the model class for table "product".
  *
  * @property int $id
- * @property int|null $category_id
+ * @property int $category_id
  * @property string $title
  * @property string|null $content
- * @property int|null $price
+ * @property int $price
  * @property int|null $old_price
- * @property string $meta_title
+ * @property string|null $meta_title
  * @property string|null $meta_description
  * @property string|null $image
  * @property int|null $is_offer
- * @property int|null $created_at
+ * @property string|null $created_at
  * @property int|null $bestsellers
  *
  * @property Category $category
@@ -41,10 +41,12 @@ class Product extends \common\models\base\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id', 'price', 'old_price', 'is_offer', 'created_at', 'bestsellers'], 'integer'],
+            [['category_id', 'title', 'price'], 'required'],
+            [['category_id', 'price', 'old_price', 'is_offer', 'bestsellers'], 'integer'],
             [['content'], 'string'],
+            [['created_at'], 'safe'],
             [['title', 'meta_title', 'meta_description', 'image'], 'string', 'max' => 255],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
 
@@ -76,7 +78,7 @@ class Product extends \common\models\base\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Category::class, ['id' => 'category_id']);
+        return $this->hasOne(Category::className(), ['id' => 'category_id']);
     }
 
     /**
@@ -86,7 +88,7 @@ class Product extends \common\models\base\ActiveRecord
      */
     public function getOrdersItems()
     {
-        return $this->hasMany(OrdersItem::class, ['product_id' => 'id']);
+        return $this->hasMany(OrdersItem::className(), ['product_id' => 'id']);
     }
 
     /**
@@ -96,7 +98,7 @@ class Product extends \common\models\base\ActiveRecord
      */
     public function getProductValues()
     {
-        return $this->hasMany(ProductValues::class, ['product_id' => 'id']);
+        return $this->hasMany(ProductValues::className(), ['product_id' => 'id']);
     }
 
     /**
@@ -106,6 +108,6 @@ class Product extends \common\models\base\ActiveRecord
      */
     public function getValues()
     {
-        return $this->hasMany(Values::class, ['id' => 'values_id'])->viaTable('product_values', ['product_id' => 'id']);
+        return $this->hasMany(Values::className(), ['id' => 'values_id'])->viaTable('product_values', ['product_id' => 'id']);
     }
 }
