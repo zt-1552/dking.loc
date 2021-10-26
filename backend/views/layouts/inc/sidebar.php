@@ -82,14 +82,6 @@
 
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= \yii\helpers\Url::to(['/product/'])?>" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Товары
-                        </p>
-                    </a>
-                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -46,7 +46,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'old_price',
                     'meta_title',
                     'meta_description',
-                    'image',
+                    [
+                        'attribute' => 'image',
+                        'format' => 'raw',
+                        "value" => function($data){
+                            return ($data->image) ? Html::img($data->image, ['width' => '100px']) : false;
+                        }
+                    ],
                     'is_offer',
                     'created_at',
                     'bestsellers',

@@ -49,6 +49,8 @@
                         <?= $this->render('filter', compact('categoryAttributes')); ?>
                     <?php } ?>
 
+<!--                    --><?//= \common\components\FilterProdWidget::widget() ?>
+
                 </div>
 
             </div>

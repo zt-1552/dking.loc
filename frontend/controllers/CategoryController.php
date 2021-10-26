@@ -57,6 +57,7 @@ class CategoryController extends AppController
         //Все ПодКатегории всех уровней этой категории
 //        $child_category = $this->getChild($id); // max 3 level tree, min request
         $child_all_category = $this->getAllChild($id);// for all level tree, + request
+//        debug($child_all_category);
 
         // Список товаров
         $query = Product::find();
@@ -144,13 +145,16 @@ class CategoryController extends AppController
     protected function getAllChild($id) {
         $children = [];
         $ids = $this->getChildIds($id);
+//        debug($ids); die;
         foreach ($ids as $item) {
             $children[] = $item;
-            $c = $this->getAllChild($item['id']);
+            $c = $this->getChildIds($item['id']);
             foreach ($c as $v) {
                 $children[] = $v;
             }
         }
+//                debug($children); die;
+
         return [$ids, $children];
     }
 
@@ -160,10 +164,12 @@ class CategoryController extends AppController
      */
     protected function getChildIds($id) {
         $children = Category::find()->where(['parent_id' => $id])->asArray()->all();
+//        debug($children); die;
         $ids = [];
         foreach ($children as $child) {
             $ids[] = $child;
         }
+//        debug($ids); die;
         return $ids;
     }
 
@@ -177,9 +183,9 @@ class CategoryController extends AppController
     {
 //        $child_category = \Yii::$app->cache->get('child_category_' . $category_id);
 
-        if ($child_category) {
-            return $child_category;
-        };
+//        if ($child_category) {
+//            return $child_category;
+//        };
 
         $category_all = Category::find()->indexBy('id')->asArray()->all();
 
@@ -207,7 +213,7 @@ class CategoryController extends AppController
         }
 
 //        set Cache
-        \Yii::$app->cache->set('child_category_' . $category_id, $child, 360);
+//        \Yii::$app->cache->set('child_category_' . $category_id, $child, 360);
         return $child;
     }
 
