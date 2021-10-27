@@ -85,7 +85,9 @@ class CategoryController extends AppController
              endforeach;
         }
 
-        return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'pages', 'categoryAttributes'));
+        $url = Yii::$app->request->url;
+
+        return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'child_all_category', 'pages', 'categoryAttributes'));
     }
 
 
