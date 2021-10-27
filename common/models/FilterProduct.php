@@ -7,7 +7,7 @@ namespace common\models;
 class FilterProduct extends \yii\base\Model
 {
 
-    public $propertyValue = [];
+    public $attributeValue = [];
     public $range;
     public $sort;
     public $hid;
@@ -22,7 +22,7 @@ class FilterProduct extends \yii\base\Model
     public function rules()
     {
         return [
-            ['propertyValue', function($attribute, $params, $validator){
+            ['attributeValue', function($attribute, $params, $validator){
                 if(!is_array($attribute)){
                     $this->addError($attribute, 'Что-то пошло не так');
                 }

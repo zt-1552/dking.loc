@@ -49,11 +49,11 @@
                         <?= $this->render('filter', compact('categoryAttributes')); ?>
                     <?php } ?>
 
-                    <?php debug($child_all_category[1]); ?>
+<!--                    --><?php //debug($child_all_category[1]); ?>
 
                     <?= \common\components\FilterProdWidget::widget([
                         'category_id' => $category->id,
-                        'category_all_child' => $child_all_category,
+                        'category_all_child' => $child_all_category[1],
                     ]) ?>
 
 
