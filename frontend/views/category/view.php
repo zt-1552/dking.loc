@@ -1,5 +1,5 @@
 <?php
-
+$url = Yii::$app->request->resolve();
 ?>
 <!-- Home -->
 
@@ -45,15 +45,16 @@
                         </div>
                     </div>
 
-                    <?php if (!empty($categoryAttributes)) {?>
-                        <?= $this->render('filter', compact('categoryAttributes')); ?>
-                    <?php } ?>
+<!--                    --><?php //if (!empty($categoryAttributes)) {?>
+<!--                        --><?//= $this->render('filter', compact('categoryAttributes')); ?>
+<!--                    --><?php //} ?>
 
 <!--                    --><?php //debug($child_all_category[1]); ?>
 
                     <?= \common\components\FilterProdWidget::widget([
-                        'category_id' => $category->id,
+                        'url' => $url,
                         'category_all_child' => $child_all_category[1],
+                        'categoryAttributes' => $categoryAttributes,
                     ]) ?>
 
 

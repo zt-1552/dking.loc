@@ -59,7 +59,7 @@ class Values extends \common\models\base\ActiveRecord
      */
     public function getAttributes0()
     {
-        return $this->hasOne(Attributes::className(), ['id' => 'attributes_id']);
+        return $this->hasOne(Attributes::class, ['id' => 'attributes_id']);
     }
 
     /**
@@ -69,7 +69,7 @@ class Values extends \common\models\base\ActiveRecord
      */
     public function getProductValues()
     {
-        return $this->hasMany(ProductValues::className(), ['values_id' => 'id']);
+        return $this->hasMany(ProductValues::class, ['values_id' => 'id']);
     }
 
     /**
@@ -79,6 +79,6 @@ class Values extends \common\models\base\ActiveRecord
      */
     public function getProducts()
     {
-        return $this->hasMany(Product::className(), ['id' => 'product_id'])->viaTable('product_values', ['values_id' => 'id']);
+        return $this->hasMany(Product::class, ['id' => 'product_id'])->viaTable('product_values', ['values_id' => 'id']);
     }
 }

@@ -6,6 +6,7 @@ namespace common\components;
 use common\models\FilterProduct;
 use common\models\Product;
 use common\models\ProductValues;
+use common\models\Values;
 use Yii;
 use yii\base\Widget;
 use yii\helpers\Url;
@@ -14,8 +15,10 @@ use yii\helpers\Url;
 class FilterProdWidget extends Widget
 {
 
+    public $url;
     public $category_id; // категория товаров
     public $category_all_child;
+    public $categoryAttributes;
 
     public function init()
     {
@@ -24,7 +27,7 @@ class FilterProdWidget extends Widget
 
     public function run()
     {
-        $category_id = $this->category_id;
+        $category_id = $this->url[1]['id'];
         $category_all_child = $this->category_all_child;
 
         $ids = [];
@@ -43,7 +46,10 @@ class FilterProdWidget extends Widget
         $max_price = Product::find()->where(['category_id' => $ids])->max('price');
 
         //вытаскиваем все свойства
-        $product_values = ProductValues::find()->all();
+//        $product_values = ProductValues::find()->with('values')->all();
+//        $attribute_values = Values::find()->with('attributes0')->all();
+
+        $categoryAttributes = $this->categoryAttributes;
 
         $url = Yii::$app->request->resolve();
         $url = $url[1];
@@ -72,8 +78,10 @@ class FilterProdWidget extends Widget
             }
         }
 
+//        debug($arrayParams);
 
-        return $this->render('filter', compact('min_price', 'max_price', 'model', 'product_values', 'category_id', 'url'));
+
+        return $this->render('filter', compact('min_price', 'max_price', 'model', 'product_values', 'categoryAttributes', 'category_id', 'url'));
 
     }
 

@@ -8,6 +8,7 @@ use backend\components\AppController;
 use common\models\Category;
 use common\models\CategoryAttributes;
 use common\models\Product;
+use common\models\ProductValues;
 use common\models\Values;
 use Yii;
 use yii\data\Pagination;
@@ -85,7 +86,9 @@ class CategoryController extends AppController
              endforeach;
         }
 
-        $url = Yii::$app->request->url;
+        //КОНЕЦ КОПИРОВАНИЯ
+
+//        debug($categoryAttributes);
 
         return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'child_all_category', 'pages', 'categoryAttributes'));
     }
@@ -105,6 +108,114 @@ class CategoryController extends AppController
             'search',
             compact('products', 'pages', 'query')
         );
+    }
+
+    public function actionFilter()
+    {
+        $category_id = Yii::$app->request->get('id');
+        $filterProducts = Yii::$app->request->get('FilterProduct');
+        $range = '';
+        $sort = '';
+        $min = '';
+        $max = '';
+        $productValue = [];
+
+        // КОД КОПИРУЕТСЯ ИЗ actionView!!!!! УБРАТЬ ПОТОМ
+
+        // Breadcrumbs
+        $breadcrumbs = $this->getParents($category_id);
+        if (count($breadcrumbs) > 1) {
+            $last_bread = array_pop($breadcrumbs);
+
+            for ($i = 0; $i < count($breadcrumbs); $i++) {
+                $this->view->params['breadcrumbs'][$i]['label'] = $breadcrumbs[$i]['name'];
+                $this->view->params['breadcrumbs'][$i]['url'] = Url::to(['category/view', 'id' => $breadcrumbs[$i]['id']]);
+                array_push($this->view->params['breadcrumbs'], array('label' => $last_bread['name']));
+            };
+        } else {
+            $last_bread = $breadcrumbs[0];
+            $this->view->params['breadcrumbs'][]['label'] =  $last_bread['name'];
+        }
+
+        // Главные категории
+        \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
+
+        $child_all_category = $this->getAllChild($category_id);// for all level tree, + request
+
+        // Подкатегории только нижнего уровня
+        $child_categories = $child_all_category[0];
+
+
+        // filters (attributes + values)
+        $categoryAttributes = CategoryAttributes::find()->where(['category_id' => $category_id])->with('attributes0')->asArray()->all();
+        if (!empty($categoryAttributes)) {
+            foreach ($categoryAttributes as &$categoryAttribute):
+                $values = Values::find()->asArray()->where(['attributes_id' => $categoryAttribute['attributes0']['id']])->all();
+                $categoryAttribute['attributeValue'] = $values;
+            endforeach;
+        }
+
+
+        // КОД ВВЕРХУ КОПИРУЕТСЯ ИЗ actionView!!!!! УБРАТЬ ПОТОМ
+
+//        debug($filterProducts);
+
+        foreach ($filterProducts as $key => $value){
+
+            if ($key == 'attributeValue') {
+                foreach ($value as $k => $v){
+                    if ($v == ' ' || $v == '') {
+                        unset($value[$k]);
+                    }
+                    if ($value != null) {
+                        $filterProduct = call_user_func_array('array_merge', $value);
+                    }
+                }
+            }
+        }
+//            debug($filterProduct);
+
+        //Вытаскиваем все ID товаров у которых есть нужные нам фильтры
+        if ($filterProduct != null) {
+            $productValues = ProductValues::find()->where(['values_id' => $filterProduct])->all();
+            $idsProductValues = [];
+
+            foreach ($productValues as $idProduct) {
+                $idsProductValues[] = $idProduct->product_id;
+            }
+            $idsProductValues = array_unique($idsProductValues);
+        }
+
+
+
+        $category = Category::findOne($category_id);
+
+        if (empty($category)) {
+            throw new NotFoundHttpException('Такой категории нет....');
+        }
+
+//        debug($child_all_category);
+
+        // Список товаров заменяется на нужный
+        $query = Product::find();
+        $query->with('values')->where(['category_id' => $category_id]);
+        if(isset($child_all_category[1])) {
+            foreach ($child_all_category[1] as $item) {
+                $query->orWhere(['category_id' => $item['id']]);
+            }
+        }
+
+        if ($idsProductValues != null) {
+            $query->andWhere(['id' => $idsProductValues]);
+        }
+
+        // Пагинация
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
+        $products = $query->offset($pages->offset)->limit($pages->limit)->all();
+
+
+
+        return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'child_all_category', 'pages', 'categoryAttributes'));
     }
 
 
