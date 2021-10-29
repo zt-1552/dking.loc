@@ -27,6 +27,8 @@ class ProductController extends AppController
 
         $attributeValues = ProductValues::find()->where(['product_id' => $id])->with('values')->all();
 
+//        debug($attributeValues);
+
         \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
 
         // Breadcrumbs

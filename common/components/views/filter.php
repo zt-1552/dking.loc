@@ -16,7 +16,7 @@ foreach ($categoryAttributes as $value){
 
 ?>
 
-<!--<h1>--><?//= debug($category_id) ?><!--</h1>-->
+<p><?= debug($array) ?></p>
 <!--<p>--><?//= debug($name) ?><!--</p>-->
 <!--<p>--><?//= debug($url) ?><!--</p>-->
 <!--<p>--><?//= debug($product_values) ?><!--</p>-->

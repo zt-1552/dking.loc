@@ -181,24 +181,36 @@ class CategoryController extends AppController
 
         //Вытаскиваем все ID товаров у которых есть нужные нам фильтры
         if ($filterProduct != null) {
-            $productValues = ProductValues::find()->where(['values_id' => $filterProduct])->all();;
-//            if(count($filterProduct) > 1){
-//                $i = 1;
-//                foreach ($filterProduct as $item){
-//                    $productValues->andWhere(['values_id' => $filterProduct[$i]]);
-//                    $i++;
-//                }
+
+//            $queryProdId = ProductValues::find()->where(['values_id' => $filterProduct[0]]);
+//            $i = 1;
+//            foreach ($filterProduct as $item){
+//                debug($item);
+//                $queryProdId->andWhere(['values_id' => $item]);
+//                $i++;
 //            }
-//            $productValues
+//
+//            $productValues = $queryProdId->all();
+
+//            debug($temp);
+
+
+            $productValues = ProductValues::find()->where(['values_id' => $filterProduct])->groupBy('product_id')->all();
+//            debug($productValues);
+
+//            $productFilter = Product::find()->where()
+
 
             $idsProductValues = [];
 
             foreach ($productValues as $idProduct) {
                 $idsProductValues[] = $idProduct->product_id;
             }
-            $idsProductValues = array_unique($idsProductValues);
+//            debug($idsProductValues);
+//            $idsProductValues = array_unique($idsProductValues);
         }
 
+//        debug($productValues);
 
 
         $category = Category::findOne($category_id);
