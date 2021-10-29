@@ -159,16 +159,20 @@ class CategoryController extends AppController
         // КОД ВВЕРХУ КОПИРУЕТСЯ ИЗ actionView!!!!! УБРАТЬ ПОТОМ
 
 //        debug($filterProducts);
+        $filterProduct = [];
 
         foreach ($filterProducts as $key => $value){
+//            debug($key);die;
 
             if ($key == 'attributeValue') {
                 foreach ($value as $k => $v){
                     if ($v == ' ' || $v == '') {
                         unset($value[$k]);
                     }
-                    if ($value != null) {
-                        $filterProduct = call_user_func_array('array_merge', $value);
+                    if ($v != null) {
+                        foreach ($v as $kk => $vv){
+                            array_push($filterProduct, $vv);
+                        }
                     }
                 }
             }
@@ -177,7 +181,16 @@ class CategoryController extends AppController
 
         //Вытаскиваем все ID товаров у которых есть нужные нам фильтры
         if ($filterProduct != null) {
-            $productValues = ProductValues::find()->where(['values_id' => $filterProduct])->all();
+            $productValues = ProductValues::find()->where(['values_id' => $filterProduct])->all();;
+//            if(count($filterProduct) > 1){
+//                $i = 1;
+//                foreach ($filterProduct as $item){
+//                    $productValues->andWhere(['values_id' => $filterProduct[$i]]);
+//                    $i++;
+//                }
+//            }
+//            $productValues
+
             $idsProductValues = [];
 
             foreach ($productValues as $idProduct) {

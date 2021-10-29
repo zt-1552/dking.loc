@@ -78,7 +78,7 @@ class Product extends \common\models\base\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasOne(Category::className(), ['id' => 'category_id']);
+        return $this->hasOne(Category::class, ['id' => 'category_id']);
     }
 
     /**
@@ -88,7 +88,7 @@ class Product extends \common\models\base\ActiveRecord
      */
     public function getOrdersItems()
     {
-        return $this->hasMany(OrdersItem::className(), ['product_id' => 'id']);
+        return $this->hasMany(OrdersItem::class, ['product_id' => 'id']);
     }
 
     /**
@@ -98,7 +98,7 @@ class Product extends \common\models\base\ActiveRecord
      */
     public function getProductValues()
     {
-        return $this->hasMany(ProductValues::className(), ['product_id' => 'id']);
+        return $this->hasMany(ProductValues::class, ['product_id' => 'id']);
     }
 
     /**
@@ -108,6 +108,6 @@ class Product extends \common\models\base\ActiveRecord
      */
     public function getValues()
     {
-        return $this->hasMany(Values::className(), ['id' => 'values_id'])->viaTable('product_values', ['product_id' => 'id']);
+        return $this->hasMany(Values::class, ['id' => 'values_id'])->viaTable('product_values', ['product_id' => 'id']);
     }
 }

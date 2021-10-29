@@ -7,6 +7,7 @@ namespace frontend\controllers;
 use backend\components\AppController;
 use common\models\Category;
 use common\models\Product;
+use common\models\ProductValues;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 
@@ -22,7 +23,9 @@ class ProductController extends AppController
             throw new NotFoundHttpException('Такого товара нет....   пока нет)');
         }
 
-        $category = Category::find()->where(['id' => $product->category_id])->one();
+        $category = Category::find()->where(['id' => $product->category_id])->with('attributes0')->one();
+
+        $attributeValues = ProductValues::find()->where(['product_id' => $id])->with('values')->all();
 
         \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
 
@@ -41,7 +44,10 @@ class ProductController extends AppController
             throw new NotFoundHttpException('Такого товара еще нет....');
         }
 
-        return $this->render('view', compact('product', 'category'));
+//        debug($category);
+//        debug($attributeValues);
+
+        return $this->render('view', compact('product', 'category', 'attributeValues'));
 
     }
 
