@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 16 2021 г., 18:10
+-- Время создания: Окт 30 2021 г., 18:22
 -- Версия сервера: 5.6.47
 -- Версия PHP: 7.4.5
 
@@ -60,8 +60,8 @@ CREATE TABLE `category` (
   `short_content` text COLLATE utf8_unicode_ci,
   `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` int(11) DEFAULT '1',
-  `created_at` date DEFAULT NULL,
-  `updated_at` date DEFAULT NULL
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -69,7 +69,7 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `parent_id`, `name`, `meta_title`, `meta_description`, `content`, `short_content`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Смартфоны и мобильные телефоны', 'Тайтл Смартфоны и мобильные телефоны ', 'Дескрипшен Смартфоны и мобильные телефоны\r\n', 'Какая-то статья', 'Какой-то маленький текст Смартфоны и мобильные телефоны\r\n', NULL, NULL, NULL, NULL),
+(1, NULL, 'Смартфоны и мобильные телефоны', 'Тайтл Смартфоны и мобильные телефоны ', 'Дескрипшен Смартфоны и мобильные телефоны\r\n', 'Какая-то статья', 'Какой-то маленький текст Смартфоны и мобильные телефоны\r\n', '', NULL, NULL, '2021-10-24 00:00:00'),
 (2, NULL, 'Аксессуары для телефонов и смартфонов', 'Тайтл Аксессуары для мобильных телефонов и смартфонов ', 'Дескрипшен Аксессуары для мобильных телефонов и смартфонов', 'Какая-то статья', 'Какой-то маленький текст Аксессуары для мобильных телефонов и смартфонов', NULL, NULL, NULL, NULL),
 (3, 2, 'Чехлы для мобильных телефонов', 'Тайтл Чехлы для мобильных телефонов', 'Дескрипшен Чехлы для мобильных телефонов', 'Какая-то статья', 'Какой-то маленький текстЧехлы для мобильных телефонов', NULL, NULL, NULL, NULL),
 (4, 2, 'Универсальные мобильные батареи', 'Тайтл Универсальные мобильные батареи', 'Дескрипшен Универсальные мобильные батареи', 'Какая-то статья', 'Какой-то маленький текст Универсальные мобильные батареи', NULL, NULL, NULL, NULL),
@@ -96,7 +96,7 @@ INSERT INTO `category` (`id`, `parent_id`, `name`, `meta_title`, `meta_descripti
 (25, 22, 'Усилители для наушников', 'Тайтл Усилители для наушников', 'Дескрипшен Усилители для наушников', 'Какая-то статья', 'Какой-то маленький текст Усилители для наушников', NULL, NULL, NULL, NULL),
 (26, 1, 'Мобильные телефоны', 'Тайтл Мобильные телефоны', 'Дескр Мобильные телефоны', NULL, NULL, NULL, NULL, NULL, NULL),
 (27, 1, 'Смартфоны', 'Тайтл Смартфоны', 'Декс Смартфоны', NULL, NULL, NULL, NULL, NULL, NULL),
-(28, 26, 'Samsung', 'Samsung', 'Samsung', NULL, NULL, NULL, NULL, NULL, NULL),
+(28, 26, 'Samsung', 'Samsung', 'Samsung', '', '', '', NULL, NULL, '2021-10-24 17:58:30'),
 (29, 26, 'Apple', 'Apple', 'Apple', NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -115,10 +115,15 @@ CREATE TABLE `category_attributes` (
 --
 
 INSERT INTO `category_attributes` (`category_id`, `attributes_id`) VALUES
+(1, 2),
+(1, 3),
 (17, 1),
 (17, 2),
 (17, 3),
-(17, 4);
+(17, 4),
+(26, 1),
+(26, 3),
+(26, 4);
 
 -- --------------------------------------------------------
 
@@ -174,7 +179,16 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `name`, `email`, `address`, `comment`, `summa`, `status`, `created_at`, `updated_at`) VALUES
-(14, 2, 'Юрий', 'zt1552@gmail.com', 'ул. Леси Украинки 14', 'fxhfxhxg', 2725, 0, '2021-10-16 17:54:35', '2021-10-16 17:54:35');
+(17, 2, 'Юрий', 'zt1552@gmail.com', 'ул. Леси Украинки 14', 'dsadsaвав', 1925, 0, '2021-10-17 07:54:25', '2021-10-24 07:31:12'),
+(18, 2, 'Юрий', 'zt1552@gmail.com', 'ул. Леси Украинки 14', 'hgghf', 1925, 0, '2021-10-17 07:58:17', '2021-10-17 07:58:17'),
+(19, 2, 'Юрий', 'zt1552@gmail.com', 'ул. Леси Украинки 14', 'dhg', 1925, 1, '2021-10-17 07:59:31', '2021-10-24 06:56:33'),
+(20, 2, 'Юрий', 'zt1552@gmail.com', 'ул. Леси Украинки 14', 'sD', 1925, 0, '2021-10-17 08:02:53', '2021-10-17 08:02:53'),
+(21, 2, 'Юрий', 'zt1552@gmail.com', 'ул. Леси Украинки 14', 'fxjh', 3156, 0, '2021-10-17 08:05:16', '2021-10-17 08:05:16'),
+(22, 2, 'Юрий', 'zt1552@gmail.com', 'ул. Леси Украинки 14', 'zv', 1100, 0, '2021-10-17 08:11:43', '2021-10-17 08:11:43'),
+(23, 2, 'Юрий', 'zt1552@gmail.com', 'ул. Леси Украинки 14', 'dhg', 1700, 0, '2021-10-17 08:16:54', '2021-10-17 08:16:54'),
+(24, 2, 'Юрий', 'zt1552@gmail.com', 'ул. Леси Украинки 14', 'adfsdf', 2529, 0, '2021-10-17 10:09:50', '2021-10-17 10:09:50'),
+(25, 2, 'Юрий', 'zt1552@gmail.com', 'ул. Леси Украинки 14', 'sfefgsd', 1279, 0, '2021-10-19 19:11:38', '2021-10-19 19:11:38'),
+(26, 2, 'Юрий111', 'zt1552@gmail.com', 'ул. Леси Украинки 14', '262', 17575, 0, '2021-10-21 19:47:48', '2021-10-21 19:47:48');
 
 -- --------------------------------------------------------
 
@@ -198,9 +212,29 @@ CREATE TABLE `orders_item` (
 --
 
 INSERT INTO `orders_item` (`id`, `orders_id`, `product_id`, `product_name`, `price`, `quantity`, `comment`, `summa`) VALUES
-(12, 14, 7, 'Мобильный телефон Самсунг', 2050, 1, '<Без комментария', 2050),
-(13, 14, 18, 'Huawei MediaPad', 225, 1, '<Без комментария', 225),
-(14, 14, 20, 'Canon STM Kit...', 225, 2, '<Без комментария', 450);
+(19, 17, 13, 'Мобильный телефон Самсунг', 1700, 1, '<Без комментария', 1700),
+(20, 17, 18, 'Huawei MediaPad', 225, 1, '<Без комментария', 225),
+(21, 18, 13, 'Мобильный телефон Самсунг', 1700, 1, '<Без комментария', 1700),
+(22, 18, 18, 'Huawei MediaPad', 225, 1, '<Без комментария', 225),
+(23, 19, 13, 'Мобильный телефон Самсунг', 1700, 1, '<Без комментария', 1700),
+(24, 19, 18, 'Huawei MediaPad', 225, 1, '<Без комментария', 225),
+(25, 20, 13, 'Мобильный телефон Самсунг', 1700, 1, '<Без комментария', 1700),
+(26, 20, 18, 'Huawei MediaPad', 225, 1, '<Без комментария', 225),
+(27, 21, 3, 'Мобильный телефон Apple XS', 1700, 1, '<Без комментария', 1700),
+(28, 21, 11, 'Мобильный телефон Самсунг', 1456, 1, '<Без комментария', 1456),
+(29, 22, 5, 'Мобильный телефон Самсунг', 1100, 1, '<Без комментария', 1100),
+(30, 23, 3, 'Мобильный телефон Apple XS', 1700, 1, '<Без комментария', 1700),
+(31, 24, 17, 'Мобильный телефон Самсунг', 1700, 1, '<Без комментария', 1700),
+(32, 24, 18, 'Huawei MediaPad', 225, 1, '<Без комментария', 225),
+(33, 24, 19, 'Sony MDRZX310W', 379, 1, '<Без комментария', 379),
+(34, 24, 20, 'Canon STM Kit...', 225, 1, '<Без комментария', 225),
+(35, 25, 18, 'Huawei MediaPad', 225, 3, '<Без комментария', 675),
+(36, 25, 19, 'Sony MDRZX310W', 379, 1, '<Без комментария', 379),
+(37, 25, 20, 'Canon STM Kit...', 225, 1, '<Без комментария', 225),
+(38, 26, 3, 'Мобильный телефон Apple XS', 1700, 6, '<Без комментария', 10200),
+(39, 26, 17, 'Мобильный телефон Самсунг', 1700, 3, '<Без комментария', 5100),
+(40, 26, 7, 'Мобильный телефон Самсунг', 2050, 1, '<Без комментария', 2050),
+(41, 26, 18, 'Huawei MediaPad', 225, 1, '<Без комментария', 225);
 
 -- --------------------------------------------------------
 
@@ -210,16 +244,16 @@ INSERT INTO `orders_item` (`id`, `orders_id`, `product_id`, `product_name`, `pri
 
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
-  `category_id` int(11) DEFAULT '1',
-  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Мобильный телефон Самсунг',
+  `category_id` int(11) NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `content` text COLLATE utf8_unicode_ci,
-  `price` int(11) DEFAULT '1700',
+  `price` int(11) NOT NULL,
   `old_price` int(11) DEFAULT '2100',
-  `meta_title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Купить Тайтл для телефона Самсунг',
+  `meta_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `meta_description` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'Заказать Дескрипшен Описание для телефона Самсунг',
-  `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'imagesproductproduct-1.jpg',
+  `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `is_offer` tinyint(3) DEFAULT NULL,
-  `created_at` int(11) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
   `bestsellers` int(11) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -234,7 +268,7 @@ INSERT INTO `product` (`id`, `category_id`, `title`, `content`, `price`, `old_pr
 (4, 29, 'Мобильный телефон Яблоко 6', NULL, 1234, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '\\images\\best_4.png', 0, NULL, 0),
 (5, 27, 'Мобильный телефон Самсунг', NULL, 1100, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '\\images\\best_4.png', 0, NULL, 0),
 (6, 29, 'Мобильный телефон Apple 8S', NULL, 987, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '\\images\\best_5.png', 0, NULL, 0),
-(7, 27, 'Мобильный телефон Самсунг', NULL, 2050, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '\\images\\best_4.png', 1, NULL, 0),
+(7, 27, 'Мобильный телефон Самсунг', '', 2050, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '/products/2021-10-26/617833fb3e83b_product-details-5-slider-1.jpg', 1, NULL, 0),
 (8, 8, 'Мобильный телефон Самсунг', NULL, 2200, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '\\images\\best_4.png', 0, NULL, 0),
 (9, 9, 'Мобильный телефон Самсунг', NULL, 1700, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '\\images\\best_4.png', 0, NULL, 0),
 (10, 10, 'Мобильный телефон Самсунг', NULL, 1700, 2100, 'Купить Тайтл для телефона Самсунг', 'Заказать Дескрипшен Описание для телефона Самсунг', '\\images\\best_4.png', 0, NULL, 0),
@@ -347,7 +381,7 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`, `verification_token`) VALUES
 (1, 'admin', '3npL4eCy5H0lBmkOIOft1Yix9ougDJAW', '$2y$13$tuDfjENGmEGBJah.DY5MROctwqgMN7801I7DOtR7vTUefeXNNhPSG', NULL, 'admin@admin.ua', 10, 1633021980, 1633021980, 'axGPROLFsoHZ8clfT7eCAOzTeR25ljmq_1633021980'),
-(2, 'admin2', 'Z7CuTMLFHzkfkH7vWTY8ylWMyUzfhVIq', '$2y$13$8yVPMm61ZI3utqfCByqtnu/Iinc6xjv/rz8PuH5WG8DH8glVL/t8y', NULL, 'zt15521@gmail.com', 9, 1634314946, 1634314946, '5NCcW3ImXNTzVZotleom5auQehDYtQQe_1634314946');
+(2, 'admin2', 'Z7CuTMLFHzkfkH7vWTY8ylWMyUzfhVIq', '$2y$13$8yVPMm61ZI3utqfCByqtnu/Iinc6xjv/rz8PuH5WG8DH8glVL/t8y', NULL, 'zt15521@gmail.com', 10, 1634314946, 1634314946, '5NCcW3ImXNTzVZotleom5auQehDYtQQe_1634314946');
 
 -- --------------------------------------------------------
 
@@ -483,13 +517,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT для таблицы `orders_item`
 --
 ALTER TABLE `orders_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT для таблицы `product`
@@ -530,8 +564,8 @@ ALTER TABLE `orders`
 -- Ограничения внешнего ключа таблицы `orders_item`
 --
 ALTER TABLE `orders_item`
-  ADD CONSTRAINT `fk-orders_item-orders_id` FOREIGN KEY (`orders_id`) REFERENCES `orders` (`id`),
-  ADD CONSTRAINT `fk-orders_item-product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+  ADD CONSTRAINT `fk-orders_item-orders_id` FOREIGN KEY (`orders_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk-orders_item-product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Ограничения внешнего ключа таблицы `product`
