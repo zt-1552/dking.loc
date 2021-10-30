@@ -233,12 +233,9 @@ class CategoryController extends AppController
         if ($idsProductValues != null) {
             $query->andWhere(['id' => $idsProductValues]);
         }
-
         // Пагинация
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
-
-
 
         return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'child_all_category', 'pages', 'categoryAttributes'));
     }
@@ -275,6 +272,7 @@ class CategoryController extends AppController
         return $parents;
     }
 
+
     /**
      * This method for 4 and up level tree
      * @param $id
@@ -291,10 +289,9 @@ class CategoryController extends AppController
                 $children[] = $v;
             }
         }
-//                debug($children); die;
-
         return [$ids, $children];
     }
+
 
     /**
      * @param $id
@@ -302,12 +299,10 @@ class CategoryController extends AppController
      */
     protected function getChildIds($id) {
         $children = Category::find()->where(['parent_id' => $id])->asArray()->all();
-//        debug($children); die;
         $ids = [];
         foreach ($children as $child) {
             $ids[] = $child;
         }
-//        debug($ids); die;
         return $ids;
     }
 
