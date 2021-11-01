@@ -21,17 +21,19 @@ use yii\helpers\Url;
                         <div class="top_bar_menu">
                         </div>
                         <div class="top_bar_user">
-                            <div class="user_icon"><img src="images/user.svg" alt=""></div>
-                            <div><a href="#">Register</a></div>
-                            <div><a href="#">Sign in</a></div>
-<!--                            --><?php
-//                            Modal::begin([
-//                                'header'=>'<h4>Login</h4>',
-//                                'id'=>'login-modal',
-//                            ]);
-//
-//                            Modal::end();
-//                            ?>
+
+                            <?php if (Yii::$app->user->isGuest) { ?>
+
+                                <div class="user_icon"><img src="images/user.svg" alt=""></div>
+                                <div><a href="#register" data-toggle="modal" data-target="#loginModal">Register</a></div>
+                                <div><a href="#login" data-toggle="modal" data-target="#loginModal">Sign in</a></div>
+
+                                <div><a href="#" data-toggle="modal" data-target="#login-modal">Войти</a></div>
+
+                            <?php } else { ?>
+                                <div><a href="<?= Url::to(['home/logout']); ?>">Выйти</a></div>
+                            <?php } ?>
+
                         </div>
                     </div>
                 </div>

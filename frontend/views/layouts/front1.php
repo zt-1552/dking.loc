@@ -1,6 +1,7 @@
 <?php
 
 use frontend\assets\OneAppAsset;
+use frontend\widgets\LoginFormWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -28,6 +29,8 @@ OneAppAsset::register($this);
 
 <body>
 <?php $this->beginBody() ?>
+
+<?= (Yii::$app->user->isGuest ? LoginFormWidget::widget([]) : ''); ?>
 
 <div class="super_container">
 

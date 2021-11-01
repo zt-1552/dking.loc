@@ -4,6 +4,7 @@
 /* @var $content string */
 
 use frontend\assets\AppAsset;
+use frontend\widgets\LoginFormWidget;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -31,6 +32,8 @@ AppAsset::register($this);
 
 <body>
 <?php $this->beginBody() ?>
+<?= (Yii::$app->user->isGuest ? LoginFormWidget::widget([]) : ''); ?>
+
 
 <div class="main-wrapper main-wrapper-3">
     <header class="header-area section-padding-1 transparent-bar">

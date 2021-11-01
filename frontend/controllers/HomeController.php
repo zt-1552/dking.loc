@@ -5,7 +5,11 @@ namespace frontend\controllers;
 
 use backend\components\AppController;
 use common\models\Category;
+use common\models\LoginForm;
 use common\models\Product;
+use Yii;
+use yii\web\HttpException;
+use yii\web\Response;
 
 class HomeController extends AppController
 {
@@ -55,5 +59,34 @@ class HomeController extends AppController
 
         return $this->render('contact');
     }
+
+    public function actionAjaxLogin() {
+        if (Yii::$app->request->isAjax) {
+            $model = new LoginForm();
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->login()) {
+                    return $this->goBack(Yii::$app->request->referrer);
+                } else {
+                    Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+                    return \yii\widgets\ActiveForm::validate($model);
+                }
+            }
+        } else {
+            throw new HttpException(404 ,'Page not found');
+        }
+    }
+
+    /**
+     * Logout action.
+     *
+     * @return Response
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goBack(Yii::$app->request->referrer);
+    }
+
 
 }

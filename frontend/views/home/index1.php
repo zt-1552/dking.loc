@@ -110,28 +110,28 @@
 											</div>
 											<div class="available_bar"><span style="width:17%"></span></div>
 										</div>
-										<div class="deals_timer d-flex flex-row align-items-center justify-content-start">
-											<div class="deals_timer_title_container">
-												<div class="deals_timer_title">Hurry Up</div>
-												<div class="deals_timer_subtitle">Offer ends in:</div>
-											</div>
-											<div class="deals_timer_content ml-auto">
-												<div class="deals_timer_box clearfix" data-target-time="">
-													<div class="deals_timer_unit">
-														<div id="deals_timer1_hr" class="deals_timer_hr"></div>
-														<span>hours</span>
-													</div>
-													<div class="deals_timer_unit">
-														<div id="deals_timer1_min" class="deals_timer_min"></div>
-														<span>mins</span>
-													</div>
-													<div class="deals_timer_unit">
-														<div id="deals_timer1_sec" class="deals_timer_sec"></div>
-														<span>secs</span>
-													</div>
-												</div>
-											</div>
-										</div>
+<!--										<div class="deals_timer d-flex flex-row align-items-center justify-content-start">-->
+<!--											<div class="deals_timer_title_container">-->
+<!--												<div class="deals_timer_title">Hurry Up</div>-->
+<!--												<div class="deals_timer_subtitle">Offer ends in:</div>-->
+<!--											</div>-->
+<!--											<div class="deals_timer_content ml-auto">-->
+<!--												<div class="deals_timer_box clearfix" data-target-time="">-->
+<!--													<div class="deals_timer_unit">-->
+<!--														<div id="deals_timer1_hr" class="deals_timer_hr"></div>-->
+<!--														<span>hours</span>-->
+<!--													</div>-->
+<!--													<div class="deals_timer_unit">-->
+<!--														<div id="deals_timer1_min" class="deals_timer_min"></div>-->
+<!--														<span>mins</span>-->
+<!--													</div>-->
+<!--													<div class="deals_timer_unit">-->
+<!--														<div id="deals_timer1_sec" class="deals_timer_sec"></div>-->
+<!--														<span>secs</span>-->
+<!--													</div>-->
+<!--												</div>-->
+<!--											</div>-->
+<!--										</div>-->
 									</div>
 								</div>
 

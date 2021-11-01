@@ -8,7 +8,11 @@
             use yii\helpers\Html;
             use yii\widgets\ActiveForm;
 
-            $form = ActiveForm::begin(['id' => 'login-form']); ?>
+            $form = ActiveForm::begin([
+                'id' => 'login-form',
+                'enableAjaxValidation' => true,
+                'action' => ['site/ajax-login'],
+            ]); ?>
 
             <?= $form->field($model, 'username')->label('Имя пользователя')->textInput(['autofocus' => true, 'class' => 'form-control']) ?>
 

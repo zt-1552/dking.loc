@@ -1,3 +1,8 @@
+<?php
+
+use frontend\widgets\LoginFormWidget;
+
+?>
 <footer class="footer">
     <div class="container">
         <div class="row">
@@ -80,7 +85,49 @@
     </div>
 </div>
 
-<!-- Modal -->
+
+<!-- Modal LOGIN -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <ul class="nav nav-tabs justify-content-center">
+                    <li class="nav-item">
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#register" role="tab">Регистрация</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="list-group-item list-group-item-action" data-toggle="list" href="#login" role="tab">Авторизация</a>
+                    </li>
+                </ul>
+            <div class="tab-content">
+
+                <div class="tab-pane" id="register" role="tabpanel" aria-labelledby="list-home-list">
+
+                    <div class="h2 mb-3 mt-2">Форма регистрации</div>
+
+                    <div class="modal-footer">
+                        <a href="<?= \yii\helpers\Url::to('cart/checkout')?>" class="btn btn-success">Регистрация</a>
+                    </div>
+                </div>
+                <div class="tab-pane" id="login" role="tabpanel" aria-labelledby="list-home-list">
+                    <div class="h2 mb-3 mt-2">Форма авторизации</div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!-- Modal CART -->
 <div class="modal fade" id="CartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">

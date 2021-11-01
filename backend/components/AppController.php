@@ -3,10 +3,14 @@
 
 namespace backend\components;
 
+use common\models\LoginForm;
+use Yii;
 use yii\web\Controller;
+use yii\web\HttpException;
 
 class AppController extends Controller
 {
+
     public function beforeAction($action)
     {
         $this->view->title = \Yii::$app->name;
@@ -19,5 +23,6 @@ class AppController extends Controller
         $this->view->registerMetaTag(['name' => 'description', 'content' => "$description"]);
 
     }
+
 
 }
