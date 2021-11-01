@@ -82,6 +82,28 @@
 
                     </ul>
                 </li>
+                <li class="nav-item treeview">
+                    <a href="#" class="nav-link">
+                        <!--                        <i class="nav-icon fas fa-tachometer-alt"></i>-->
+                        <p>
+                            Пользователи
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= \yii\helpers\Url::to(['/user/index'])?>" class="nav-link">
+                                <p>Список пользователей</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= \yii\helpers\Url::to(['/user/create'])?>" class="nav-link">
+                                <p>Добавить пользователя</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

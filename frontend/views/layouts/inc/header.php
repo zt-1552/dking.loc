@@ -13,6 +13,8 @@ use yii\helpers\Url;
 
     <div class="top_bar">
         <div class="container">
+            <?= \common\widgets\Alert::widget() ?>
+
             <div class="row">
                 <div class="col d-flex flex-row">
                     <div class="top_bar_contact_item"><div class="top_bar_icon"><img src="images/phone.png" alt=""></div>+38 067 410 35 10</div>
@@ -25,13 +27,13 @@ use yii\helpers\Url;
                             <?php if (Yii::$app->user->isGuest) { ?>
 
                                 <div class="user_icon"><img src="images/user.svg" alt=""></div>
-                                <div><a href="#register" data-toggle="modal" data-target="#loginModal">Register</a></div>
-                                <div><a href="#login" data-toggle="modal" data-target="#loginModal">Sign in</a></div>
-
-                                <div><a href="#" data-toggle="modal" data-target="#login-modal">Войти</a></div>
+                                <div><a href="#register" data-toggle="modal" data-target="#login-modal">Регистрация</a></div>
+                                <div><a href="#login" data-toggle="modal" data-target="#login-modal">Войти</a></div>
 
                             <?php } else { ?>
-                                <div><a href="<?= Url::to(['home/logout']); ?>">Выйти</a></div>
+                                <div></div>
+                                <div><?= Yii::$app->user->identity->username ?></div>
+                                <div><a href="<?= Url::to(['auth/logout']); ?>">Выйти</a></div>
                             <?php } ?>
 
                         </div>
@@ -105,6 +107,8 @@ use yii\helpers\Url;
                         </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>

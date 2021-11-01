@@ -45,11 +45,6 @@ $url = Yii::$app->request->resolve();
                         </div>
                     </div>
 
-<!--                    --><?php //if (!empty($categoryAttributes)) {?>
-<!--                        --><?//= $this->render('filter', compact('categoryAttributes')); ?>
-<!--                    --><?php //} ?>
-
-<!--                    --><?php //debug($child_all_category[1]); ?>
 
                     <?= \common\components\FilterProdWidget::widget([
                         'url' => $url,

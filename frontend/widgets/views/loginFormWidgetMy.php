@@ -28,16 +28,31 @@ Modal::begin([
 
             <div class="h2 mb-3 mt-2">Форма регистрации</div>
 
+            <?php $form = ActiveForm::begin([
+                    'id' => 'form-signup',
+                    'enableAjaxValidation' => true,
+                    'action' => ['auth/ajax-sign']
+            ]); ?>
+
+            <?= $form->field($modelSign, 'username')->textInput(['autofocus' => true]) ?>
+
+            <?= $form->field($modelSign, 'email') ?>
+
+            <?= $form->field($modelSign, 'password')->passwordInput() ?>
+
             <div class="modal-footer">
-                <a href="<?= \yii\helpers\Url::to('cart/checkout')?>" class="btn btn-success">Регистрация</a>
+                <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>
             </div>
+
+            <?php ActiveForm::end(); ?>
+
         </div>
         <div class="tab-pane" id="login" role="tabpanel" aria-labelledby="list-home-list">
-            <div class="h2 mb-3 mt-2">Форма авторизации</div>
+            <div class="h2 mb-3 mt-2">Авторизация</div>
                 <?php $form = ActiveForm::begin([
                     'id' => 'login-form',
                     'enableAjaxValidation' => true,
-                    'action' => ['home/ajax-login']
+                    'action' => ['auth/ajax-login']
                 ]);
                 echo $form->field($model, 'username')->textInput();
                 echo $form->field($model, 'password')->passwordInput();
