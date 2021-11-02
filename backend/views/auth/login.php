@@ -11,7 +11,7 @@
             $form = ActiveForm::begin([
                 'id' => 'login-form',
                 'enableAjaxValidation' => true,
-                'action' => ['site/ajax-login'],
+                'action' => ['auth/login'],
             ]); ?>
 
             <?= $form->field($model, 'username')->label('Имя пользователя')->textInput(['autofocus' => true, 'class' => 'form-control']) ?>
