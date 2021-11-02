@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use common\models\Category;
+use common\models\CategoryAttributes;
 use common\models\CategorySearch;
 use backend\components\AppAdminController;
 use common\models\Product;
@@ -92,6 +93,9 @@ class CategoryController extends AppAdminController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $categoryAttributes = CategoryAttributes::findAll($id);
+
+        debug($categoryAttributes);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

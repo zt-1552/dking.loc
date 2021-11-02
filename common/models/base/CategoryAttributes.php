@@ -43,8 +43,8 @@ class CategoryAttributes extends \common\models\base\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'category_id' => 'Category ID',
-            'attributes_id' => 'Attributes ID',
+            'category_id' => 'Категория',
+            'attributes_id' => 'Атрибут/фильтр',
         ];
     }
 
