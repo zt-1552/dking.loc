@@ -18,7 +18,7 @@
                      with font-awesome or any other icon font library -->
                 <li class="nav-item treeview">
                     <a href="#" class="nav-link">
-<!--                        <i class="nav-icon fas fa-tachometer-alt"></i>-->
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Заказы
                             <i class="right fas fa-angle-left"></i>
@@ -40,7 +40,7 @@
                 </li>
                 <li class="nav-item treeview">
                     <a href="#" class="nav-link">
-                        <!--                        <i class="nav-icon fas fa-tachometer-alt"></i>-->
+                     <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Категории
                             <i class="right fas fa-angle-left"></i>
@@ -62,7 +62,7 @@
                 </li>
                 <li class="nav-item treeview">
                     <a href="#" class="nav-link">
-                        <!--                        <i class="nav-icon fas fa-tachometer-alt"></i>-->
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Товары
                             <i class="right fas fa-angle-left"></i>
@@ -84,7 +84,8 @@
                 </li>
                 <li class="nav-item treeview">
                     <a href="#" class="nav-link">
-                        <!--                        <i class="nav-icon fas fa-tachometer-alt"></i>-->
+                        <i class="nav-icon far fa-image"></i>
+
                         <p>
                             Пользователи
                             <i class="right fas fa-angle-left"></i>
@@ -103,6 +104,14 @@
                         </li>
 
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= \yii\helpers\Url::to(['/category-attributes/index'])?>" class="nav-link">
+                        <i class="nav-icon far fa-image"></i>
+                        <p>
+                            Атрибуты категорий
+                        </p>
+                    </a>
                 </li>
             </ul>
         </nav>

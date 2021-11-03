@@ -34,7 +34,18 @@ $this->params['breadcrumbs'][] = $this->title;
             //'updated_at',
             //'verification_token',
 
-            ['class' => 'yii\grid\ActionColumn'],
+//            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => \yii\grid\ActionColumn::class,
+//                'buttons'=>[
+//                    'view'=>function ($url, $model) {
+//                        $customurl=Yii::$app->getUrlManager()->createUrl(['log/view','id'=>$model['id']]); //$model->id для AR
+//                        return \yii\helpers\Html::a( '<span class="glyphicon glyphicon-eye-open"></span>', $customurl,
+//                            ['title' => Yii::t('yii', 'View'), 'data-pjax' => '0']);
+//                    }
+//                ],
+                'template'=>'{view}  {delete}',
+            ]
         ],
     ]); ?>
 

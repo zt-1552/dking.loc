@@ -39,6 +39,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw',
                     ],
                     'name',
+                    [
+                            'attribute' => 'Фильтры/attributes',
+                            'value' => function($model) {
+                                    $attr = [];
+                                    foreach ($model->attributes0 as $item) {
+                    //                    debug($item);
+                                        $attr[] = $item->title;
+                                    }
+                    //                debug($attr);
+                                return implode(', ', $attr);
+                            }
+                    ],
                     'meta_title',
                     'meta_description:ntext',
                     'content:ntext',

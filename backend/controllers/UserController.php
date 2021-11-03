@@ -2,7 +2,7 @@
 
 namespace backend\controllers;
 
-use common\models\User;
+use backend\models\User;
 use yii\data\ActiveDataProvider;
 use backend\components\AppAdminController;
 use yii\web\NotFoundHttpException;
