@@ -7,6 +7,7 @@ namespace frontend\controllers;
 use backend\components\AppController;
 use common\models\Category;
 use common\models\CategoryAttributes;
+use common\models\helpers\CategoryHelper;
 use common\models\Product;
 use common\models\ProductValues;
 use common\models\Values;
@@ -78,17 +79,10 @@ class CategoryController extends AppController
 
 
         // filters (attributes + values)
-        $categoryAttributes = CategoryAttributes::find()->where(['category_id' => $id])->with('attributes0')->asArray()->all();
-        if (!empty($categoryAttributes)) {
-             foreach ($categoryAttributes as &$categoryAttribute):
-                 $values = Values::find()->asArray()->where(['attributes_id' => $categoryAttribute['attributes0']['id']])->all();
-                 $categoryAttribute['attributeValue'] = $values;
-             endforeach;
-        }
+        $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues($id);
 
         //КОНЕЦ КОПИРОВАНИЯ
 
-//        debug($categoryAttributes);
 
         return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'child_all_category', 'pages', 'categoryAttributes'));
     }
@@ -147,13 +141,7 @@ class CategoryController extends AppController
 
 
         // filters (attributes + values)
-        $categoryAttributes = CategoryAttributes::find()->where(['category_id' => $category_id])->with('attributes0')->asArray()->all();
-        if (!empty($categoryAttributes)) {
-            foreach ($categoryAttributes as &$categoryAttribute):
-                $values = Values::find()->asArray()->where(['attributes_id' => $categoryAttribute['attributes0']['id']])->all();
-                $categoryAttribute['attributeValue'] = $values;
-            endforeach;
-        }
+        $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues($category_id);
 
 
         // КОД ВВЕРХУ КОПИРУЕТСЯ ИЗ actionView!!!!! УБРАТЬ ПОТОМ
