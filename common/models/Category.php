@@ -10,6 +10,28 @@ use yii\db\Expression;
 class Category extends BaseCategory
 {
 
+    public $oneCategoryAttributes = [];
+
+    public function rules()
+    {
+        return array_merge(
+            parent::rules(),
+            [
+                [['oneCategoryAttributes'], 'safe'],
+            ]
+        );
+    }
+
+    public function attributeLabels()
+    {
+
+        return array_merge(
+            parent::attributeLabels(),
+            [
+                'oneCategoryAttributes' => 'Атрибуты/фильтры категории',
+            ]);
+    }
+
     public function behaviors()
     {
         return [
@@ -77,7 +99,5 @@ class Category extends BaseCategory
     {
         return $this->hasOne(Category::class, ['id' => 'parent_id']);
     }
-
-
 
 }

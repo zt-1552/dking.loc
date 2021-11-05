@@ -7,8 +7,12 @@ use common\models\Category;
 use common\models\CategoryAttributes;
 use common\models\CategorySearch;
 use backend\components\AppAdminController;
+use common\models\helper\CategoriesHelper;
+use common\models\helpers\CategoryHelper;
 use common\models\Product;
 use common\models\Values;
+use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -70,6 +74,8 @@ class CategoryController extends AppAdminController
      */
     public function actionCreate()
     {
+        $allAttributes = ArrayHelper::map(Attributes::find()->asArray()->all(), 'id', 'title');
+
         $model = new Category();
 
         if ($this->request->isPost) {
@@ -82,6 +88,7 @@ class CategoryController extends AppAdminController
 
         return $this->render('create', [
             'model' => $model,
+            'allAttributes' => $allAttributes,
         ]);
     }
 
@@ -95,13 +102,21 @@ class CategoryController extends AppAdminController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $categoryAttributes = CategoryAttributes::find()->where(['category_id' => $id])->asArray()->all();
-        debug($categoryAttributes);
-        $allAttributes = Attributes::find()->asArray()->all();
-        debug($allAttributes);
+
+        $allAttributes = ArrayHelper::map(Attributes::find()->asArray()->all(), 'id', 'title');
+//        debug($model);
+
+        $post_data = Yii::$app->request->post('Category');
 
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            if (isset($post_data['oneCategoryAttributes']))
+            {
+//                debug($post_data['oneCategoryAttributes']);
+//                debug($post_data['id']);
+                // need to change category attributes
+                CategoryHelper::changeCategoryAttributes($id, $post_data['oneCategoryAttributes']);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -109,8 +124,12 @@ class CategoryController extends AppAdminController
             print_r($model->errors);
         }
 
+        $model->oneCategoryAttributes = CategoryHelper::getCategoryAttributesIds($id);
+//        debug($model->oneCategoryAttributes);
+
         return $this->render('update', [
             'model' => $model,
+            'allAttributes'=> $allAttributes,
         ]);
     }
 

@@ -6,6 +6,8 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model common\models\Category */
 /* @var $form yii\widgets\ActiveForm */
+
+
 ?>
 
 <div class="category-form">
@@ -55,6 +57,19 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'status')->textInput() ?>
+
+    <div class="form-check">
+    <?= $form->field($model, "oneCategoryAttributes")->checkboxList($allAttributes, [
+        'separator'=>'<br/>',
+        'item' => function($index, $label, $name, $checked, $value){
+            if($checked){
+                $ch = 'checked';
+            }
+            return "<input class='form-check-input' type='checkbox' name='$name' id='$value' value='$value' $ch/><label class='form-check-label mb-2' for='$value'>$label</label>";
+        }
+    ]) ?>
+    </div>
+
 
 
 
