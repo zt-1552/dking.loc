@@ -78,10 +78,16 @@ class CategoryController extends AppAdminController
 
         $model = new Category();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+        $post_data = Yii::$app->request->post('Category');
+
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            if (isset($post_data['oneCategoryAttributes']))
+            {
+                // need to change category attributes
+                CategoryHelper::changeCategoryAttributes($model->id, $post_data['oneCategoryAttributes']);
             }
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             $model->loadDefaultValues();
         }
@@ -104,16 +110,12 @@ class CategoryController extends AppAdminController
         $model = $this->findModel($id);
 
         $allAttributes = ArrayHelper::map(Attributes::find()->asArray()->all(), 'id', 'title');
-//        debug($model);
 
         $post_data = Yii::$app->request->post('Category');
-
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             if (isset($post_data['oneCategoryAttributes']))
             {
-//                debug($post_data['oneCategoryAttributes']);
-//                debug($post_data['id']);
                 // need to change category attributes
                 CategoryHelper::changeCategoryAttributes($id, $post_data['oneCategoryAttributes']);
             }
@@ -125,7 +127,6 @@ class CategoryController extends AppAdminController
         }
 
         $model->oneCategoryAttributes = CategoryHelper::getCategoryAttributesIds($id);
-//        debug($model->oneCategoryAttributes);
 
         return $this->render('update', [
             'model' => $model,

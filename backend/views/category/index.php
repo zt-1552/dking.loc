@@ -35,11 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'parent_id',
                         'value' => function($data){
-                            return $data->category->name ?? 'Корневая категория';
+                            return $data->category->name ?? '';
                         }
                     ],
-                    'meta_title',
-                    'meta_description:ntext',
+//                    'meta_title',
+//                    'meta_description:ntext',
                     //'content:ntext',
                     //'short_content:ntext',
                     //'image',

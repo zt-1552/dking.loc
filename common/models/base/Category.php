@@ -55,7 +55,7 @@ class Category extends \common\models\base\ActiveRecord
         return [
             'id' => 'ID',
             'parent_id' => 'Родительская категория',
-            'name' => 'Ниаменование',
+            'name' => 'Наименование',
             'meta_title' => 'Meta Title',
             'meta_description' => 'Meta Description',
             'content' => 'Content',
