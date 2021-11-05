@@ -8,10 +8,10 @@
 				<div class="banner_product_image"><img src="images/banner_product.png" alt=""></div>
 				<div class="col-lg-5 offset-lg-4 fill_height">
 					<div class="banner_content">
-						<h1 class="banner_text">new era of smartphones</h1>
+						<h1 class="banner_text">new era of smartphones in old style</h1>
 						<div class="banner_price"><span>$530</span>$460</div>
-						<div class="banner_product_name">Apple Iphone 6s</div>
-						<div class="button banner_button"><a href="#">Shop Now</a></div>
+						<div class="banner_product_name">Apple Iphone XXL SPlus</div>
+						<div class="button banner_button"><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => 23]) ?>">Shop Now</a></div>
 					</div>
 				</div>
 			</div>
@@ -318,29 +318,5 @@
 		</div>
 	</div>
 
-	<!-- Newsletter -->
-
-	<div class="newsletter">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
-						<div class="newsletter_title_container">
-							<div class="newsletter_icon"><img src="images/send.png" alt=""></div>
-							<div class="newsletter_title">Sign up for Newsletter</div>
-							<div class="newsletter_text"><p>...and receive %20 coupon for first shopping.</p></div>
-						</div>
-						<div class="newsletter_content clearfix">
-							<form action="#" class="newsletter_form">
-								<input type="email" class="newsletter_input" required="required" placeholder="Enter your email address">
-								<button class="newsletter_button">Subscribe</button>
-							</form>
-							<div class="newsletter_unsubscribe_link"><a href="#">unsubscribe</a></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<!-- Footer -->

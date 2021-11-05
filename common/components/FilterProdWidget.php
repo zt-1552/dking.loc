@@ -80,9 +80,7 @@ class FilterProdWidget extends Widget
 
 //        debug($model);
 
-
         return $this->render('filter', compact('min_price', 'max_price', 'model', 'product_values', 'categoryAttributes', 'category_id', 'url'));
-
     }
 
 }

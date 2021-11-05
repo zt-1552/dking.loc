@@ -82,7 +82,7 @@ if(!empty($attributeValues && !empty($category->attributes0))){
     <div class="container">
         <div class="row">
             <div class="mx-auto">
-                <h3 class="h3 mb-3 p-3 bg-secondary">Характеристики товара</h3>
+                <h3 class="h3 mb-3 p-3 bg-secondary">Характеристики <?= $product->title ?> </h3>
                 <table class="table mt-2">
                     <tbody>
                     <?php foreach ($attrValProduct as $key => $value): ?>

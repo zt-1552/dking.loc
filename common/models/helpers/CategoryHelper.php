@@ -1,9 +1,6 @@
 <?php
 
-
 namespace common\models\helpers;
-
-
 
 
 use common\models\CategoryAttributes;
@@ -33,27 +30,36 @@ class CategoryHelper
         return $categoryAttributesIds;
     }
 
-    public static function changeCategoryAttributes($category_id, $attributes_to_save)
+    public static function changeCategoryAttributes($category_id, $attributes_to_save = [])
     {
         $old_attributes = CategoryAttributes::find()->where(['category_id' => $category_id])->all();
 
-        //delete all we don't need
-        foreach ($old_attributes as $key => $old_attribute)
-            if (!in_array($old_attribute->attributes_id, $attributes_to_save))
-            {
-                $old_attribute->delete();
-                unset($old_attributes[$key]);
-            }
-        $oldAttributesIds = ArrayHelper::getColumn($old_attributes, 'attributes_id');
+        if (!empty($attributes_to_save)) {
 
-        foreach ($attributes_to_save as $item){
-            if (!in_array($item, $oldAttributesIds)){
-                $new_attribute = new CategoryAttributes();
-                $new_attribute->category_id = $category_id;
-                $new_attribute->attributes_id = $item;
-                $new_attribute->save();
+            //delete all we don't need
+            foreach ($old_attributes as $key => $old_attribute)
+                if (!in_array($old_attribute->attributes_id, $attributes_to_save))
+                {
+                    $old_attribute->delete();
+                    unset($old_attributes[$key]);
+                }
+            $oldAttributesIds = ArrayHelper::getColumn($old_attributes, 'attributes_id');
+
+            foreach ($attributes_to_save as $item){
+                if (!in_array($item, $oldAttributesIds)){
+                    $new_attribute = new CategoryAttributes();
+                    $new_attribute->category_id = $category_id;
+                    $new_attribute->attributes_id = $item;
+                    $new_attribute->save();
+                }
             }
+        } else {
+            foreach ($old_attributes as $key => $old_attribute)
+                {
+                    $old_attribute->delete();
+                }
         }
+
     }
 
 
