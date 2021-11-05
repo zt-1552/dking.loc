@@ -16,7 +16,7 @@ foreach ($categoryAttributes as $value){
 
 ?>
 
-<p><?= debug($array) ?></p>
+<!--<p>--><?//= debug($array) ?><!--</p>-->
 <!--<p>--><?//= debug($name) ?><!--</p>-->
 <!--<p>--><?//= debug($url) ?><!--</p>-->
 <!--<p>--><?//= debug($product_values) ?><!--</p>-->
@@ -27,7 +27,7 @@ foreach ($categoryAttributes as $value){
 ]) ?>
 
     <?php foreach ($array as $key => $value) : ?>
-    <?php debug($value);?>
+<!--    --><?php //debug($value);?>
         <p></p>
         <h3><?= $name[$key] ?></h3>
         <div class="form-check">

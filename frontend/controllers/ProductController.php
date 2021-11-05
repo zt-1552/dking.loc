@@ -23,6 +23,9 @@ class ProductController extends AppController
             throw new NotFoundHttpException('Такого товара нет....   пока нет)');
         }
 
+        $this->setMeta("{$product->meta_title} :: " . \Yii::$app->name, $product->meta_description);
+
+
         $category = Category::find()->where(['id' => $product->category_id])->with('attributes0')->one();
 
         $attributeValues = ProductValues::find()->where(['product_id' => $id])->with('values')->all();

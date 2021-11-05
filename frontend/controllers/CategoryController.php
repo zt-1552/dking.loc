@@ -92,6 +92,7 @@ class CategoryController extends AppController
     {
         $page = (int)$page;
 
+
         // получаем результаты поиска с постраничной навигацией
         list($products, $pages) = (new Product())->getSearchResult($query, $page);
 
@@ -115,6 +116,8 @@ class CategoryController extends AppController
         $productValue = [];
 
         // КОД КОПИРУЕТСЯ ИЗ actionView!!!!! УБРАТЬ ПОТОМ
+
+
 
         // Breadcrumbs
         $breadcrumbs = $this->getParents($category_id);
