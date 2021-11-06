@@ -13,6 +13,7 @@ use common\models\ProductValues;
 use common\models\Values;
 use Yii;
 use yii\data\Pagination;
+use yii\db\Query;
 use yii\helpers\BaseUrl;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
@@ -149,7 +150,7 @@ class CategoryController extends AppController
 
         // КОД ВВЕРХУ КОПИРУЕТСЯ ИЗ actionView!!!!! УБРАТЬ ПОТОМ
 
-//        debug($filterProducts);
+        debug($filterProducts);
         $filterProduct = [];
 
         foreach ($filterProducts as $key => $value){
@@ -171,35 +172,44 @@ class CategoryController extends AppController
 //            debug($filterProduct);
 
         //Вытаскиваем все ID товаров у которых есть нужные нам фильтры
-        if ($filterProduct != null) {
-
-//            $queryProdId = ProductValues::find()->where(['values_id' => $filterProduct[0]]);
-//            $i = 1;
-//            foreach ($filterProduct as $item){
-//                debug($item);
-//                $queryProdId->andWhere(['values_id' => $item]);
-//                $i++;
-//            }
+        //временно закомментировал
+//        if ($filterProduct != null) {
 //
-//            $productValues = $queryProdId->all();
+//            $productValues = ProductValues::find()->where(['values_id' => $filterProduct])->groupBy('product_id')->all();
+//
+//
+//            $idsProductValues = [];
+//
+//            foreach ($productValues as $idProduct) {
+//                $idsProductValues[] = $idProduct->product_id;
+//            }
+//            debug($idsProductValues);
+//            $idsProductValues = array_unique($idsProductValues);
+//        }
 
-//            debug($temp);
+        if ($filterProducts != null) {
+
+            $productValues = ProductValues::find();
+            foreach ($productValues as $productValue) {
+                $i = 1;
+                $asTable = 'v'.$i;
+                $subQuery = (new Query())->select('*')->from('product_values')->where(['values_id' => $productValue]);
+                $productValues->Join((string)[$asTable => $subQuery], 'u.id = author_id')
+                $productValues = $idProduct->product_id;
+                $i++;
+            }
 
 
-            $productValues = ProductValues::find()->where(['values_id' => $filterProduct])->groupBy('product_id')->all();
-//            debug($productValues);
-
-//            $productFilter = Product::find()->where()
+            $productValues->where(['values_id' => $filterProduct])->groupBy('product_id')->all();
 
 
             $idsProductValues = [];
 
-            foreach ($productValues as $idProduct) {
-                $idsProductValues[] = $idProduct->product_id;
-            }
-//            debug($idsProductValues);
-//            $idsProductValues = array_unique($idsProductValues);
+
+            debug($idsProductValues);
         }
+
+
 
 //        debug($productValues);
 
