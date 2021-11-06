@@ -66,7 +66,7 @@ if(!empty($attributeValues && !empty($category->attributes0))){
                             <div class="product_price">$<?= $product->price ?></div>
                             <div class="button_container">
                                 <a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $product->id])?>" data-id="<?= $product->id ?>" class="add_to_cart button cart_button">Купить</a>
-                                <div class="product_fav"><i class="fas fa-heart"></i></div>
+<!--                                <div class="product_fav"><i class="fas fa-heart"></i></div>-->
                             </div>
 
                         </form>

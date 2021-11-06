@@ -973,6 +973,7 @@ select option
 	-ms-transition: all 200ms ease;
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
+	min-width: 340px;
 }
 .cat_menu li a:hover
 {
@@ -1255,7 +1256,7 @@ select option
 
 .single_product
 {
-	padding-top: 110px;
+	padding-top: 50px;
 	padding-bottom: 70px;
 }
 .image_list li

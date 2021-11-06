@@ -13,6 +13,7 @@ use common\models\ProductValues;
 use common\models\Values;
 use Yii;
 use yii\data\Pagination;
+use yii\db\Query;
 use yii\helpers\BaseUrl;
 use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
@@ -173,24 +174,7 @@ class CategoryController extends AppController
         //Вытаскиваем все ID товаров у которых есть нужные нам фильтры
         if ($filterProduct != null) {
 
-//            $queryProdId = ProductValues::find()->where(['values_id' => $filterProduct[0]]);
-//            $i = 1;
-//            foreach ($filterProduct as $item){
-//                debug($item);
-//                $queryProdId->andWhere(['values_id' => $item]);
-//                $i++;
-//            }
-//
-//            $productValues = $queryProdId->all();
-
-//            debug($temp);
-
-
             $productValues = ProductValues::find()->where(['values_id' => $filterProduct])->groupBy('product_id')->all();
-//            debug($productValues);
-
-//            $productFilter = Product::find()->where()
-
 
             $idsProductValues = [];
 
@@ -198,10 +182,51 @@ class CategoryController extends AppController
                 $idsProductValues[] = $idProduct->product_id;
             }
 //            debug($idsProductValues);
-//            $idsProductValues = array_unique($idsProductValues);
+            $idsProductValues = array_unique($idsProductValues);
         }
 
-//        debug($productValues);
+
+
+
+
+        if ($filterProducts != null) {
+
+            $query1 = ProductValues::find()->from(['v1' => 'product_values']);
+
+            $subQuery = (new \yii\db\Query())->from('product_values')->where(['values_id' => 5]);
+            $query1->innerJoin(['v2' => $subQuery], '[[v2]].[[product_id]] = [[v1]].[[product_id]]');
+
+            $query1->where(['v1.values_id' => 1])->all();
+//            $query->count();
+
+//            where('subtotal > :threshold', [':threshold' => $threshold])
+
+
+
+
+//            debug($query1);
+//
+//            foreach ($filterProducts['attributeValue'] as $key => $filterProduct) {
+//                debug($filterProduct);
+//            }
+//                $i = 1;
+//                $asTable = 'v'.$i;
+//                $subQuery = (new Query())->select('*')->from('product_values')->where(['values_id' => $productValue]);
+//                $productValues1->Join((string)[$asTable => $subQuery], 'u.id = author_id')
+//                $productValues1 = $idProduct->product_id;
+//                $i++;
+//            }
+
+//            $productValues1->where(['values_id' => $filterProduct])->groupBy('product_id')->all();
+//            debug($productValues2);
+
+//            $idsProductValues = [];
+//
+//            debug($idsProductValues);
+        }
+
+
+
 
 
         $category = Category::findOne($category_id);
