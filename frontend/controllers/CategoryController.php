@@ -191,39 +191,40 @@ class CategoryController extends AppController
 
         if ($filterProducts != null) {
 
-            $query1 = ProductValues::find()->from(['v1' => 'product_values']);
+            $query = (new \yii\db\Query())->select('v1.product_id')->from(['v1' => 'product_values']);
 
             $subQuery = (new \yii\db\Query())->from('product_values')->where(['values_id' => 5]);
-            $query1->innerJoin(['v2' => $subQuery], '[[v2]].[[product_id]] = [[v1]].[[product_id]]');
+            $query->innerJoin(['v2' => $subQuery], '[[v2]].[[product_id]] = [[v1]].[[product_id]]');
 
-            $query1->where(['v1.values_id' => 1])->all();
-//            $query->count();
+            $result = $query->where(['v1.values_id' => 1])->all();
 
-//            where('subtotal > :threshold', [':threshold' => $threshold])
-//
+//            debug($result);
 
 
 
-//            debug($query1);
-//
-//            foreach ($filterProducts['attributeValue'] as $key => $filterProduct) {
+
+            $query1 = (new \yii\db\Query());
+            $i = 1;
+            foreach ($filterProducts['attributeValue'] as $key => $filterProduct) {
 //                debug($filterProduct);
-//            }
-//                $i = 1;
-//                $asTable = 'v'.$i;
-//                $subQuery = (new Query())->select('*')->from('product_values')->where(['values_id' => $productValue]);
-//                $productValues1->Join((string)[$asTable => $subQuery], 'u.id = author_id')
-//                $productValues1 = $idProduct->product_id;
-//                $i++;
-//            }
+                $asTbl = 'v'.$i;
+                if (!empty($filterProduct) && $i=1){
 
-//            $productValues1->where(['values_id' => $filterProduct])->groupBy('product_id')->all();
-//            debug($productValues2);
+                    $query1->select($asTbl.'.product_id')->from([$asTbl => 'product_values'])->where([$asTbl.'.values_id' => $filterProduct]);
+                }
+                if (!empty($filterProduct) && $i>1){
 
-//            $idsProductValues = [];
-//
-//            debug($idsProductValues);
+                    $subQueryS = (new \yii\db\Query())->from('product_values')->where(['values_id' => $filterProduct]);
+                    $query1->innerJoin([$asTbl => $subQueryS],  'v'.$i.'.product_id'.' = v'.($i-1).'.product_id');
+
+                }
+                $i++;
+            }
+            $result1 = $query1->all();
         }
+//        $temmm = $subQueryS.''.$i;
+//debug($temmm);
+//        debug($result1);
 
 
 

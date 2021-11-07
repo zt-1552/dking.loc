@@ -2,9 +2,12 @@
 
 namespace backend\controllers;
 
+use common\models\helpers\CategoryHelper;
 use common\models\Product;
 use common\models\ProductSearch;
 use backend\components\AppAdminController;
+use common\models\ProductValues;
+use common\models\Values;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -91,6 +94,9 @@ class ProductController extends AppAdminController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelsValues = ProductValues::find()->where(['product_id' => $id])->all();
+        $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues($model->category_id);
+//        debug($categoryAttributes);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -98,6 +104,8 @@ class ProductController extends AppAdminController
 
         return $this->render('update', [
             'model' => $model,
+            'modelsValues' => $modelsValues,
+            'categoryAttributes' => $categoryAttributes,
         ]);
     }
 

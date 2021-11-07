@@ -15,6 +15,7 @@ use yii\helpers\Url;
 class FilterProdWidget extends Widget
 {
 
+    public $tpl;
     public $url;
     public $category_id; // категория товаров
     public $category_all_child;
@@ -23,6 +24,10 @@ class FilterProdWidget extends Widget
     public function init()
     {
         parent::init();
+        if ($this->tpl === null) {
+            $this->tpl = 'filter';
+        }
+
     }
 
     public function run()
@@ -80,7 +85,7 @@ class FilterProdWidget extends Widget
 
 //        debug($model);
 
-        return $this->render('filter', compact('min_price', 'max_price', 'model', 'product_values', 'categoryAttributes', 'category_id', 'url'));
+        return $this->render($this->tpl, compact('min_price', 'max_price', 'model', 'product_values', 'categoryAttributes', 'category_id', 'url'));
     }
 
 }

@@ -51,6 +51,11 @@ mihaildev\elfinder\Assets::noConflict($this);
 
 <!--    --><?//= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
+    <?= \common\components\FilterProdWidget::widget([
+        'tpl' => 'admin_product',
+        'categoryAttributes' => $categoryAttributes,
+    ]) ?>
+
 <!--    --><?//= $form->field($model, 'content')->widget(CKEditor::class,[
 //        'editorOptions' => [
 //            'preset' => 'full', //разработанны стандартные настройки basic, standard, full
