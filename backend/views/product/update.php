@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = 'редактирование';
 
             <?= $this->render('_form', [
                 'model' => $model,
+                'modelsValuesIds' => $modelsValuesIds,
                 'categoryAttributes' => $categoryAttributes,
             ]) ?>
 

@@ -37,12 +37,17 @@ foreach ($categoryAttributes as $value){
                 <label class="control-label" for="attribute-<?= $key ?>"><?= $name[$key] ?></label>
                 <select id="attribute-<?= $key ?>" class="form-control" name="ProductValues[<?= $key ?>]" aria-invalid="false">
                     <option value="0">Выберите значение</option>
+                        <?php foreach ($value as $k => $v) : ?>
 
-                    <option value="<?= $value['id'] ?>"
-<!--                        --><?php //if($category['id'] == $this->model->category_id) echo ' selected ';?>
-<!--                    >-->
-                        <?= "{$tab}{$value['name']}" ?>
-                    </option>
+                            <option value="<?= $k ?>"
+                            <?php if(in_array($k, $modelsValuesIds)) echo ' selected ';?>
+<!--                            >-->
+                            <?= "{$v}" ?>
+                            </option>
+
+
+                        <?php endforeach; ?>
+
 
                 </select>
 
@@ -55,19 +60,19 @@ foreach ($categoryAttributes as $value){
 
 
 
-        <p></p>
-        <h3><?= $name[$key] ?></h3>
-        <div class="form-check">
-            <?= $form->field($model, "attributeValue[$key]")->checkboxList($value, [
-                'separator'=>'<br/>',
-                'item' => function($index, $label, $name, $checked, $value){
-                    if($checked){
-                        $ch = 'checked';
-                    }
-                    return "<input class='form-check-input' type='checkbox' name='$name' id='$value' value='$value' $ch/><label class='form-check-label mb-2' for='$value'>$label</label>";
-                }
-            ])->label(false) ?>
-        </div>
+<!--        <p></p>-->
+<!--        <h3>--><?//= $name[$key] ?><!--</h3>-->
+<!--        <div class="form-check">-->
+<!--            --><?//= $form->field($model, "attributeValue[$key]")->checkboxList($value, [
+//                'separator'=>'<br/>',
+//                'item' => function($index, $label, $name, $checked, $value){
+//                    if($checked){
+//                        $ch = 'checked';
+//                    }
+//                    return "<input class='form-check-input' type='checkbox' name='$name' id='$value' value='$value' $ch/><label class='form-check-label mb-2' for='$value'>$label</label>";
+//                }
+//            ])->label(false) ?>
+<!--        </div>-->
     <?php endforeach; ?>
     <?= Html::submitButton('Применить', ['class' => 'btn btn-outline-secondary m-3']) ?>
     <a class="btn btn-outline-secondary m-3" href="<?= \yii\helpers\Url::to(['category/view', 'id' => $category_id]) ?>">Сбросить</a>

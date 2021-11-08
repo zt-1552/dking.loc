@@ -18,6 +18,7 @@ class FilterProdWidget extends Widget
     public $tpl;
     public $url;
     public $category_id; // категория товаров
+    public $modelsValuesIds;
     public $category_all_child;
     public $categoryAttributes;
 

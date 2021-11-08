@@ -49,10 +49,10 @@ mihaildev\elfinder\Assets::noConflict($this);
 
     </div>
 
-<!--    --><?//= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
 
     <?= \common\components\FilterProdWidget::widget([
         'tpl' => 'admin_product',
+        'modelsValuesIds' => $modelsValuesIds,
         'categoryAttributes' => $categoryAttributes,
     ]) ?>
 

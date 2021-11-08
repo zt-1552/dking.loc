@@ -96,7 +96,15 @@ class ProductController extends AppAdminController
         $model = $this->findModel($id);
         $modelsValues = ProductValues::find()->where(['product_id' => $id])->all();
         $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues($model->category_id);
-//        debug($categoryAttributes);
+//        debug($modelsValues);
+        $modelsValuesIds = [];
+        if (!empty($modelsValues)) {
+            foreach ($modelsValues as $modelsValue) {
+//                debug($modelsValue->values_id);
+                $modelsValuesIds[] = $modelsValue->values_id;
+            }
+
+        }
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -104,7 +112,7 @@ class ProductController extends AppAdminController
 
         return $this->render('update', [
             'model' => $model,
-            'modelsValues' => $modelsValues,
+            'modelsValues' => $modelsValuesIds,
             'categoryAttributes' => $categoryAttributes,
         ]);
     }
