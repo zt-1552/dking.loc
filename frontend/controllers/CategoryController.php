@@ -205,28 +205,29 @@ class CategoryController extends AppController
 
             $query1 = (new \yii\db\Query());
             $i = 1;
+
             foreach ($filterProducts['attributeValue'] as $key => $filterProduct) {
-//                debug($filterProduct);
-                $asTbl = 'v'.$i;
-                if (!empty($filterProduct) && $i=1){
+                debug($filterProduct);
+                $asTbl = 'v'.$key;
+                $subQuery = 'sq'.$key;
+
+                if (!empty($filterProduct) && $i == 1){
 
                     $query1->select($asTbl.'.product_id')->from([$asTbl => 'product_values'])->where([$asTbl.'.values_id' => $filterProduct]);
                 }
-                if (!empty($filterProduct) && $i>1){
+                if (!empty($filterProduct) && $i > 1){
 
-                    $subQueryS = (new \yii\db\Query())->from('product_values')->where(['values_id' => $filterProduct]);
-                    $query1->innerJoin([$asTbl => $subQueryS],  'v'.$i.'.product_id'.' = v'.($i-1).'.product_id');
-
+                    $subQuery = (new \yii\db\Query())->from('product_values')->where(['values_id' => $filterProduct]);
+                    $query1->innerJoin([$asTbl => $subQuery],  'v'.$i.'.product_id'.' = v'.($i-1).'.product_id');
+//                    debug($subQuery);
                 }
                 $i++;
             }
             $result1 = $query1->all();
         }
-//        $temmm = $subQueryS.''.$i;
-//debug($temmm);
-//        debug($result1);
+        debug($result1);
 
-
+//        var_dump($query1->prepare(\Yii::$app->db->queryBuilder)->createCommand()->rawSql);
 
 
 
