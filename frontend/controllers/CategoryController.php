@@ -116,9 +116,7 @@ class CategoryController extends AppController
         $max = '';
         $productValue = [];
 
-        // КОД КОПИРУЕТСЯ ИЗ actionView!!!!! УБРАТЬ ПОТОМ
-
-
+        // КОД ниже КОПИРУЕТСЯ ИЗ actionView!!!!! УБРАТЬ ПОТОМ
 
         // Breadcrumbs
         $breadcrumbs = $this->getParents($category_id);
@@ -147,88 +145,43 @@ class CategoryController extends AppController
         // filters (attributes + values)
         $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues($category_id);
 
-
         // КОД ВВЕРХУ КОПИРУЕТСЯ ИЗ actionView!!!!! УБРАТЬ ПОТОМ
-
-//        debug($filterProducts);
-        $filterProduct = [];
-
-        foreach ($filterProducts as $key => $value){
-//            debug($key);die;
-
-            if ($key == 'attributeValue') {
-                foreach ($value as $k => $v){
-                    if ($v == ' ' || $v == '') {
-                        unset($value[$k]);
-                    }
-                    if ($v != null) {
-                        foreach ($v as $kk => $vv){
-                            array_push($filterProduct, $vv);
-                        }
-                    }
-                }
-            }
-        }
-//            debug($filterProduct);
-
-        //Вытаскиваем все ID товаров у которых есть нужные нам фильтры
-        if ($filterProduct != null) {
-
-            $productValues = ProductValues::find()->where(['values_id' => $filterProduct])->groupBy('product_id')->all();
-
-            $idsProductValues = [];
-
-            foreach ($productValues as $idProduct) {
-                $idsProductValues[] = $idProduct->product_id;
-            }
-//            debug($idsProductValues);
-            $idsProductValues = array_unique($idsProductValues);
-        }
-
-
-
 
 
         if ($filterProducts != null) {
-
-            $query = (new \yii\db\Query())->select('v1.product_id')->from(['v1' => 'product_values']);
-
-            $subQuery = (new \yii\db\Query())->from('product_values')->where(['values_id' => 5]);
-            $query->innerJoin(['v2' => $subQuery], '[[v2]].[[product_id]] = [[v1]].[[product_id]]');
-
-            $result = $query->where(['v1.values_id' => 1])->all();
-
-//            debug($result);
-
-
-
 
             $query1 = (new \yii\db\Query());
             $i = 1;
 
             foreach ($filterProducts['attributeValue'] as $key => $filterProduct) {
-                debug($filterProduct);
-                $asTbl = 'v'.$key;
-                $subQuery = 'sq'.$key;
+//                debug($filterProduct);
 
                 if (!empty($filterProduct) && $i == 1){
-
+                    $asTbl = 'v'.$i;
+                    $subQuery = 'sq'.$i;
                     $query1->select($asTbl.'.product_id')->from([$asTbl => 'product_values'])->where([$asTbl.'.values_id' => $filterProduct]);
+                    $i++;
                 }
                 if (!empty($filterProduct) && $i > 1){
-
+                    $asTbl = 'v'.$i;
+                    $subQuery = 'sq'.$i;
                     $subQuery = (new \yii\db\Query())->from('product_values')->where(['values_id' => $filterProduct]);
                     $query1->innerJoin([$asTbl => $subQuery],  'v'.$i.'.product_id'.' = v'.($i-1).'.product_id');
-//                    debug($subQuery);
+                    $i++;
                 }
-                $i++;
             }
-            $result1 = $query1->all();
+            $productValuesNew = $query1->all();
         }
-        debug($result1);
 
+        //Вытаскиваем все ID товаров у которых есть нужные нам фильтры
+        $idsProductValuesNew = [];
+        if ($productValuesNew != null) {
+
+            foreach ($productValuesNew as $idProduct) {
+                $idsProductValuesNew[] = $idProduct['product_id'];
+            }
+        }
 //        var_dump($query1->prepare(\Yii::$app->db->queryBuilder)->createCommand()->rawSql);
-
 
 
         $category = Category::findOne($category_id);
@@ -236,8 +189,6 @@ class CategoryController extends AppController
         if (empty($category)) {
             throw new NotFoundHttpException('Такой категории нет....');
         }
-
-//        debug($child_all_category);
 
         // Список товаров заменяется на нужный
         $query = Product::find();
@@ -248,8 +199,8 @@ class CategoryController extends AppController
             }
         }
 
-        if ($idsProductValues != null) {
-            $query->andWhere(['id' => $idsProductValues]);
+        if ($idsProductValuesNew != null) {
+            $query->andWhere(['id' => $idsProductValuesNew]);
         }
         // Пагинация
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
