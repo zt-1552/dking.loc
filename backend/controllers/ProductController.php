@@ -117,6 +117,16 @@ class ProductController extends AppAdminController
         ]);
     }
 
+    public function actionAjaxAttrValues()
+    {
+        $category_id = \Yii::$app->request->post('category_id');
+        $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues($category_id);
+
+        if(\Yii::$app->request->isAjax) {
+            return $this->renderAjax('ajax-attr-values', compact('category_id', 'categoryAttributes'));
+        }
+    }
+
     /**
      * Deletes an existing Product model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

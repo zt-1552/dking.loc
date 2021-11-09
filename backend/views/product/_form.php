@@ -5,6 +5,7 @@ use mihaildev\ckeditor\CKEditor;
 use mihaildev\elfinder\ElFinder;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\widgets\Pjax;
 
 mihaildev\elfinder\Assets::noConflict($this);
 
@@ -57,18 +58,16 @@ mihaildev\elfinder\Assets::noConflict($this);
         </div>
     </div>
 
-    <?= \common\components\FilterProdWidget::widget([
-        'tpl' => 'admin_product',
-        'modelsValuesIds' => $modelsValuesIds,
-        'categoryAttributes' => $categoryAttributes,
-    ]) ?>
+    <div id="ajax-attr-values">
+        <?= \common\components\FilterProdWidget::widget([
+            'tpl' => 'admin_product',
+            'modelsValuesIds' => $modelsValuesIds,
+            'categoryAttributes' => $categoryAttributes,
+        ]) ?>
+    </div>
 
-<!--    --><?//= $form->field($model, 'content')->widget(CKEditor::class,[
-//        'editorOptions' => [
-//            'preset' => 'full', //разработанны стандартные настройки basic, standard, full
-//            'inline' => false, //по умолчанию false
-//        ],
-//    ]);?>
+
+
 
     <?= $form->field($model, 'content')->widget(CKEditor::class, [
 

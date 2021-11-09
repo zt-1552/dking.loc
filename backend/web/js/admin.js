@@ -13,12 +13,56 @@ $(function () {
         }
     })
 
-    $('.hidden-value').on('change', function () {
-        var values = $('.hidden-value').map(function() { return $(this).val(); }).get();
-        let values_str = values.join();
-        $('#product-productvaluesnew').val(values_str);
+    function clearValues(){
+            let values = $('.hidden-value').map(function() { return $(this).val(); }).get();
+            let delempty = values.filter(Number);
+            let values_str = delempty.join();
+            $('#product-productvaluesnew').val(values_str);
+            // console.log(values);
+            // console.log(delempty);
+        $('.hidden-value').on('change', function () {
+            let values = $('.hidden-value').map(function() { return $(this).val(); }).get();
+            let delempty = values.filter(Number);
+            let values_str = delempty.join();
+            $('#product-productvaluesnew').val(values_str);
+            // console.log(values);
+            // console.log(delempty);
+        })
+    }
 
-        console.log(values_str);
+    $('#product-category_id').on("change", function() {
+        var category_id = $('#product-category_id').val();
+        if (!category_id) {
+            return;
+        }
+        // console.log(category_id);
+        $.ajax({
+            url: 'product/ajax-attr-values',
+            type: 'post',
+            data: {category_id: category_id},
+            success: function (data) {
+                if(!data) alert('не добавлен, ошибка');
+                $('#ajax-attr-values').html(data);
+                clearValues();
+            },
+            error: function (data) {
+                // alert(data.errors);
+                console.log(data.errors)
+            }
+        });
+    });
+
+
+
+    $('.hidden-value').on('change', function () {
+        let values = $('.hidden-value').map(function() { return $(this).val(); }).get();
+        let delempty = values.filter(Number);
+        let values_str = delempty.join();
+        $('#product-productvaluesnew').val(values_str);
+        // console.log(values);
+        // console.log(delempty);
     })
+
+
 
 })
