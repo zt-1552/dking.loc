@@ -18,6 +18,8 @@ $this->params['breadcrumbs'][] = 'редактирование';
         <!-- /.card-header -->
         <div class="card-body">
 
+<!--            --><?php //debug($modelsValuesIds); ?>
+
             <?= $this->render('_form', [
                 'model' => $model,
                 'modelsValuesIds' => $modelsValuesIds,

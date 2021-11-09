@@ -12,4 +12,13 @@ $(function () {
             $(this).closest('.nav-treeview').css('display', 'block');
         }
     })
+
+    $('.hidden-value').on('change', function () {
+        var values = $('.hidden-value').map(function() { return $(this).val(); }).get();
+        let values_str = values.join();
+        $('#product-productvaluesnew').val(values_str);
+
+        console.log(values_str);
+    })
+
 })

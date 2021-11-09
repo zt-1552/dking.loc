@@ -49,6 +49,13 @@ mihaildev\elfinder\Assets::noConflict($this);
 
     </div>
 
+<!--    --><?//= $form->field($model, 'productValuesNew')->hiddenInput()->label(false) ?>
+
+    <div class="form-group field-product-productvaluesnew">
+        <div class="col-md-6">
+            <input type="hidden" id="product-productvaluesnew" class="form-control" name="Product[productValuesNew]" value="<?=implode(',', $modelsValuesIds)?>">
+        </div>
+    </div>
 
     <?= \common\components\FilterProdWidget::widget([
         'tpl' => 'admin_product',

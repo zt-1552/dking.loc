@@ -103,8 +103,8 @@ class ProductController extends AppAdminController
 //                debug($modelsValue->values_id);
                 $modelsValuesIds[] = $modelsValue->values_id;
             }
-
         }
+//        debug($modelsValuesIds);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -112,7 +112,7 @@ class ProductController extends AppAdminController
 
         return $this->render('update', [
             'model' => $model,
-            'modelsValues' => $modelsValuesIds,
+            'modelsValuesIds' => $modelsValuesIds,
             'categoryAttributes' => $categoryAttributes,
         ]);
     }

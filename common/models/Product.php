@@ -15,6 +15,8 @@ class Product extends baseProduct
 {
 
     public $file;
+    public $productValuesNew;
+
 
 
     public function rules()
@@ -23,6 +25,7 @@ class Product extends baseProduct
             parent::rules(),
             [
                 [['file'], 'image'],
+                [['productValuesNew'], 'safe'],
             ]
         );
     }

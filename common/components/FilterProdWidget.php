@@ -56,6 +56,7 @@ class FilterProdWidget extends Widget
 //        $attribute_values = Values::find()->with('attributes0')->all();
 
         $categoryAttributes = $this->categoryAttributes;
+        $modelsValuesIds = $this->modelsValuesIds;
 
         $url = Yii::$app->request->resolve();
         $url = $url[1];
@@ -86,7 +87,7 @@ class FilterProdWidget extends Widget
 
 //        debug($model);
 
-        return $this->render($this->tpl, compact('min_price', 'max_price', 'model', 'product_values', 'categoryAttributes', 'category_id', 'url'));
+        return $this->render($this->tpl, compact('modelsValuesIds', 'min_price', 'max_price', 'model', 'product_values', 'categoryAttributes', 'category_id', 'url'));
     }
 
 }
