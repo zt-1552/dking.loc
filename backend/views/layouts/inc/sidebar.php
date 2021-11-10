@@ -105,13 +105,33 @@
 
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= \yii\helpers\Url::to(['/category-attributes/index'])?>" class="nav-link">
+                <li class="nav-item treeview">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon far fa-image"></i>
+
                         <p>
-                            Атрибуты категорий
+                            Служебные
+                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="<?= \yii\helpers\Url::to(['/category-attributes/index'])?>" class="nav-link">
+                                <p>Атрибуты категорий</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= \yii\helpers\Url::to(['/values/index'])?>" class="nav-link">
+                                <p>Значения атрибутов</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="<?= \yii\helpers\Url::to(['/attributes/index'])?>" class="nav-link">
+                                <p>Атрибуты</p>
+                            </a>
+                        </li>
+
+                    </ul>
                 </li>
             </ul>
         </nav>
