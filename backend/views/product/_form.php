@@ -59,14 +59,13 @@ mihaildev\elfinder\Assets::noConflict($this);
     </div>
 
     <div id="ajax-attr-values">
-        <?= \common\components\FilterProdWidget::widget([
-            'tpl' => 'admin_product',
-            'modelsValuesIds' => $modelsValuesIds,
-            'categoryAttributes' => $categoryAttributes,
-        ]) ?>
+        <?= $this->render('ajax-attr-values', compact('modelsValuesIds', 'categoryAttributes'))?>
+<!--        --><?//= \common\components\FilterProdWidget::widget([
+//            'tpl' => 'admin_product',
+//            'modelsValuesIds' => $modelsValuesIds,
+//            'categoryAttributes' => $categoryAttributes,
+//        ]) ?>
     </div>
-
-
 
 
     <?= $form->field($model, 'content')->widget(CKEditor::class, [
@@ -79,16 +78,9 @@ mihaildev\elfinder\Assets::noConflict($this);
 
     <?= $form->field($model, 'old_price')->textInput() ?>
 
-
-
-
-
-
     <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'meta_description')->textInput(['maxlength' => true]) ?>
-
-<!--    --><?//= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'file')->widget(FileInput::class, [
         'options' => ['accept' => 'image/*'],

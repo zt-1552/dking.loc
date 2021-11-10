@@ -1,8 +1,5 @@
-<h2>Привет, категория <?= $category_id ?></h2>
-
 <?php
 
-use yii\helpers\Html;
 
 $array = [];
 $name = [];
@@ -20,11 +17,11 @@ foreach ($categoryAttributes as $value){
 <?//= debug($product_values) ?>
 
 <div class="col-md-6 m-4 p-2" style="background-color: #e8e8e8;">
-    <h3>Фильтры/характеристики</h3>
+    <h4>Фильтры/характеристики</h4>
 
     <?php if (!empty($array)) { ?>
 
-    <?php //debug($modelsValuesIds); ?>
+    <?php debug($modelsValuesIds); ?>
 
     <?php foreach ($array as $key => $value) : ?>
     <!--            --><?php //debug($value);?>
@@ -38,7 +35,9 @@ foreach ($categoryAttributes as $value){
             <?php foreach ($value as $k => $v) : ?>
 
                 <option value="<?= $k ?>"
-<!--                    --><?php //if(in_array($k, $modelsValuesIds)) echo ' selected ';?>
+                        <?php if (!empty($modelsValuesIds)) {?>
+                            <?php if(in_array($k, $modelsValuesIds)) echo ' selected ';?>
+                        <?php } ?>
                 >
                     <?= "{$v}" ?>
                 </option>

@@ -3,11 +3,13 @@
 namespace backend\controllers;
 
 use common\models\helpers\CategoryHelper;
+use common\models\helpers\ProductHelper;
 use common\models\Product;
 use common\models\ProductSearch;
 use backend\components\AppAdminController;
 use common\models\ProductValues;
 use common\models\Values;
+use Yii;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -25,7 +27,7 @@ class ProductController extends AppAdminController
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -70,9 +72,18 @@ class ProductController extends AppAdminController
     public function actionCreate()
     {
         $model = new Product();
+        $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues(1);
+        $modelsValuesIds = [];
+
+        $post_data = Yii::$app->request->post('Product');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                if (isset($post_data['productValuesNew']))
+                {
+                    // need to change category attributes
+                    ProductHelper::changeProductValues($model->id, $post_data['productValuesNew']);
+                }
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -81,6 +92,8 @@ class ProductController extends AppAdminController
 
         return $this->render('create', [
             'model' => $model,
+            'modelsValuesIds' => $modelsValuesIds,
+            'categoryAttributes' => $categoryAttributes,
         ]);
     }
 
@@ -96,7 +109,7 @@ class ProductController extends AppAdminController
         $model = $this->findModel($id);
         $modelsValues = ProductValues::find()->where(['product_id' => $id])->all();
         $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues($model->category_id);
-//        debug($modelsValues);
+
         $modelsValuesIds = [];
         if (!empty($modelsValues)) {
             foreach ($modelsValues as $modelsValue) {
@@ -105,8 +118,15 @@ class ProductController extends AppAdminController
             }
         }
 //        debug($modelsValuesIds);
+        $post_data = Yii::$app->request->post('Product');
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            if (isset($post_data['productValuesNew']))
+            {
+                // need to change category attributes
+                ProductHelper::changeProductValues($id, $post_data['productValuesNew']);
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -117,6 +137,9 @@ class ProductController extends AppAdminController
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function actionAjaxAttrValues()
     {
         $category_id = \Yii::$app->request->post('category_id');
