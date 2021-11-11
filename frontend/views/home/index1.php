@@ -172,11 +172,6 @@
 												<div class="product_price discount">$<?= $offer->price ?><span>$<?= $offer->old_price ?></span></div>
 												<div class="product_name"><div><a href="<?= \yii\helpers\Url::to(['product/view', 'id' => $offer->id]) ?>"><?= $offer->title ?></a></div></div>
 												<div class="product_extras">
-													<div class="product_color">
-														<input type="radio" checked name="product_color" style="background:#b19c83">
-														<input type="radio" name="product_color" style="background:#000000">
-														<input type="radio" name="product_color" style="background:#999999">
-													</div>
 													<a href="<?= \yii\helpers\Url::to(['cart/add', 'id' => $offer->id])?>" data-id="<?= $offer->id ?>" class="add_to_cart product_cart_button">Купить</a>
 												</div>
 											</div>

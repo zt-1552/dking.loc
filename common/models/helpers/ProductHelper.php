@@ -47,5 +47,19 @@ class ProductHelper
         }
     }
 
+    public static function getModelValuesIds($id)
+    {
+        $modelsValues = ProductValues::find()->where(['product_id' => $id])->all();
+        $modelsValuesIds = [];
+        if (!empty($modelsValues)) {
+            foreach ($modelsValues as $modelsValue) {
+//                debug($modelsValue->values_id);
+                $modelsValuesIds[] = $modelsValue->values_id;
+            }
+        }
+
+        return $modelsValuesIds;
+    }
+
 
 }

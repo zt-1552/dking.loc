@@ -60,11 +60,7 @@ mihaildev\elfinder\Assets::noConflict($this);
 
     <div id="ajax-attr-values">
         <?= $this->render('ajax-attr-values', compact('modelsValuesIds', 'categoryAttributes'))?>
-<!--        --><?//= \common\components\FilterProdWidget::widget([
-//            'tpl' => 'admin_product',
-//            'modelsValuesIds' => $modelsValuesIds,
-//            'categoryAttributes' => $categoryAttributes,
-//        ]) ?>
+
     </div>
 
 

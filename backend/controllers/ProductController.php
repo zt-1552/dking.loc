@@ -69,11 +69,20 @@ class ProductController extends AppAdminController
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($cloneModel = null)
     {
-        $model = new Product();
+        if (!empty($cloneModel)){
+            $oldModel = $this->findModel($cloneModel);
+            $model = new Product();
+            $model->setAttributes($oldModel->getAttributes());
+            $modelsValuesIds = ProductHelper::getModelValuesIds($cloneModel);
+
+        } else {
+            $model = new Product();
+            $modelsValuesIds = [];
+        }
+
         $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues(1);
-        $modelsValuesIds = [];
 
         $post_data = Yii::$app->request->post('Product');
 
@@ -107,26 +116,16 @@ class ProductController extends AppAdminController
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelsValues = ProductValues::find()->where(['product_id' => $id])->all();
         $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues($model->category_id);
+        $modelsValuesIds = ProductHelper::getModelValuesIds($id);
 
-        $modelsValuesIds = [];
-        if (!empty($modelsValues)) {
-            foreach ($modelsValues as $modelsValue) {
-//                debug($modelsValue->values_id);
-                $modelsValuesIds[] = $modelsValue->values_id;
-            }
-        }
-//        debug($modelsValuesIds);
         $post_data = Yii::$app->request->post('Product');
-
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             if (isset($post_data['productValuesNew']))
             {
                 // need to change category attributes
                 ProductHelper::changeProductValues($id, $post_data['productValuesNew']);
             }
-
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

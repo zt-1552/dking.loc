@@ -1696,8 +1696,9 @@ select option
 }
 .product_name
 {
-	margin-top: 4px;
+	margin-top: 12px;
 	overflow: hidden;
+	margin-bottom: 12px;
 }
 .product_name div
 {

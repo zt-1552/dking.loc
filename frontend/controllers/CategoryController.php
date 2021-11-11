@@ -199,9 +199,9 @@ class CategoryController extends AppController
             }
         }
 
-        if ($idsProductValuesNew != null) {
+//        if ($idsProductValuesNew != null) {
             $query->andWhere(['id' => $idsProductValuesNew]);
-        }
+//        }
         // Пагинация
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();

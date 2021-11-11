@@ -21,7 +21,7 @@ foreach ($categoryAttributes as $value){
 
     <?php if (!empty($array)) { ?>
 
-    <?php debug($modelsValuesIds); ?>
+<!--    --><?php //debug($modelsValuesIds); ?>
 
     <?php foreach ($array as $key => $value) : ?>
     <!--            --><?php //debug($value);?>
