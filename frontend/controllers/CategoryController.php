@@ -41,19 +41,7 @@ class CategoryController extends AppController
         $this->setMeta("{$category->meta_title} :: " . \Yii::$app->name, $category->meta_description);
 
         // Breadcrumbs
-        $breadcrumbs = $this->getParents($id);
-        if (count($breadcrumbs) > 1) {
-            $last_bread = array_pop($breadcrumbs);
-
-            for ($i = 0; $i < count($breadcrumbs); $i++) {
-                $this->view->params['breadcrumbs'][$i]['label'] = $breadcrumbs[$i]['name'];
-                $this->view->params['breadcrumbs'][$i]['url'] = Url::to(['category/view', 'id' => $breadcrumbs[$i]['id']]);
-                array_push($this->view->params['breadcrumbs'], array('label' => $last_bread['name']));
-            };
-        } else {
-            $last_bread = $breadcrumbs[0];
-            $this->view->params['breadcrumbs'][]['label'] =  $last_bread['name'];
-        }
+        $this->getBreadcrumbsCategory($id);
 
         // Главные категории
         \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
@@ -80,15 +68,11 @@ class CategoryController extends AppController
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
 
-
         // filters (attributes + values)
         $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues($id);
 //        debug($categoryAttributes);
 
         //КОНЕЦ КОПИРОВАНИЯ
-
-//        TagDependency::invalidate(Yii::$app->cache, 'category');
-
 
         return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'child_all_category', 'pages', 'categoryAttributes'));
     }
@@ -97,7 +81,6 @@ class CategoryController extends AppController
     public function actionSearch($query = '', $page = 1)
     {
         $page = (int)$page;
-
 
         // получаем результаты поиска с постраничной навигацией
         list($products, $pages) = (new Product())->getSearchResult($query, $page);
@@ -121,22 +104,16 @@ class CategoryController extends AppController
         $max = '';
         $productValue = [];
 
-        // КОД ниже КОПИРУЕТСЯ ИЗ actionView!!!!! УБРАТЬ ПОТОМ
+
+        $nullFilterProducts = array_filter($filterProducts['attributeValue']);
+        if (empty($nullFilterProducts)) {
+            return $this->actionView($category_id);
+        }
+
+        // КОД ниже КОПИРУЕТСЯ ИЗ actionView!!!!!
 
         // Breadcrumbs
-        $breadcrumbs = $this->getParents($category_id);
-        if (count($breadcrumbs) > 1) {
-            $last_bread = array_pop($breadcrumbs);
-
-            for ($i = 0; $i < count($breadcrumbs); $i++) {
-                $this->view->params['breadcrumbs'][$i]['label'] = $breadcrumbs[$i]['name'];
-                $this->view->params['breadcrumbs'][$i]['url'] = Url::to(['category/view', 'id' => $breadcrumbs[$i]['id']]);
-                array_push($this->view->params['breadcrumbs'], array('label' => $last_bread['name']));
-            };
-        } else {
-            $last_bread = $breadcrumbs[0];
-            $this->view->params['breadcrumbs'][]['label'] =  $last_bread['name'];
-        }
+        $this->getBreadcrumbsCategory($category_id);
 
         // Главные категории
         \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
@@ -145,17 +122,12 @@ class CategoryController extends AppController
 
         // Подкатегории только нижнего уровня
         $child_categories = $child_all_category[0];
-//
-//        $nullFilterProducts = array_filter($filterProducts['attributeValue']);
-//        if (empty($nullFilterProducts)) {
-//            debug($filterProducts['attributeValue']); die;
-//        }
-
 
         // filters (attributes + values)
         $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues($category_id);
 
-        // КОД ВВЕРХУ КОПИРУЕТСЯ ИЗ actionView!!!!! УБРАТЬ ПОТОМ
+
+        // КОД ВВЕРХУ КОПИРУЕТСЯ ИЗ actionView!!!!!
 
 
         if ($filterProducts != null) {
@@ -183,14 +155,6 @@ class CategoryController extends AppController
             $productValuesNew = $query1->all();
         }
 
-//        $nullFilterProducts = array_filter($filterProducts['attributeValue']);
-//        if (empty($nullFilterProducts)) {
-////            debug($filterProducts['attributeValue']);
-//
-//            return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'child_all_category', 'pages', 'categoryAttributes'));
-//
-//        }
-
 
         //Вытаскиваем все ID товаров у которых есть нужные нам фильтры
         $idsProductValuesNew = [];
@@ -200,15 +164,12 @@ class CategoryController extends AppController
                 $idsProductValuesNew[] = $idProduct['product_id'];
             }
         }
-//        var_dump($query1->prepare(\Yii::$app->db->queryBuilder)->createCommand()->rawSql);
 
 
         $category = Category::findOne($category_id);
-
         if (empty($category)) {
             throw new NotFoundHttpException('Такой категории нет....');
         }
-
         // Список товаров заменяется на нужный
         $query = Product::find();
         $query->with('values')->where(['category_id' => $category_id]);
@@ -217,7 +178,6 @@ class CategoryController extends AppController
                 $query->orWhere(['category_id' => $item['id']]);
             }
         }
-
         $query->andWhere(['id' => $idsProductValuesNew]);
 
         // Пагинация
@@ -309,43 +269,62 @@ class CategoryController extends AppController
      * @param $category_id
      * @return array
      */
-    public function getChild($category_id)
+//    public function getChild($category_id)
+//    {
+//        $child_category = \Yii::$app->cache->get('child_category_' . $category_id);
+//
+//        if ($child_category) {
+//            return $child_category;
+//        };
+//
+//        $category_all = Category::find()->indexBy('id')->asArray()->all();
+//
+//        $category = $category_all[$category_id];
+//
+//        $child = [];
+//
+//        foreach ($category_all as $item) {
+//            if ($item['parent_id'] === $category['id']) {
+//                array_push($child, $item);
+//            }
+//        }
+//
+//        $child_two = [];
+//        foreach ($child as $item_child) {
+//            foreach ($category_all as $item) {
+//                if ($item['parent_id'] === $item_child['id']) {
+//                    array_push($child_two, $item);
+//                }
+//            }
+//        }
+//
+//        foreach ($child_two as $item) {
+//            array_push($child, $item);
+//        }
+//
+//        //set Cache
+//        \Yii::$app->cache->set('child_category_' . $category_id, $child,
+//            new TagDependency(['tags' => 'category']));
+//        return $child;
+//    }
+
+    public function getBreadcrumbsCategory($category_id)
     {
-        $child_category = \Yii::$app->cache->get('child_category_' . $category_id);
+        // Breadcrumbs
+        $breadcrumbs = $this->getParents($category_id);
+        if (count($breadcrumbs) > 1) {
+            $last_bread = array_pop($breadcrumbs);
 
-        if ($child_category) {
-            return $child_category;
-        };
-
-        $category_all = Category::find()->indexBy('id')->asArray()->all();
-
-        $category = $category_all[$category_id];
-
-        $child = [];
-
-        foreach ($category_all as $item) {
-            if ($item['parent_id'] === $category['id']) {
-                array_push($child, $item);
-            }
+            for ($i = 0; $i < count($breadcrumbs); $i++) {
+                $this->view->params['breadcrumbs'][$i]['label'] = $breadcrumbs[$i]['name'];
+                $this->view->params['breadcrumbs'][$i]['url'] = Url::to(['category/view', 'id' => $breadcrumbs[$i]['id']]);
+                array_push($this->view->params['breadcrumbs'], array('label' => $last_bread['name']));
+            };
+        } else {
+            $last_bread = $breadcrumbs[0];
+            $this->view->params['breadcrumbs'][]['label'] =  $last_bread['name'];
         }
 
-        $child_two = [];
-        foreach ($child as $item_child) {
-            foreach ($category_all as $item) {
-                if ($item['parent_id'] === $item_child['id']) {
-                    array_push($child_two, $item);
-                }
-            }
-        }
-
-        foreach ($child_two as $item) {
-            array_push($child, $item);
-        }
-
-        //set Cache
-        \Yii::$app->cache->set('child_category_' . $category_id, $child,
-            new TagDependency(['tags' => 'category']));
-        return $child;
     }
 
 }

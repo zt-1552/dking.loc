@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 $array = [];
@@ -16,11 +17,6 @@ foreach ($categoryAttributes as $value){
 
 ?>
 
-<!--<p>--><?//= debug($array) ?><!--</p>-->
-<!--<p>--><?//= debug($name) ?><!--</p>-->
-<!--<p>--><?//= debug($url) ?><!--</p>-->
-<!--<p>--><?//= debug($product_values) ?><!--</p>-->
-
 <?php $form = ActiveForm::begin([
         'action' => \yii\helpers\Url::to(['category/filter', 'id' => $category_id]),
         'method' => 'get',
@@ -28,7 +24,6 @@ foreach ($categoryAttributes as $value){
 <?php if (!empty($array)) { ?>
 
     <?php foreach ($array as $key => $value) : ?>
-        <!--    --><?php //debug($value);?>
         <p></p>
         <h3><?= $name[$key] ?></h3>
         <div class="form-check">
@@ -44,11 +39,10 @@ foreach ($categoryAttributes as $value){
         </div>
     <?php endforeach; ?>
     <?= Html::submitButton('Применить', ['class' => 'btn btn-outline-secondary m-3']) ?>
-    <a class="btn btn-outline-secondary m-3" href="<?= \yii\helpers\Url::to(['category/view', 'id' => $category_id]) ?>">Сбросить</a>
+    <a class="btn btn-outline-secondary m-3" href="<?= Url::to(['category/view', 'id' => $category_id]) ?>">Сбросить</a>
 
 <?php } ?>
 
 
 <?php ActiveForm::end() ?>
 
-<?// debug($category_id); ?>
