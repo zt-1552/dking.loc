@@ -2,16 +2,17 @@
 
 namespace backend\controllers;
 
+use backend\components\behaviors\DeleteCacheBehavior;
 use common\models\Attributes;
 use common\models\Category;
 use common\models\CategoryAttributes;
 use common\models\CategorySearch;
 use backend\components\AppAdminController;
-use common\models\helper\CategoriesHelper;
 use common\models\helpers\CategoryHelper;
 use common\models\Product;
 use common\models\Values;
 use Yii;
+use yii\caching\TagDependency;
 use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -34,6 +35,11 @@ class CategoryController extends AppAdminController
                     'actions' => [
                         'delete' => ['POST'],
                     ],
+                ],
+                'DeleteCacheBehavior' => [
+                    'class' => DeleteCacheBehavior::class,
+                    'cacheTag' => 'category',
+                    'actions' => ['create', 'update', 'delete'],
                 ],
             ]
         );
@@ -119,6 +125,8 @@ class CategoryController extends AppAdminController
                 // need to change category attributes
                 CategoryHelper::changeCategoryAttributes($id, $post_data['oneCategoryAttributes']);
             }
+
+//            TagDependency::invalidate(Yii::$app->cache, 'category');
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

@@ -46,10 +46,10 @@ class FilterProdWidget extends Widget
         }
 
         //минимальная цена
-        $min_price = Product::find()->where(['category_id' => $ids])->min('price');
+//        $min_price = Product::find()->where(['category_id' => $ids])->min('price');
 
         // максимальная цена
-        $max_price = Product::find()->where(['category_id' => $ids])->max('price');
+//        $max_price = Product::find()->where(['category_id' => $ids])->max('price');
 
         //вытаскиваем все свойства
 //        $product_values = ProductValues::find()->with('values')->all();
@@ -87,7 +87,7 @@ class FilterProdWidget extends Widget
 
 //        debug($model);
 
-        return $this->render($this->tpl, compact('modelsValuesIds', 'min_price', 'max_price', 'model', 'product_values', 'categoryAttributes', 'category_id', 'url'));
+        return $this->render($this->tpl, compact('modelsValuesIds', 'model', 'product_values', 'categoryAttributes', 'category_id', 'url'));
     }
 
 }

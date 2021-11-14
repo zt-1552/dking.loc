@@ -10,8 +10,19 @@ use yii\helpers\ArrayHelper;
 class CategoryHelper
 {
 
+    /**
+     * @param $category_id
+     * @return array|mixed|\yii\db\ActiveRecord[]
+     */
     public static function getAllCategoryAttributesAndValues($category_id)
     {
+
+        //get cache
+        $allCategoryAttributesValues = \Yii::$app->cache->get('AllCategoryAttributesAndValues_'.$category_id);
+        if ($allCategoryAttributesValues) {
+            return $allCategoryAttributesValues;
+        }
+
         $allCategoryAttributesValues = CategoryAttributes::find()->where(['category_id' => $category_id])->with('attributes0')->asArray()->all();
         if (!empty($allCategoryAttributesValues)) {
             foreach ($allCategoryAttributesValues as &$categoryAttribute):
@@ -19,9 +30,18 @@ class CategoryHelper
                 $categoryAttribute['attributeValue'] = $values;
             endforeach;
         }
+
+        //set cache
+        \Yii::$app->cache->set('AllCategoryAttributesAndValues_'.$category_id, $allCategoryAttributesValues, 300);
+
         return $allCategoryAttributesValues;
     }
 
+
+    /**
+     * @param $category_id
+     * @return array
+     */
     public static function getCategoryAttributesIds($category_id)
     {
         $categoryAttributes = CategoryAttributes::find()->where(['category_id' => $category_id])->asArray()->all();
@@ -30,6 +50,13 @@ class CategoryHelper
         return $categoryAttributesIds;
     }
 
+
+    /**
+     * @param $category_id
+     * @param array $attributes_to_save
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
     public static function changeCategoryAttributes($category_id, $attributes_to_save = [])
     {
         $old_attributes = CategoryAttributes::find()->where(['category_id' => $category_id])->all();

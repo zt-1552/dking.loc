@@ -1,4 +1,8 @@
 <?php
+
+use yii\caching\TagDependency;
+use yii\widgets\Pjax;
+
 $url = Yii::$app->request->resolve();
 ?>
 <!-- Home -->
@@ -60,7 +64,6 @@ $url = Yii::$app->request->resolve();
             <div class="col-lg-9">
 
                 <!-- Shop Content -->
-
 
 
                 <div class="shop_content">
@@ -125,7 +128,6 @@ $url = Yii::$app->request->resolve();
                     </div>
 
                 </div>
-
 
             </div>
 

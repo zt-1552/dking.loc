@@ -12,6 +12,7 @@ use common\models\Product;
 use common\models\ProductValues;
 use common\models\Values;
 use Yii;
+use yii\caching\TagDependency;
 use yii\data\Pagination;
 use yii\db\Query;
 use yii\helpers\BaseUrl;
@@ -57,6 +58,7 @@ class CategoryController extends AppController
         // Главные категории
         \Yii::$app->params['main_categories'] = (new \common\models\Category) -> getMainCategories();
 
+
         //Все ПодКатегории всех уровней этой категории
 //        $child_category = $this->getChild($id); // max 3 level tree, min request
         $child_all_category = $this->getAllChild($id);// for all level tree, + request
@@ -81,8 +83,11 @@ class CategoryController extends AppController
 
         // filters (attributes + values)
         $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues($id);
+//        debug($categoryAttributes);
 
         //КОНЕЦ КОПИРОВАНИЯ
+
+//        TagDependency::invalidate(Yii::$app->cache, 'category');
 
 
         return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'child_all_category', 'pages', 'categoryAttributes'));
@@ -140,6 +145,11 @@ class CategoryController extends AppController
 
         // Подкатегории только нижнего уровня
         $child_categories = $child_all_category[0];
+//
+//        $nullFilterProducts = array_filter($filterProducts['attributeValue']);
+//        if (empty($nullFilterProducts)) {
+//            debug($filterProducts['attributeValue']); die;
+//        }
 
 
         // filters (attributes + values)
@@ -173,6 +183,15 @@ class CategoryController extends AppController
             $productValuesNew = $query1->all();
         }
 
+//        $nullFilterProducts = array_filter($filterProducts['attributeValue']);
+//        if (empty($nullFilterProducts)) {
+////            debug($filterProducts['attributeValue']);
+//
+//            return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'child_all_category', 'pages', 'categoryAttributes'));
+//
+//        }
+
+
         //Вытаскиваем все ID товаров у которых есть нужные нам фильтры
         $idsProductValuesNew = [];
         if ($productValuesNew != null) {
@@ -199,9 +218,8 @@ class CategoryController extends AppController
             }
         }
 
-//        if ($idsProductValuesNew != null) {
-            $query->andWhere(['id' => $idsProductValuesNew]);
-//        }
+        $query->andWhere(['id' => $idsProductValuesNew]);
+
         // Пагинация
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
@@ -235,9 +253,9 @@ class CategoryController extends AppController
                 array_unshift($parents, $parent);
             }
         }
-
 //        set Cache
-        \Yii::$app->cache->set('parents_category_' . $category_id, $parents, 360);
+        \Yii::$app->cache->set('parents_category_' . $category_id, $parents, 0, new TagDependency(['tags' => 'category']));
+
         return $parents;
     }
 
@@ -248,17 +266,27 @@ class CategoryController extends AppController
      * @return array
      */
     protected function getAllChild($id) {
-        $children = [];
-        $ids = $this->getChildIds($id);
+
+        $data = \Yii::$app->cache->get('child_allChild_' . $id);
+        if ($data) {
+            return $data;
+        }
+
+        $allChild = [];
+        $child = $this->getChildIds($id);
 //        debug($ids); die;
-        foreach ($ids as $item) {
-            $children[] = $item;
+        foreach ($child as $item) {
+            $allChild[] = $item;
             $c = $this->getChildIds($item['id']);
             foreach ($c as $v) {
-                $children[] = $v;
+                $allChild[] = $v;
             }
         }
-        return [$ids, $children];
+        //        set Cache
+        \Yii::$app->cache->set('child_allChild_' . $id, [$child, $allChild], 0, new TagDependency(['tags' => 'category']));
+
+//        debug($child);
+        return [$child, $allChild];
     }
 
 
@@ -283,11 +311,11 @@ class CategoryController extends AppController
      */
     public function getChild($category_id)
     {
-//        $child_category = \Yii::$app->cache->get('child_category_' . $category_id);
+        $child_category = \Yii::$app->cache->get('child_category_' . $category_id);
 
-//        if ($child_category) {
-//            return $child_category;
-//        };
+        if ($child_category) {
+            return $child_category;
+        };
 
         $category_all = Category::find()->indexBy('id')->asArray()->all();
 
@@ -314,8 +342,9 @@ class CategoryController extends AppController
             array_push($child, $item);
         }
 
-//        set Cache
-//        \Yii::$app->cache->set('child_category_' . $category_id, $child, 360);
+        //set Cache
+        \Yii::$app->cache->set('child_category_' . $category_id, $child,
+            new TagDependency(['tags' => 'category']));
         return $child;
     }
 

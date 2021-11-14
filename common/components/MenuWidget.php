@@ -5,6 +5,7 @@ namespace common\components;
 
 use common\models\Category;
 use yii\base\Widget;
+use yii\caching\TagDependency;
 
 
 /**
@@ -21,7 +22,7 @@ class MenuWidget extends Widget
     public $tree;
     public $menuHtml;
     public $model;
-    public $cache_time = 60;
+    public $cache_time = 0;
 
 
     public function init()
@@ -42,12 +43,10 @@ class MenuWidget extends Widget
      */
     public function run()
     {
-        if($this->cache_time){
-            // get Cache
-            $menu = \Yii::$app->cache->get('menu');
-            if ($menu) {
-                return $menu;
-            }
+        // get Cache
+        $menu = \Yii::$app->cache->get('menu');
+        if ($menu) {
+            return $menu;
         }
 
         $this->data = Category::find()->select('id, parent_id, name')->indexBy('id')->asArray()->all();
@@ -55,10 +54,9 @@ class MenuWidget extends Widget
         $this->menuHtml = $this->getMenuHtml($this->tree);
 //                debug($this->tree);
 
-        if($this->cache_time){
-            //set Cache
-            \Yii::$app->cache->set('menu', $this->menuHtml, $this->cache_time);
-        }
+        //set Cache
+        \Yii::$app->cache->set('menu', $this->menuHtml, $this->cache_time, new TagDependency(['tags' => 'category']));
+
 
         return $this->menuHtml;
     }
