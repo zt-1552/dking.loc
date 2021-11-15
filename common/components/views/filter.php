@@ -15,12 +15,31 @@ foreach ($categoryAttributes as $value){
     }
 }
 
+
+$this -> registerJs(
+    '$("document").ready(function(){
+            $("#filter_form").on("pjax:end", function() {
+            $.pjax.reload({container:"#myFilter"});  //Reload View
+        });
+    });'
+);
+
 ?>
+
+    <?php yii\widgets\Pjax::begin([
+        'id' => 'filter_form',
+        'timeout' => 10000
+    ]) ?>
+
 
 <?php $form = ActiveForm::begin([
         'action' => \yii\helpers\Url::to(['category/filter', 'id' => $category_id]),
         'method' => 'get',
 ]) ?>
+
+<?= Html::submitButton('Применить', ['class' => 'btn btn-outline-secondary m-3']) ?>
+<a class="btn btn-outline-secondary m-3" href="<?= Url::to(['category/view', 'id' => $category_id]) ?>">Сбросить</a>
+
 <?php if (!empty($array)) { ?>
 
     <?php foreach ($array as $key => $value) : ?>
@@ -45,4 +64,7 @@ foreach ($categoryAttributes as $value){
 
 
 <?php ActiveForm::end() ?>
+
+<?php yii\widgets\Pjax::end(); ?>
+
 

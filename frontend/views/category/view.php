@@ -18,11 +18,13 @@ $url = Yii::$app->request->resolve();
 
 <!-- Shop -->
 
+
 <div class="shop">
 
 <?= $this->render('../inc/breadcrumbs')?>
 
     <div class="container">
+
 
         <div class="row">
             <div class="col-lg-3">
@@ -64,6 +66,10 @@ $url = Yii::$app->request->resolve();
             <div class="col-lg-9">
 
                 <!-- Shop Content -->
+                <?php Pjax::begin([
+                    'id'=>'myFilter',
+                    'timeout' => 10000,
+                ]); ?>
 
 
                 <div class="shop_content">
@@ -129,10 +135,16 @@ $url = Yii::$app->request->resolve();
 
                 </div>
 
+                <?php Pjax::end(); ?>
+
             </div>
 
         </div>
+
+
     </div>
 </div>
+
+
 
 
