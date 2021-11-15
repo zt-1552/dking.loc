@@ -4,6 +4,37 @@ use yii\caching\TagDependency;
 use yii\widgets\Pjax;
 
 $url = Yii::$app->request->resolve();
+
+$this -> registerJs(
+    '$("document").ready(function(){
+            $("#myFilter").on("pjax:end", function() {
+            initIsotope1();
+            function initIsotope1()
+            {
+                var sortingButtons = $(\'.shop_sorting_button\');
+        
+                $(\'.product_grid\').isotope({
+                    itemSelector: \'.product_item\',
+                    getSortData: {
+                        price: function(itemElement)
+                        {
+                            var priceEle = $(itemElement).find(\'.product_price\').text().replace( \'$\', \'\' );
+                            return parseFloat(priceEle);
+                        },
+                        name: \'.product_name div a\'
+                    },
+                    animationOptions: {
+                        duration: 750,
+                        easing: \'linear\',
+                        queue: false
+                    }
+                });      
+                
+        
+            }
+        });
+    });'
+);
 ?>
 <!-- Home -->
 
@@ -70,6 +101,7 @@ $url = Yii::$app->request->resolve();
                     'id'=>'myFilter',
                     'timeout' => 10000,
                 ]); ?>
+
 
 
                 <div class="shop_content">
