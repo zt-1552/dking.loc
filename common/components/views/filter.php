@@ -23,22 +23,23 @@ $this -> registerJs(
         });
     });'
 );
-
 ?>
 
     <?php yii\widgets\Pjax::begin([
         'id' => 'filter_form',
-        'timeout' => 10000
+        'timeout' => 10000,
     ]) ?>
 
 
 <?php $form = ActiveForm::begin([
+        'id' => 'discount-form',
+        'options' => ['data' => ['pjax' => true]],
         'action' => \yii\helpers\Url::to(['category/filter', 'id' => $category_id]),
         'method' => 'get',
 ]) ?>
 
-<?= Html::submitButton('Применить', ['class' => 'btn btn-outline-secondary m-3']) ?>
-<a class="btn btn-outline-secondary m-3" href="<?= Url::to(['category/view', 'id' => $category_id]) ?>">Сбросить</a>
+<?= Html::submitButton('Применить', ['class' => 'btn btn-outline-secondary m-3 reload-filter']) ?>
+<a class="btn btn-outline-secondary m-3" href="<?= Url::to(['category/view', 'id' => $category_id]) ?>" data-pjax="0">Сбросить</a>
 
 <?php if (!empty($array)) { ?>
 
@@ -58,7 +59,7 @@ $this -> registerJs(
         </div>
     <?php endforeach; ?>
     <?= Html::submitButton('Применить', ['class' => 'btn btn-outline-secondary m-3']) ?>
-    <a class="btn btn-outline-secondary m-3" href="<?= Url::to(['category/view', 'id' => $category_id]) ?>">Сбросить</a>
+    <a class="btn btn-outline-secondary m-3" href="<?= Url::to(['category/view', 'id' => $category_id]) ?>" data-pjax="0">Сбросить</a>
 
 <?php } ?>
 

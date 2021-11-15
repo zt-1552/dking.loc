@@ -1,7 +1,7 @@
 
 $(document).ready(function()
 {
-
+    /* Cart    */
     function showCart(cart) {
         $('#CartModal .modal-body').html(cart);
         $('#CartModal').modal();
@@ -21,7 +21,6 @@ $(document).ready(function()
         }
     }
 
-    /* Cart    */
     $('.add_to_cart').on('click', function () {
         let id = $(this).data('id');
         $.ajax({
@@ -111,12 +110,10 @@ $(document).ready(function()
         return false;
     })
 
-    // $('#myList a').on('click', function (event) {
-    //     event.preventDefault()
-    //     $(this).tab('show')
-    // })
-    $('.top_bar_user a[href="#register"]').on('click', function () {
-        event.preventDefault();
+    /* Form login / register    */
+
+    $('.top_bar_user a[href="#register"]').on('click', function (e) {
+        e.preventDefault();
         $('.nav-item a[href="#login"]').removeClass('active');
         $('#login').removeClass('active');
         $('.nav-item a[href="#register"]').addClass('active');
@@ -128,22 +125,8 @@ $(document).ready(function()
         $('#register').removeClass('active');
         $('.nav-item a[href="#login"]').addClass('active');
         $('#login').addClass('active');
-        // $.ajax({
-        //     url: 'auth/login',
-        //     type: 'POST',
-        //     success: function (res) {
-        //         if(!res) alert('Ошибка аааа');
-        //         $('#login').html(res);
-        //     },
-        //     error: function () {
-        //         alert('Ошибка');
-        //     }
-        // })
-        // return false;
     })
 
-    // $('.top_bar_user a[href="#login"]').on('click', function () {
-    //
-    // })
+
 
 });

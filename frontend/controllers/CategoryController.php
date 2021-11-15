@@ -110,8 +110,6 @@ class CategoryController extends AppController
             return $this->actionView($category_id);
         }
 
-        // КОД ниже КОПИРУЕТСЯ ИЗ actionView!!!!!
-
         // Breadcrumbs
         $this->getBreadcrumbsCategory($category_id);
 
@@ -125,9 +123,6 @@ class CategoryController extends AppController
 
         // filters (attributes + values)
         $categoryAttributes = CategoryHelper::getAllCategoryAttributesAndValues($category_id);
-
-
-        // КОД ВВЕРХУ КОПИРУЕТСЯ ИЗ actionView!!!!!
 
 
         if ($filterProducts != null) {
@@ -184,7 +179,16 @@ class CategoryController extends AppController
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 8, 'forcePageParam' => false, 'pageSizeParam' => false]);
         $products = $query->offset($pages->offset)->limit($pages->limit)->all();
 
-        return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'child_all_category', 'pages', 'categoryAttributes'));
+
+        if(Yii::$app->request->getHeaders()->has('X-PJAX')) {
+
+            return $this->renderAjax('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'child_all_category', 'pages', 'categoryAttributes'));
+
+        } else {
+
+            return $this->render('view', compact('products', 'category', 'breadcrumbs', 'child_categories', 'child_all_category', 'pages', 'categoryAttributes'));
+        }
+
     }
 
 
